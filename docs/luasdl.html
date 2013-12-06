@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>LuaSDL preliminary documentation</title>
+  <meta content="Kein-Hong Man" name="author">
+  <meta name="generator" content="SeaMonkey 1.1 Roaaaaar!!!">
+  <style type="text/css">
+  </style>
+</head>
+<body>
+<h1 style="color: rgb(0, 0, 153);">Preliminary Documentation for LuaSDL<br>
+</h1>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Introduction</h2>
+<p>This is just some preliminary documentation. I haven't decided what
+document format to actually use; just want to start writing something...<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">General</h2>
+<p>Unprocessed command-line arguments are passed to the main script.
+You can access the arguments using the "..." operator. Also, remember
+that SDL redirects the standard I/O output streams to stdout.txt and
+stderr.txt.<br>
+</p>
+<p style="font-weight: bold;">SDL.LuaSDL_Version</p>
+<p>Returns a Lua-style version string, e.g. "LuaSDL 0.3.2".<br>
+</p>
+<p style="font-weight: bold;">SDL.LuaSDL_FontBasic</p>
+<p>A pointer to a memory block containing a ASCII font in BMP (8-bit
+RLE) format. Used to initialize a basic message display library. Thus,
+for development work, messages can always be easily displayed, as long
+as there is a working screen surface to blit to.<br>
+</p>
+<p style="font-weight: bold;">SDL.SDL_GetPixel(surface, x, y)
+</p>
+<p>Gets a pixel. Returns a number. This function was shamelessly copied
+from the SDL
+documentation. Should work for any type of surface. Note that the
+surface must be locked before direct pixel
+access.</p>
+<p style="font-weight: bold;">SDL.SDL_PutPixel(surface, x, y, pixel)</p>
+<p>Sets a pixel. The pixel argument is a number. The SDL_MapRGB
+function can be used to generate the appropriate pixel value for a
+particular color. This function was shamelessly copied from the SDL
+documentation. Should work for any type of surface. Note that the
+surface must be locked before direct pixel
+access.<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Bitwise Operations</h2>
+<p style="font-weight: bold;">SDL.Bool(v)</p>
+<p>SDL functions return C boolean results as numbers (0 or 1). If a Lua
+program wants to use the result in a test, then this function converts
+a C boolean result into a Lua boolean true or false.<br>
+</p>
+<p style="font-weight: bold;">SDL.And(...)<br>
+SDL.Or(...)<br>
+SDL.Xor(...)</p>
+<p>Performs 32-bit bitwise AND, OR and XOR operations. These functions
+requires at least one argument. Returns a number.<br>
+</p>
+<p style="font-weight: bold;">SDL.Not(v)</p>
+<p>Performs a 32-bit bitwise NOT. Returns a number.<br>
+<br>
+<span style="font-weight: bold;">SDL.LShift(value, amount)</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.RShift(value, amount)</span></p>
+<p>Performs 32-bit bitwise unsigned left shift or right shift. Returns
+a number.<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Memory Management<br>
+</h2>
+<p>LuaSDL provides two methods of memory management. One method is by
+explicit allocation and deallocation; the other is by letting tolua++
+manage objects, using automatic garbage collection. For explicit
+management of memory, the SDL calls SDL_malloc and SDL_free can be
+used. If you plan to move your work to C later, explicit memory
+management coupled with some kind of memory allocation tracing facility
+might help in allowing memory allocation code to be debugged in Lua. If
+you don't want the fuss however, simply use Lua-managed objects
+exclusively. To reclaim memory explicitly, set variable references to
+nil for unwanted objects and then optionally run a garbage collection
+step or cycle.<br>
+</p>
+<p style="font-weight: bold;">SDL.SDL_malloc_local(size|string,
+data_type)</p>
+<p>This function creates a Lua-managed memory block from a string, or a
+given size, optionally tagging it with a tolua++ data type. If no data
+type is provided, "Uint8[]" is used by default. The memory block will
+be garbage-collected by Lua when it is no longer in use. Blocks
+initialized using a size specification will be zeroed. (Clearing memory
+here is really quite redundant in modern OSes; this might be removed in
+the future.)<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_strtomem(str, data_type)</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_memtostr(mem, size)</span><br>
+</p>
+<p>These functions convert between memory blocks and strings.
+SDL_strtomem is really an alias of SDL_malloc_local.<br>
+</p>
+<p>The following are calls to create structure instances. Note that
+some of them may not really be required, for example, SDL_Surface is
+always created by a call to an SDL function and is never built from
+scratch. Generally, explicit memory management uses the "new"/"delete"
+function pair, while Lua-managed objects uses the "local" function. The
+"new" and "local" calls should return a reference to a structure
+instance of the requested type.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_AudioSpec_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_AudioSpec_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_AudioSpec_delete(obj)</span><br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_AudioCVT_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_AudioCVT_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_AudioCVT_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_audio.h.<br>
+</p>
+<p style="font-weight: bold;">SDL.SDL_CDtrack_local()<br>
+SDL.SDL_CDtrack_new()<br>
+SDL.SDL_CDtrack_delete(obj)</p>
+<p><span style="font-weight: bold;">SDL.SDL_CD_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_CD_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_CD_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_cdrom.h.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_Event_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_Event_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_Event_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_events.h.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_keysym_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_keysym_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_keysym_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_keyboard.h.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_Cursor_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_Cursor_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_Cursor_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_keyboard.h.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.IPaddress_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.IPaddress_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.IPaddress_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_net.h.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_version_local()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_version_new()</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.SDL_version_delete(obj)</span><br>
+</p>
+<p>For functions in SDL_version.h.<br>
+</p>
+<p style="font-weight: bold;">SDL.SDL_Rect_local()<br>
+SDL.SDL_Rect_new()<br>
+SDL.SDL_Rect_delete(obj)</p>
+<p style="font-weight: bold;">SDL.SDL_Color_local()<br>
+SDL.SDL_Color_new()<br>
+SDL.SDL_Color_delete(obj)</p>
+<p style="font-weight: bold;">SDL.SDL_PixelFormat_local()<br>
+SDL.SDL_PixelFormat_new()<br>
+SDL.SDL_PixelFormat_delete(obj)</p>
+<p style="font-weight: bold;">SDL.SDL_VideoInfo_local()<br>
+SDL.SDL_VideoInfo_new()<br>
+SDL.SDL_VideoInfo_delete(obj)</p>
+<p>For functions in SDL_video.h. Note that instantiation of an
+SDL_Surface in this way is never required, hence, those functions have
+been deleted.
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Path Management<br>
+</h2>
+<p>To make coding easy, LuaSDL provides some services that simple games
+or applications will need. The following are constants and functions
+that involve directories and paths. Note that the constants are really
+strings and they can be modified.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.LuaSDL_DirSep</span> - string,
+directory separator on OS platform<br>
+<span style="font-weight: bold;">SDL.LuaSDL_DirCwd</span> - absolute
+path; current working directory of the executable at start<br>
+<span style="font-weight: bold;">SDL.LuaSDL_DirExe</span> - absolute
+path; directory where the main executable resides<br>
+<span style="font-weight: bold;">SDL.LuaSDL_DirApp</span> - absolute
+path; directory where the main Lua script resides<br>
+<span style="font-weight: bold;">SDL.LuaSDL_AppName</span> - file name
+of the main script being executed<br>
+<span style="font-weight: bold;">SDL.LuaSDL_NotFound</span> - if not
+nil, it means that the command-line script cannot be found or loaded,
+and this variable holds the raw command-line so that it can be
+inspected by a default script if any
+</p>
+<p>LuaSDL_DirCwd, LuaSDL_DirExe and LuaSDL_DirApp all have trailing
+directory separators. You can also ignore LuaSDL_DirSep and use a
+forward slash, since both Unix and Win32 recognizes forward slashes.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.LuaSDL_DirCfg.PERSONAL</span> -
+absolute path; user's personal folder, usually the "My Documents"
+directory on Win32<br>
+<span style="font-weight: bold;">SDL.LuaSDL_DirCfg.APPDATA</span> -
+absolute path; per-user application data, may be a roaming profile on
+Win32<br>
+<span style="font-weight: bold;">SDL.LuaSDL_DirCfg.LOCAL_APPDATA</span>
+- absolute path; per-user application data, machine-dependent (e.g.
+screen size, data cache)<br>
+<span style="font-weight: bold;">SDL.LuaSDL_DirCfg.COMMON_APPDATA</span>
+- absolute path; application data that is common for all users<br>
+</p>
+<p>These are a minimum set of Win32-style application data and
+configuration paths. These paths may not have trailing directory
+separators (indeed, they do not have trailing directory separators on
+Win32.) APPDATA and LOCAL_APPDATA are identical on Win9x machines, and
+possibly on Unix machines as well (if that gets written) so beware of
+namespace collisions. A LuaSDL application is expected to create a
+subdirectory where appropriate and stick the data or configuration
+files in that subdirectory.<br>
+</p>
+<p></p>
+<p><span style="font-weight: bold;">SDL.LuaSDL_lsdir(dirpath)</span><br>
+</p>
+<p>This function returns a table of items in a given relative or
+absolute directory path, or nil if something went wrong. The given path
+should have a wildcard specification. This is currently experimental,
+definite behaviour details will be provided later.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.LuaSDL_mkdir(dirpath)</span><br>
+<span style="font-weight: bold;">SDL.LuaSDL_chdir(dirpath)</span><br>
+<span style="font-weight: bold;">SDL.LuaSDL_rmdir(dirpath)</span></p>
+<p>Basic directory management functions. Returns true upon success, or
+nil and an error message on failure, like some of Lua's operating
+system library functions. Before removing a directory on WinNT family
+operating systems, please make sure that the current working directory
+does not clash with it. Thus, a LuaSDL_chdir call may be necessary
+before a LuaSDL_rmdir call.<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Array Access<br>
+</h2>
+<p>LuaSDL adds several array types, which can be read or written to
+using array indexing. Note that such array indexing will start from 0.<br>
+</p>
+<p>Read-only array types: <span style="font-weight: bold;">SDL_Rect[]</span>,
+<span style="font-weight: bold;">UDPpacket[]</span><br>
+</p>
+<p>Read/write array types: <span style="font-weight: bold;">Uint8[]</span>,
+<span style="font-weight: bold;">Uint16[]</span>, <span
+ style="font-weight: bold;">Uint32[]</span><br>
+</p>
+<p>Usertype or pointer objects can be cast to the above types using the
+tolua++ function tolua.cast(obj, type). Objects can also be created
+with the appropriate data type using SDL_malloc_local so that the
+object can be accessed immediately.<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Modified SDL Functions<br>
+</h2>
+<p>These are SDL calls that have been modified from their original
+versions, due to impedance matching between SDL in C and SDL in Lua.<br>
+</p>
+<p style="font-weight: bold;">SDL.SDL_RWFromFP(LUA_FILEHANDLE,
+autoclose)</p>
+<p>Instead of taking a FILE*, SDL_RWFromFP now takes a Lua I/O
+library's file handle. (Untested so far.)<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_ListModes(format, flags)</span><br>
+</p>
+<p>SDL_ListModes now returns (a) the number 0 if there are no
+dimensions available; (b) the number -1 if there are no dimension
+restrictions; or (c) a SDL_Rect[] object otherwise. Screen sizes can be
+found by indexing the SDL_Rect[] object from 0 until the first nil
+element.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_GetKeyState(numkeys = 0)</span><br>
+</p>
+<p>SDL_GetKeyState returns a Uint8[] object and numkeys. numkeys need
+not be passed because the function never reads it. The Uint8[] object
+can be indexed by a key constant in order to get the number value of
+the key's state.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.SDL_UpdateRects(screen,
+numrects, rects)</span><br>
+</p>
+<p>SDL_UpdateRects can now accept a single SDL_Rect object, or a
+regular table array of SDL_Rect objects (this is easier to build in Lua
+than a SDL_Rect[] object.) The table can be indexed from 0 or 1.
+numrects must be valid, as it will be used to allocate memory for
+calling the actual SDL function. If there are problems with the table,
+this function may fail silently.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.AddTimer(interval, event)</span><br>
+</p>
+<p>As standard Lua is single-threaded, AddTimer has been changed to
+accept an SDL_Event object instead of a callback function. Instead of
+calling a custom callback function, LuaSDL provides a standard callback
+function. The specified event will be pushed onto the message queue at
+the appropriate times. An user event can be created by calling
+SDL_Event_local and assigning a user-defined code as the parameter.<br>
+</p>
+<p><span style="font-weight: bold;">SDL.LuaSDL_AudioCallback</span><br
+ style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.LuaSDL_AudioCh1(audio_buf,
+audio_len[, loop[, volume]])</span><br style="font-weight: bold;">
+<span style="font-weight: bold;">SDL.LuaSDL_AudioCh2(audio_buf,
+audio_len[, loop[, volume]])</span><br>
+</p>
+<p>If you do not wish to use SDL_mixer facilities, LuaSDL provides a
+simple 2-channel audio mechanism. As standard Lua is single-threaded,
+LuaSDL provides a custom C callback function in LuaSDL_AudioCallback
+when initializing SDL_audio services. LuaSDL_AudioCh1 and
+LuaSDL_AudioCh2 controls the 2-channel audio mechanism. Setting sample
+length to zero stops a sound. Sounds can be looped and the volume can
+be controlled.
+<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<h2 style="color: rgb(102, 0, 0);">Acknowledgements</h2>
+<p>Thanks to the <a href="http://luaforge.net/">LuaForge</a> team for
+hosting this material. This page was written on <a
+ href="http://www.mozilla.org/projects/seamonkey/">SeaMonkey</a>.<br>
+LuaSDL was
+developed using the <a
+ href="http://scintilla.sourceforge.net/SciTE.html">SciTE</a> editor on
+<a href="http://www.mingw.org/">MinGW/MSYS</a>.<br>
+</p>
+<hr style="width: 100%; height: 2px;">
+<font size="2">This page Copyright
+© 2007 </font><a href="mailto:mkh.NOSPAM@pl.jaring.my"><font size="2">KHMan</font></a><font
+ size="2">. </font><font style="font-style: italic;" size="2">Last
+Revised: 2007-02-07.</font><br>
+<font size="2">Canonical URL: <span style="font-style: italic;">none
+yet</span></font><font size="2"> </font>
+</body>
+</html>
