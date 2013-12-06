@@ -10587,6 +10587,7 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+#define TOLUA_DISABLE_tolua_SDL_SDL_SDL_SetAlphaChannel00 1
 /* function: SDL_SetAlpha */
 #ifndef TOLUA_DISABLE_tolua_SDL_SDL_SDL_SetAlphaChannel00
 static int tolua_SDL_SDL_SDL_SetAlphaChannel00(lua_State* tolua_S)
@@ -11120,6 +11121,7 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+#define TOLUA_DISABLE_tolua_SDL_SDL_SDL_GL_SetSubData00 1
 /* function: SDL_GL_SetAttribute */
 #ifndef TOLUA_DISABLE_tolua_SDL_SDL_SDL_GL_SetSubData00
 static int tolua_SDL_SDL_SDL_GL_SetSubData00(lua_State* tolua_S)
@@ -18910,7 +18912,7 @@ TOLUA_API int tolua_SDL_open (lua_State* tolua_S)
 	tolua_function(tolua_S,"SDL_SaveBMP",tolua_SDL_SDL_SDL_SaveBMP00);
 	tolua_function(tolua_S,"SDL_SetColorKey",tolua_SDL_SDL_SDL_SetColorKey00);
 	tolua_function(tolua_S,"SDL_SetAlpha",tolua_SDL_SDL_SDL_SetAlpha00);
-	tolua_function(tolua_S,"SDL_SetAlphaChannel",tolua_SDL_SDL_SDL_SetAlphaChannel00);
+	//tolua_function(tolua_S,"SDL_SetAlphaChannel",tolua_SDL_SDL_SDL_SetAlphaChannel00);
 	tolua_function(tolua_S,"SDL_SetClipRect",tolua_SDL_SDL_SDL_SetClipRect00);
 	tolua_function(tolua_S,"SDL_GetClipRect",tolua_SDL_SDL_SDL_GetClipRect00);
 	tolua_function(tolua_S,"SDL_ConvertSurface",tolua_SDL_SDL_SDL_ConvertSurface00);
@@ -18995,7 +18997,7 @@ TOLUA_API int tolua_SDL_open (lua_State* tolua_S)
 	tolua_function(tolua_S,"SDL_FreeYUVOverlay",tolua_SDL_SDL_SDL_FreeYUVOverlay00);
 	tolua_function(tolua_S,"SDL_GL_LoadLibrary",tolua_SDL_SDL_SDL_GL_LoadLibrary00);
 	tolua_function(tolua_S,"SDL_GL_GetProcAddress",tolua_SDL_SDL_SDL_GL_GetProcAddress00);
-	tolua_function(tolua_S,"SDL_GL_SetSubData",tolua_SDL_SDL_SDL_GL_SetSubData00);
+	//tolua_function(tolua_S,"SDL_GL_SetSubData",tolua_SDL_SDL_SDL_GL_SetSubData00);
 	tolua_function(tolua_S,"SDL_GL_SetAttribute",tolua_SDL_SDL_SDL_GL_SetAttribute00);
 	tolua_function(tolua_S,"SDL_GL_GetAttribute",tolua_SDL_SDL_SDL_GL_GetAttribute00);
 	tolua_function(tolua_S,"SDL_GL_SwapBuffers",tolua_SDL_SDL_SDL_GL_SwapBuffers00);
