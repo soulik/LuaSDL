@@ -1,0 +1,181 @@
+
+	SDL and SDL_* interface definitions for tolua++
+
+Author: Kein-Hong Man <khman@users.sf.net> 2007
+
+Include files snapshot taken: 2007-07-25
+
+Introduction
+------------
+
+These are notes on the tolua++ interface definition files.
+
+test_SDL.pkg is only for the very simple test_binding test program.
+
+Original header files are located in the orig/ subdirectory. These are
+only for reference, and are not directly used by LuaSDL.
+
+For convenience, the filenames are unchanged, but they are not header
+files -- they are tolua++ package files. The main file, SDL.pkg provides
+a convenient tolua++ package wrapper. The header files included by the
+binding are also placed here.
+
+Library versions:
+-----------------
+
+	SDL-1.2.12		(was 1.2.11)
+	SDL_image-1.2.6		(was 1.2.5)
+	SDL_mixer-1.2.8		(was 1.2.7)
+	SDL_net-1.2.7		(was 1.2.6)
+	SDL_ttf-2.0.9		(was 2.0.8)
+
+Notes for SDL-1.2.12
+--------------------
+
+Compared to the previous header file set, we have:
+
+Deleted:	SDL_config_amiga.h
+
+Added:		SDL_config_nds.h
+		SDL_config_symbian.h
+
+Modified:	begin_code.h
+		SDL_config.h		* (platform includes)
+		SDL_config_macosx.h
+		SDL_config_win32.h
+		SDL_endian.h
+		SDL_image.h		* (patchlevel)
+		SDL_mixer.h		* (patchlevel, Mix_MusicType enum)
+		SDL_net.h		* (patchlevel)
+		SDL_platform.h		* (deleted __AMIGA__ entry)
+		SDL_rwops.h
+		SDL_stdinc.h		* (some SDL_iconv_* entries)
+		SDL_syswm.h
+		SDL_thread.h
+		SDL_ttf.h		* (patchlevel, const in declarations)
+		SDL_version.h		* (patchlevel)
+		SDL_video.h		* (SDL_MapRGB declarations)
+
+An asterisk (*) indicates modification of a corresponding LuaSDL binding
+file, otherwise the binding file is unchanged.
+
+Older notes for SDL-1.2.11 set
+------------------------------
+
+[The following are unmodified older notes for SDL-1.2.11 header files]
+
+Some header files do not have corresponding package files. This may mean
+that the header file is deprecated, or the interface in that file need
+not be exposed to Lua. In cleaning up the header files, moving interface
+information around is avoided as far as possible.
+
+The SDL_config.h that selects a platform-dependent SDL_config_*.h is
+better than the SDL_config.h generated from SDL_config.h.in that was
+distributed in the SDL-devel-1.2.11-mingw32.tar.gz package that I
+installed, so YMMV. I am using the SDL_config.h from SVN HEAD, replacing
+the version that was distributed in the MinGW developer's package.
+
+Some calls are implemented in a separate source file, but which creates
+interface entries (usually functions) in the same module, which is SDL.
+
+Changes to header files
+-----------------------
+
+SDL-1.2.11	For the MinGW developer's package from libsdl.org:
+		* replaced SDL_config.h with version from CVS
+		* added missing flag to SDL_config_win32.h:
+		  (placed after HAVE_STRLEN)
+			#define HAVE_STRDUP 1
+
+Removed:
+--------
+
+The following are status information of some files:
+
+	begin_code.h		Configuration.
+	close_code.h		Configuration.
+	SDL_name.h		Configuration.
+
+	SDL_byteorder.h		Deprecated.
+	SDL_getenv.h		Deprecated.
+	SDL_types.h		Deprecated.
+
+	SDL_copying.h		License block.
+
+	SDL_loadso.h		Use Lua 5.1's module system instead.
+	SDL_main.h		Replaced by Lua "main function".
+
+	SDL_mutex.h		Better off not touching this for now.
+	SDL_thread.h		Better off not touching this for now.
+
+	SDL_syswm.h		Not yet implemented. Platform-dependent.
+	SDL_opengl.h		Not yet implemented. Humongous... KIV.
+
+	SDL_keysym_alt.h	Unused, alternate version of SDL_keysym.h.
+
+Only SDL_config_win32.h for Win32 has been cleaned, and for Win32/i386
+only. _WIN32_WCE defines have been deleted. Also, the following platform
+configuration files have not been implemented:
+
+	SDL_config_amiga.h	Not yet implemented.
+	SDL_config_dreamcast.h	Not yet implemented.
+	SDL_config_macos.h	Not yet implemented.
+	SDL_config_macosx.h	Not yet implemented.
+	SDL_config_minimal.h	Not yet implemented.
+	SDL_config_os2.h	Not yet implemented.
+
+The following are interfaces with problems or incomplete interfaces,
+these items are priority items for implementation. I plan to work on
+these in the very near future. Please let me know if you wish to
+implement any of these, to avoid duplication of work.
+
+	SDL_mixer.h	Functions using function pointers.
+			(May not be implemented at all.)
+	SDL_net.h	Functions dealing with packet vector (array).
+	SDL_stdinc.h	Functions with multiple arguments.
+			Functions with ** params may not work. To test.
+			Uint16 functions need checking.
+	SDL_ttf.h	Uint16 functions need checking.
+
+These may run on a separate thread and may not be implemented at all:
+
+	SDL_events.h	Event filters. (May run in separate thread.)
+
+To select platforms, edit SDL_platform.h and SDL_config.h, and write the
+appropriate interface definitions for the platforms by cleaning up the
+revelant header file.
+
+No real attempt has been made to support 64-bit ints. Although some bits
+and pieces are in place, tolua++ casts them to a Lua number at present,
+so they won't work properly. I don't plan to work on 64-bit support.
+Elements that are meant to be private are usually removed.
+
+When updating, check the original header files in orig/ with newer
+header files to see what has changed. A visual diff program should be
+very convenient.
+
+License information:
+--------------------
+
+I consider the package definitions in this directory to be still under
+LGPL. This of course doesn't impact users of the libraries, because
+header files are interface definitions anyway, and like all other users
+of SDL and other LGPL libraries, the application itself does not need to
+follow LGPL. So package definitions are merely derived interface
+definitions, and are used as interface definitions as well. Therefore,
+all relevant LGPL notices are kept in these package files. Any code in
+the package definitions is trivial, because they are written using
+standard techniques and recipes and thus should be considered to be
+public domain code.
+
+Remember though, that the SDL and SDL_* libraries dynamically linked to
+the application are still under LGPL. The freedoms granted by LGPL
+includes the freedom to replace the LGPL library components in your
+application. This must not be impaired in any way, otherwise you need to
+furnish appropriate object files so that users can relink your
+application.
+
+--
+
+khman@users.sf.net 20070725
+KL, MY

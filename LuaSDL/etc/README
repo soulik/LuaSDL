@@ -1,0 +1,10 @@
+Miscellaneous Stuff
+-------------------
+
+bin2c.c is from Lua 5.0.x.
+
+SDL_ttf.c is a dummy DLL to make Win32 binary distributions smaller, if
+you are not using the SDL_ttf library.
+
+SDL_mixer.c is a dummy DLL to make Win32 binary distributions smaller,
+if you are not using the SDL_mixer library.

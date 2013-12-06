@@ -1,0 +1,71 @@
+Notes
+-----
+
+A few public domain clips have been prepared for this demo.
+
+The samples Apollo_11_landing.wav, Apollo_11_quip1.wav and
+Apollo_11_quip2.wav, Apollo_11_plaque.ogg are ripped from NASA archive
+videos using VLC. The NASA copyright notice is reproduced at the end of
+this README file.
+
+The samples were encoded in 4-bit mono MS ADPCM at 11025Hz or 22050Hz,
+running at about 45kbps or 89kbps, using Audacity 1.2.4. A bit of noise
+reduction has been done, so please use original material from NASA for
+historical presentations about Apollo 11, not these adulterated clips.
+The OGG file was created using Audacity as well.
+
+------------------------------------------------------------------------
+
+NASA Copyright Notification
+
+GENERAL CONDITIONS:
+
+NASA materials may not be used to state or imply the endorsement by NASA
+or by any NASA employee of a commercial product, service or activity, or
+used in any other manner that might mislead.
+
+NASA should be acknowledged as the source of its material.
+
+It is unlawful to falsely claim copyright or other rights in NASA
+material.
+
+NASA shall in no way be liable for any costs, expenses, claims or
+demands arising out of use of NASA's cassettes and photographs by a
+recipient's distributees.
+
+NASA personnel are not authorized to sign indemnity or hold harmless
+statements, release from copyright infringement, or documents granting
+exclusive use rights.
+
+PHOTOGRAPHY:
+
+Photographs are not protected by copyright unless noted. If copyrighted,
+permission should be obtained from the copyright owner prior to use. If
+not copyrighted, photographs may be reproduced and distributed without
+further permission from NASA. If a recognizable person appears in a
+photograph, use for commercial purposes may infringe a right of privacy
+or publicity and permission should be obtained from the recognizable
+person.
+
+MOVIES:
+
+Movies are not protected by copyright unless noted. If copyrighted,
+permission should be obtained from the copyright owner prior to use. If
+not copyrighted, movies may be reproduced and distributed without
+further permission from NASA. If a recognizable person appears in a
+movie, use for commercial purposes may infringe a right of privacy or
+publicity and permission should be obtained from the recognizable
+person.
+
+CONTACT:
+
+If further information or assistance is needed, you may contact:
+
+        NASA Headquarters
+        Office of Public Affairs
+        Media Services Division
+        News and Imaging Branch
+        Code PM
+        300 E St., SW
+        Washington, DC  20546
+        (202) 358-1900

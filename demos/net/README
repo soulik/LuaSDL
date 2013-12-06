@@ -1,0 +1,24 @@
+Notes for SDL_net demo using tcp_client_demo.lua and tcp_server_demo.lua
+------------------------------------------------------------------------
+
+For SDL_net testing, you need to run two programs, (1) the client, and
+(2) the server.
+
+If LuaSDL is in the win32 directory, you can start them using the
+following commands (you might need to add '&' at the end, depending on
+which shell program you are using):
+
+	../../win32/luasdl tcp_client_demo.lua
+	../../win32/luasdl tcp_server_demo.lua
+
+Once running, press [Space] in the client to transmit some data.
+
+http_reflector.lua
+------------------
+
+This can be run from the demo screen or as a stand-alone script. Once
+started, try the address "http://localhost/" on your browser, or
+"http://127.0.0.1/". On new Win32 operating systems such as XP, please
+make sure the LuaSDL executable file is not blocked.
+
+
