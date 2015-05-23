@@ -1,0 +1,4 @@
+luasdl {
+	global: luaopen_LuaSDL;
+	local: *;
+};
