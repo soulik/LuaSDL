@@ -34,7 +34,13 @@ set(SDLGFX_SOURCES
 
 include_directories(./)
 
-add_definitions(-DUSE_MMX -DDLL_EXPORT)
+set(SDLGFX_USE_MMX OFF CACHE BOOL "Use MMX instructions")
+
+if (SDLGFX_USE_MMX)
+	add_definitions(-DUSE_MMX)
+endif()
+
+add_definitions(-DDLL_EXPORT)
 
 add_library(SDLGFX SHARED
 	${SDLGFX_SOURCES}
