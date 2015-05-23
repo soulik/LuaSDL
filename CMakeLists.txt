@@ -65,6 +65,14 @@ add_subdirectory(dependencies/sdl_net)
 include_directories(dependencies/sdl_net)
 list(APPEND luasdl_libraries SDLNET)
 
+# SDL_gfx
+
+# set(SDLGFX_INCLUDE_DIR "" CACHE PATH "libSDL_gfx include directory")
+# set(SDLGFX_LIBRARY "" CACHE FILEPATH "libSDL_gfx library")
+add_subdirectory(dependencies/sdl_gfx)
+include_directories(dependencies/sdl_gfx)
+list(APPEND luasdl_libraries SDLGFX)
+
 # tolua++
 
 add_subdirectory(dependencies/tolua++-1.0.93)
