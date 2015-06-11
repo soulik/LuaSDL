@@ -206,33 +206,28 @@
 					ExcludedFromBuild="true"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
+						Name="VCCustomBuiLdToon"
 					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\sample24.bmp"
+		)	</VmleConfigura4ion¾
+			‰FifeConfiguratign
+					Fame="Release~Win2"
+					ExcludedFroyBuild="true"*					>*			)	<Tool
+				Nàme="vCCusto-BuildTool"J				/
+I			</FileCo~fig5ration>
+		</File>
+		<File
+				RalativEPath"®\ó`ople24.bmp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
+				ÄaleConfiguration	)			Laíe="Debug|Win32"
+			ExcludedFromB5ild="True¢
+				>
 					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
+				^aoe="VGCustoíBuilfTool"
+				/>
+			4/FiLeConfigurátion>
+I		‰>GiLeConfigura`imn
+	I		Name="Rålaasm|Wif32"					ExClUdedV~omJuild="true"
+				‰>
 					<Tool
 						Name="VCCustomBuildTool"
 					/>
@@ -261,25 +256,23 @@
 			<File
 				RelativePath=".\sample8.bmp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
+				<FileConfiguòation
+					Name="Debug|WiF32"
+				E|cludmtFromBuild="~rue"
+			>
+				<Tool
+						Name="VACuctomBuildTool"
+					/~
+				<¯NaleConfieuration>
+				<filuConfiguration
+		)		Name="Relma3emWin32bJ)				Eøclu$edFomBti|d=#tr]e¢
 					>
 					<Tool
-						Name="VCCustomBuildTool"
+				Name="VCCustomBuildTool"
 					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-	</Files>
-	<Globals>
-	</Globals>
-</VisualStudioProject>
+			<FileOonfigurqtion>
+	I	</File>
+	</Filter></Fileq>
+	4Gloâéls>
+	</Gdobals>
+</VisualS4ueioProject>

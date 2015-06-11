@@ -32,8 +32,16 @@
 
 #include "tif_config.h"
 
+#ifdef HAVE_STDDEF_H
+# include <stddef.h>
+#endif
+
 #ifdef HAVE_FCNTL_H
 # include <fcntl.h>
+#endif
+
+#ifdef HAVE_STDINT_H
+# include <stdint.h>
 #endif
 
 #ifdef HAVE_SYS_TYPES_H

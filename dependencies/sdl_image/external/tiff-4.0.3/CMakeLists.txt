@@ -46,11 +46,66 @@ set(TIFF_SRC
 	libtiff/tif_zip.c
 )
 
+include( ${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake )
+include( ${CMAKE_ROOT}/Modules/TestBigEndian.cmake )
+check_include_file( fcntl.h HAVE_FCNTL_H )
+
+if( HAVE_FCNTL_H )
+	add_definitions(-DHAVE_FCNTL_H=1)
+endif()
+
+if (HAVE_STDDEF_H)
+	add_definitions(-DHAVE_STDDEF_H=1)
+endif()
+
+TEST_BIG_ENDIAN(HOST_BIGENDIAN)
+
+set(TIFF_INT8_T int8_t)
+set(TIFF_UINT8_T uint8_t)
+set(TIFF_INT16_T int16_t)
+set(TIFF_UINT16_T uint16_t)
+set(TIFF_INT32_T int32_t)
+set(TIFF_UINT32_T uint32_t)
+set(TIFF_INT64_T int64_t)
+set(TIFF_UINT64_T uint64_t)
+set(TIFF_SSIZE_T ssize_t)
+
+set(TIFF_INT8 int8_t)
+set(TIFF_UINT8 uint8_t)
+set(TIFF_INT16 int16_t)
+set(TIFF_UINT16 uint16_t)
+set(TIFF_INT32 int32_t)
+set(TIFF_UINT32 uint32_t)
+set(TIFF_INT64 int64_t)
+set(TIFF_UINT64 uint64_t)
+set(TIFF_SSIZE ssize_t)
+
+if(UINT64_FORMAT)
+	set(TIFF_UINT64_FORMAT UINT64_FORMAT)
+else()
+	set(TIFF_UINT64_FORMAT \"%I64u\")
+endif()
+
+if(SSIZE_FORMAT)
+	set(TIFF_SSIZE_FORMAT SSIZE_FORMAT)
+else()
+	set(TIFF_SSIZE_FORMAT \"%ld\")
+endif()
+
+if(HOST_BIGENDIAN)
+	set(HOST_FILLORDER FILLORDER_MSB2LSB)
+else()
+	set(HOST_FILLORDER FILLORDER_LSB2MSB)
+endif()
+
 if(WIN32)
 	list(APPEND TIFF_SRC libtiff/tif_win32.c)
 	configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/libtiff/tiffconf.vc.h ${CMAKE_CURRENT_BINARY_DIR}/libtiff/tiffconf.h @ONLY)
 	configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/libtiff/tif_config.vc.h ${CMAKE_CURRENT_BINARY_DIR}/libtiff/tif_config.h @ONLY)
 	configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/libtiff/libtiff.def ${CMAKE_CURRENT_BINARY_DIR}/libtiff/libtiff.def @ONLY)
+else()
+	configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/libtiff/tiffconf.h.in ${CMAKE_CURRENT_BINARY_DIR}/libtiff/tiffconf.h @ONLY)
+	configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/libtiff/tif_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/libtiff/tif_config.h @ONLY)
 endif()
 
 set(TIFF_SOURCES
@@ -77,6 +132,15 @@ if(WIN32)
 endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
+
 set_target_properties(TIFF
-	PROPERTIES PREFIX "" OUTPUT_NAME "libtiff-5"
+	PROPERTIES
+	OUTPUT_NAME "libtiff-5"
 )
+
+if (WIN32)
+	set_target_properties(TIFF
+		PROPERTIES
+		PREFIX ""
+	)
+endif()

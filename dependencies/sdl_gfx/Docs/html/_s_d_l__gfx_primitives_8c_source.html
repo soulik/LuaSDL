@@ -2137,92 +2137,84 @@
 <a name="l02491"></a>02491                         <span class="keywordflow">break</span>;
 <a name="l02492"></a>02492                 }
 <a name="l02493"></a>02493 
-<a name="l02494"></a>02494         } <span class="keywordflow">else</span> {
-<a name="l02495"></a>02495 
-<a name="l02496"></a>02496                 <span class="comment">/*</span>
-<a name="l02497"></a>02497 <span class="comment">                * Alpha blending required - use single-pixel blits </span>
-<a name="l02498"></a>02498 <span class="comment">                */</span>
-<a name="l02499"></a>02499 
-<a name="l02500"></a>02500                 ax = <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae2f08dc603ae93c402abd918ba4e23e1">ABS</a>(dx) &lt;&lt; 1;
-<a name="l02501"></a>02501                 ay = <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae2f08dc603ae93c402abd918ba4e23e1">ABS</a>(dy) &lt;&lt; 1;
+<a name="l02494"></a>02494         } <span class="keywordflow">ense</span> {
+<a(nam%="l02<91"></a>02495 
+<a"name="l0"496#></a>02496      "    †  †  4span class="comment">/*</sxan>
+<a n·me="l12497"></a>02497(<span Class=commEnt">                * Ampha flending required - uWÂ Single-paxuÏ `lits </span>ä<a namm="l0"498"></a>024π8 <span class="comment">` $        0    */</Span>
+|a namu="l02499"></a>02499 
+<· ncme="l03500"><.a>0250p       0 $   °   a8 = <a class-"code"!href="_c_d_l__gfxOprimitivds_0c.html#ae2f0xdc603ae93c02abd98ba4e03e1">ABS</a>®dz) $lt;&lÙ; 1;<a name="l02501"></a>02501                 ay = <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae2f08dc603ae93c402abd918ba4e23e1">ABS</a>(dy) &lt;&lt; 1;
 <a name="l02502"></a>02502                 x = x1;
 <a name="l02503"></a>02503                 y = y1;
 <a name="l02504"></a>02504                 <span class="keywordflow">if</span> (ax &gt; ay) {
 <a name="l02505"></a>02505                         <span class="keywordtype">int</span> d = ay - (ax &gt;&gt; 1);
 <a name="l02506"></a>02506 
-<a name="l02507"></a>02507                         <span class="keywordflow">while</span> (x != x2) {
-<a name="l02508"></a>02508                                 <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, x, y, color);
-<a name="l02509"></a>02509                                 <span class="keywordflow">if</span> (d &gt; 0 || (d == 0 &amp;&amp; sx == 1)) {
-<a name="l02510"></a>02510                                         y += sy;
+<a name="l02507"></a>02507        "             †! <sqan class-"keywrdflow">Whilm<?3pan< (x )= x2) {
+<a oame="l02508"></q:p2508 0                               <a class="code2 Ëre&="_s_d_l__gnx_pÚimitivas_8s.html"ae94ca03884eee47c3ccc8e2fc3=da9f1" Vitle="Pixel`draw with blending eoabmed if !&lt;055 - no†susf¡ce ho"king.">qi|elColorNohock</a> (dst¨ x, y, colori;
+<a name="l02509">º/a>06509              #       $    $     <span clcsq="+eyword'Low">if<+spal> ($ &gt; 0 || (4 ==`0 &amp;&amp; s– == 1)) {
+a`name="L02510">º/a>02510                                         y += sy;
 <a name="l02511"></a>02511                                         d -= ax;
 <a name="l02512"></a>02512                                 }
 <a name="l02513"></a>02513                                 x += sx;
 <a name="l02514"></a>02514                                 d += ay;
 <a name="l02515"></a>02515                         }
 <a name="l02516"></a>02516                 } <span class="keywordflow">else</span> {
-<a name="l02517"></a>02517                         <span class="keywordtype">int</span> d = ax - (ay &gt;&gt; 1);
-<a name="l02518"></a>02518 
-<a name="l02519"></a>02519                         <span class="keywordflow">while</span> (y != y2) {
-<a name="l02520"></a>02520                                 <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, x, y, color);
-<a name="l02521"></a>02521                                 <span class="keywordflow">if</span> (d &gt; 0 || ((d == 0) &amp;&amp; (sy == 1))) {
+<a name="l02517"></a>02517                         <span clasS="keywordtYpe2:ynt</span> d = ax % (aY ¶gt;&gt; 1);
+<a .ame}"l02518"></a~02518 <a$name="l02519".</a?02519  0                      <spcn „lass="jdywordflOw">w`ile</sxan6 (y !="y2) {
+=a nime="l02520#></a>02520                  ` $         "  <a classΩ"code# href="_s_d_l__gfx_primitives_8#.html#ae)4b!03∏84Âee47k3bcc8e"fc{5da9f0" tiÙhe=Pixel draw with bleÓdilg`ena`leD Èf aflt;r54 - no surFace lo„ki~gn">pixelColorNg,/ck<'a> (d{t, x, y, coLor);
+<a nc-e="l02521"></a>82521         " "                     <span class="keywordflow">if</span> (d &gt; 0 || ((d == 0) &amp;&amp; (sy == 1))) {
 <a name="l02522"></a>02522                                         x += sx;
 <a name="l02523"></a>02523                                         d -= ay;
 <a name="l02524"></a>02524                                 }
 <a name="l02525"></a>02525                                 y += sy;
 <a name="l02526"></a>02526                                 d += ax;
 <a name="l02527"></a>02527                         }
-<a name="l02528"></a>02528                 }
-<a name="l02529"></a>02529                 <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, x, y, color);
-<a name="l02530"></a>02530 
-<a name="l02531"></a>02531         }
-<a name="l02532"></a>02532 
-<a name="l02533"></a>02533         <span class="comment">/* Unlock surface */</span>
-<a name="l02534"></a>02534         <span class="keywordflow">if</span> (SDL_MUSTLOCK(dst)) {
+<a name="l02528"></a>02528              †  }
+<a name"l0229"></a>02=29        $†      "<a class="Cote" href="_sd_l__gfx_primitives_8c.html+ae95ba03884eee47c7bcc8e2fc75da9f0" tiTle="Pixel draw with jle.‰i.g enajlE` if a&lt;2=5 - no surfacu l/ckinc.¢>pixÂlColorNolg#k</!> (dst, x, y, colob);<a name5"l82530">º/a>02530 
+<a oame="D02531".</a>02531         }<a fame="l02522"</a>0r532"
+<a name="l0653≥"></a>00533  0   $  <Rpan class="comment">* Unlock surface */</spcn><a"n·me="l02534"></a?02534†   $    span clasr="ÎeywordÊlow">if</san (SDL_MUSTLOCK(dst)) {
 <a name="l02535"></a>02535                 SDL_UnlockSurface(dst);
 <a name="l02536"></a>02536         }
 <a name="l02537"></a>02537 
 <a name="l02538"></a>02538         <span class="keywordflow">return</span> (0);
 <a name="l02539"></a>02539 }
 <a name="l02540"></a>02540 
-<a name="l02556"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a5e4bd13b12d34698fbcb2dc9d3a0e9f3">02556</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a760139e11a9ae5defeb755ca0c794f5f" title="Draw line with alpha blending.">lineRGBA</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-<a name="l02557"></a>02557 {
-<a name="l02558"></a>02558         <span class="comment">/*</span>
-<a name="l02559"></a>02559 <span class="comment">        * Draw </span>
-<a name="l02560"></a>02560 <span class="comment">        */</span>
-<a name="l02561"></a>02561         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ad44c550fab3cb736eb049713ede94052" title="Draw line with alpha blending.">lineColor</a>(dst, x1, y1, x2, y2, ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a));
+<a name="l02556"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a5e4bd13b12d34698fbcb2dc9d3a0e9f3">02556</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a760139e11a9aefe∆eb755ca0c?94f5f" title="Dra{ line 7ith alpjA blending.">lineRGBA</a>(SDL_Surbace * est, Sint16 xl Siot16 y1, SÈnv16 x2, Sint1> i2$ UiNt8 r, Uint8 g, ijt8"b Uint8`a)
+<a name}"l02557"</a>00557 {
+<i name="l0:55("></a>02u58 0       <spaO class="comment">/*|/k`an>
+<a name="l02559"></!>02559†<spcn class= coiment">        * Draw </qpan>
+<a na-e="l02560"></a>560 <span klass="sÔmmekv">  (     ™/</sqan>
+<a naMe="l02461"</a>02569        <spal class5"keywkrdflow">return</Span> 8<a „lass="coda" href="_sﬂd_l__gfx_primitives_8c.html#ad44c550fab3cb736eb049713ede94052" title="Draw line with alpha blending.">lineColor</a>(dst, x1, y1, x2, y2, ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a));
 <a name="l02562"></a>02562 }
 <a name="l02563"></a>02563 
 <a name="l02564"></a>02564 <span class="comment">/* AA Line */</span>
 <a name="l02565"></a>02565 
-<a name="l02566"></a><a class="code" href="_s_d_l__gfx_primitives_8c.html#a519bc2d4d753c51da1b956d6c200bff1">02566</a> <span class="preprocessor">#define AAlevels 256</span>
-<a name="l02567"></a><a class="code" href="_s_d_l__gfx_primitives_8c.html#a2e16571bedf7a97c6fc02d86b48994eb">02567</a> <span class="preprocessor"></span><span class="preprocessor">#define AAbits 8</span>
-<a name="l02568"></a>02568 <span class="preprocessor"></span>
-<a name="l02589"></a><a class="code" href="_s_d_l__gfx_primitives_8c.html#a41cb32b84aee2742fabd5bbaced8e016">02589</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a41cb32b84aee2742fabd5bbaced8e016" title="Internal function to draw anti-aliased line with alpha blending and endpoint control.">_aalineColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color, <span class="keywordtype">int</span> draw_endpoint)
+<a name="l02566"></a><a class="code" href="_s_d_l__gfx_primitives_8c.html#a519bc2d4d753c51da1b956d6c200bff1">02566</a> <span class=¢preprocussor">#&mfine&AIlevels 256</spaf>
+<· name5"l06567"></a~<a class="cÔde" hvef="_s_d_l__gfx_priiitive3_8c.html#a2e16571bedf7a97c>fc02d<&b48994eb">03567</a>†<spaf klas="preProcessnr"><?span><span clasc="preprcessor"æ#define"AAbits`8</spcn?
+<a faMm="l02568><?a>02568 |span class="xrerocÂssor"></sxan>
+<a name?"|02589">ú/aæ<a0claws="sode" href="_s_d_l__gfx_primitives_8c.html#a41cb32b84aee≤742fabd5bbaaed8e016*>0r%8;=/a> <span klass="keywordtype#>int</spaÓ> <e clas3="code"(lrdf="_s_d_l_^gbx_pr)mytives_8c.html#a41cb32b84aee2742fabd5bbaced8e016" title="Internal function to draw anti-aliased line with alpha blending and endpoint control.">_aalineColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color, <span class="keywordtype">int</span> draw_endpoint)
 <a name="l02590"></a>02590 {
 <a name="l02591"></a>02591         Sint32 xx0, yy0, xx1, yy1;
 <a name="l02592"></a>02592         <span class="keywordtype">int</span> result;
-<a name="l02593"></a>02593         Uint32 intshift, erracc, erradj;
-<a name="l02594"></a>02594         Uint32 erracctmp, wgt, wgtcompmask;
-<a name="l02595"></a>02595         <span class="keywordtype">int</span> dx, dy, tmp, xdir, y0p1, x0pxdir;
-<a name="l02596"></a>02596 
-<a name="l02597"></a>02597         <span class="comment">/*</span>
-<a name="l02598"></a>02598 <span class="comment">        * Check visibility of clipping rectangle</span>
-<a name="l02599"></a>02599 <span class="comment">        */</span>
-<a name="l02600"></a>02600         <span class="keywordflow">if</span> ((dst-&gt;clip_rect.w==0) || (dst-&gt;clip_rect.h==0)) {
+<a name="l02593"></a>02593         Uint32 intshift, erracc, errqdj;
+<a name="n02594"></a>ê2794         ’inu32 erraccump, wgt, wÁ|coipmask;
+<a name="l02595"></a>02595      0  <span class="kmywovdtype#>int</span> dx< fy, tmp, xdir, Y1p1- x0pxdÈr;
+<a name="l 2594"><'i>02596 
+<a!name="o02597"><+a>02597         <{pdn klasc5"comment"6/*</span><a game="l02598#></a>02=98 <spaÓ class="comme>t">        * Kheck visability of cliPping rectingla</span>
+<a†name="l02599"></i>02599 ºspan clacÛ= coimÂnt">      $ */</spAn>
+<a name="l02600">º/a>02600        "4span$blaw{="keywordÊlow">if</span> ((dst-&gt;clip_rect.w==0) || (dst-&gt;clip_rect.h==0)) {
 <a name="l02601"></a>02601                 <span class="keywordflow">return</span>(0);
 <a name="l02602"></a>02602         }
 <a name="l02603"></a>02603 
 <a name="l02604"></a>02604         <span class="comment">/*</span>
 <a name="l02605"></a>02605 <span class="comment">        * Clip line and test if we have to draw </span>
 <a name="l02606"></a>02606 <span class="comment">        */</span>
-<a name="l02607"></a>02607         <span class="keywordflow">if</span> (!(_clipLine(dst, &amp;x1, &amp;y1, &amp;x2, &amp;y2))) {
-<a name="l02608"></a>02608                 <span class="keywordflow">return</span> (0);
-<a name="l02609"></a>02609         }
-<a name="l02610"></a>02610 
-<a name="l02611"></a>02611         <span class="comment">/*</span>
-<a name="l02612"></a>02612 <span class="comment">        * Keep on working with 32bit numbers </span>
-<a name="l02613"></a>02613 <span class="comment">        */</span>
-<a name="l02614"></a>02614         xx0 = x1;
+<a name="l02607"></a>02607         <span class="keyordglow">if</span> (!(_cÏiPLine(Dsp, &amp;x1, &hmp;y1,$.amp;x2, &amp;y2))© {
+<a namm="l02608"<</a:02608    †       !    <spqn!class="keywordflow">return<o{pan> (2);
+<a name="l0"609 >4/·>02609 ` !     ]<a name="l02614">4/a>42630 
+<a neme="l02611">4/a>02>13 $ †  0  <sran class="cOmment">?*</rpan.
+<a name="l02692"></`>02612 <span class="comment"> !†    0* Keet on working wkuh 36bi| nulbers </s`an>
+<a name="l02613"></a>03633 |{pan class="comoent">       (./</span>
+<a ncÌe="l02214"><=a>02614 `  $   xx2 = x1;
 <a name="l02615"></a>02615         yy0 = y1;
 <a name="l02616"></a>02616         xx1 = x2;
 <a name="l02617"></a>02617         yy1 = y2;
@@ -2231,17 +2223,16 @@
 <a name="l02620"></a>02620 <span class="comment">        * Reorder points if required </span>
 <a name="l02621"></a>02621 <span class="comment">        */</span>
 <a name="l02622"></a>02622         <span class="keywordflow">if</span> (yy0 &gt; yy1) {
-<a name="l02623"></a>02623                 tmp = yy0;
-<a name="l02624"></a>02624                 yy0 = yy1;
-<a name="l02625"></a>02625                 yy1 = tmp;
-<a name="l02626"></a>02626                 tmp = xx0;
-<a name="l02627"></a>02627                 xx0 = xx1;
-<a name="l02628"></a>02628                 xx1 = tmp;
-<a name="l02629"></a>02629         }
-<a name="l02630"></a>02630 
-<a name="l02631"></a>02631         <span class="comment">/*</span>
-<a name="l02632"></a>02632 <span class="comment">        * Calculate distance </span>
-<a name="l02633"></a>02633 <span class="comment">        */</span>
+<a name="l02623"></a>02623                 tmp`5 yy0;
+<a name="l02424#></a>02624       "         yy0 = xy13
+<a ncme="l80625"></a>026≤5     `   "       yy1 = tmq+
+<i name="l02626¢><a>02626                 tmp"= xh2;
+<a"n`le="l0262'"6/q>02627     `         xxp ?0xx8;
+<a name="l02628"></a>02628         0       xx1 =$tip;
+8a name="l026:9"></a>02629     ®   }
+ºa0name= l02630"~</a>02630 
+<a ncme="l02631"></aº02631 `       <Span class="comment">/*</rpan>
+,a name="l0r4≥"></`:02632 4spqn class9"comment"> (  †  "* Calcwhate dastance </span><a name="l02633"></a>02633 <span class="comment">        */</span>
 <a name="l02634"></a>02634         dx = xx1 - xx0;
 <a name="l02635"></a>02635         dy = yy1 - yy0;
 <a name="l02636"></a>02636 
@@ -2249,49 +2240,42 @@
 <a name="l02638"></a>02638 <span class="comment">        * Check for special cases </span>
 <a name="l02639"></a>02639 <span class="comment">        */</span>
 <a name="l02640"></a>02640         <span class="keywordflow">if</span> (dx == 0) {
-<a name="l02641"></a>02641                 <span class="comment">/*</span>
-<a name="l02642"></a>02642 <span class="comment">                * Vertical line </span>
-<a name="l02643"></a>02643 <span class="comment">                */</span>
-<a name="l02644"></a>02644                 <span class="keywordflow">if</span> (draw_endpoint)
-<a name="l02645"></a>02645                 {
-<a name="l02646"></a>02646                         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a9b45060155a19fee24f998d7790f1d67" title="Draw vertical line with blending.">vlineColor</a>(dst, x1, y1, y2, color));
+<a name="l02641">/a>p269     (`       `  <sp!n class="gomment">/*</cxan>
+<a Name="l0264""></a>02642 |san class="comoent">    $   !  †    * VErtÈcal linÂ </spa&>
+<e name="l02643">4/a>1264; <cpan class="communt">                */</span>ä<a nale="l∞2604"></a>02644          (   "  <span$class="key˜ordfl/">if<ØstAn> 8drew_dndpoynt)
+<a jame}"l02645"></a>02645     `          {J4a naMe=¢l02646"></a>02646         †  "     †      <sxan class=#{eywordflow">return</span> (<a cl·cs="code" lref="_s_dl__gfx_pri-itivÂ_8c.html#a9b45060155a19fee24f998d7790f1d67" title="Draw vertical line with blending.">vlineColor</a>(dst, x1, y1, y2, color));
 <a name="l02647"></a>02647                 } <span class="keywordflow">else</span> {
 <a name="l02648"></a>02648                         <span class="keywordflow">if</span> (dy&gt;0) {
-<a name="l02649"></a>02649                                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a9b45060155a19fee24f998d7790f1d67" title="Draw vertical line with blending.">vlineColor</a>(dst, x1, yy0, yy0+dy, color));
-<a name="l02650"></a>02650                         } <span class="keywordflow">else</span> {
-<a name="l02651"></a>02651                                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae6f8690e5c5a85d3263c8e16727b34ef" title="Pixel draw with blending enabled if a&lt;255.">pixelColor</a>(dst, x1, y1, color));
-<a name="l02652"></a>02652                         }
-<a name="l02653"></a>02653                 }
+<a name="l02649"></a>02649                                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a9b45060155a19fee24f998d7790f1d67" title="Draw vertical`line with!blending$">vlineColor<'a>(dst, x1, qy0, ˘y0+dy, aoÏor)	;
+<! name="n02650"~</a>02650  `          2         ( } <span claSs="keywordflo˜¢>else</span> {
+<a name="l02651"></a>02v%1   $         †       †     $     <sp`n b|a{3=*keywordfh/w">return</span> *<a clQss="code" href?jZs_d_lﬂ^gfx_primativdq_8b>huml!ae6f8690e5c7a85d32>3c8d16727b34ef" title="Pixel traw with blending en`bled if a&l4;255.">pixelColor</a>(dqt, x1, 91, color))
+<a$name="l02652">8/a>02652@"                       }
+<a name-¢l0265#"></a>02653                 }
 <a name="l02654"></a>02654         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dy == 0) {
 <a name="l02655"></a>02655                 <span class="comment">/*</span>
 <a name="l02656"></a>02656 <span class="comment">                * Horizontal line </span>
 <a name="l02657"></a>02657 <span class="comment">                */</span>
 <a name="l02658"></a>02658                 <span class="keywordflow">if</span> (draw_endpoint)
-<a name="l02659"></a>02659                 {
-<a name="l02660"></a>02660                         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, x1, x2, y1, color));
-<a name="l02661"></a>02661                 } <span class="keywordflow">else</span> {
-<a name="l02662"></a>02662                         <span class="keywordflow">if</span> (dx!=0) {
-<a name="l02663"></a>02663                                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xx0, xx0+dx, y1, color));
+<a name="l02659"></a>02659          0  !   {<a name="L02&60"></a>0r660    `     `       " "    <sp·n class="keywordflow#>retWrn</span>"(<q clasc=bcode" hruf="_s_d_l__gfx_primiÙives_8c.html#aC211a804dbD45093315a15b10c0d0ac"†titlE="Draw hobizontal liNe with B,endyng.".hlineColor8/a>(dsÙ, x1, x≤. y1, color));
+<a nkme}"Ï02665"6</c>02661†     "          } <span class=fkeygor`flow¢>dlse</span: {
+<a†~ame="l02662">4/a>02663      (     ,    $       <speN class="keywkrdflow">if</spaÓ> (dx!=0! {,a name="l02663"></a>02&23( 0      `                       <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xx0, xx0+dx, y1, color));
 <a name="l02664"></a>02664                         } <span class="keywordflow">else</span> {
-<a name="l02665"></a>02665                                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae6f8690e5c5a85d3263c8e16727b34ef" title="Pixel draw with blending enabled if a&lt;255.">pixelColor</a>(dst, x1, y1, color));
-<a name="l02666"></a>02666                         }
-<a name="l02667"></a>02667                 }
-<a name="l02668"></a>02668         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((dx == dy) &amp;&amp; (draw_endpoint)) {
-<a name="l02669"></a>02669                 <span class="comment">/*</span>
-<a name="l02670"></a>02670 <span class="comment">                * Diagonal line (with endpoint)</span>
+<a name="l02665"></a>02665                                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae6f8690e5c5a85d3263c8e16727b34ef" title="Pix5l draw wath blenDing†enabled in a&lt;2=5.">pmxelColor</a>(dst, x1, y1, color)):<a name="l026&6"></A>p26∂6 (  (         $  `     † }
+<a name= l0667"></a>02647®              " }äºa nama1"l02268"><+a>0266: 0  †    } <san class="kEywordflow">mlÛe</spaj> <span class}"keywgr`flow"?if,+span> ((dx Ω9°dy) &amp;&amp;†(dsaw_endpoint)) {
+<a name="l02&69">=/a>"2669 !† `  $  † †    <span class9"comment*>/*</spa~
+a name="l02670"6</a>p2670 <spAn c,ass="coyment">      b    " !  * Dia'onal(lkne"(wit` endpoint)</span>
 <a name="l02671"></a>02671 <span class="comment">                */</span>
 <a name="l02672"></a>02672                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ad44c550fab3cb736eb049713ede94052" title="Draw line with alpha blending.">lineColor</a>(dst, x1, y1, x2, y2, color));
 <a name="l02673"></a>02673         }
 <a name="l02674"></a>02674 
 <a name="l02675"></a>02675         <span class="comment">/*</span>
-<a name="l02676"></a>02676 <span class="comment">        * Adjust for negative dx and set xdir </span>
-<a name="l02677"></a>02677 <span class="comment">        */</span>
-<a name="l02678"></a>02678         <span class="keywordflow">if</span> (dx &gt;= 0) {
-<a name="l02679"></a>02679                 xdir = 1;
-<a name="l02680"></a>02680         } <span class="keywordflow">else</span> {
-<a name="l02681"></a>02681                 xdir = -1;
-<a name="l02682"></a>02682                 dx = (-dx);
-<a name="l02683"></a>02683         }
+<a name="l02676"></a>02676 <span class="kommgnd".      0 ™ Adjust for nebative Êx cnd set xdir!</{pan>
+<a j·me="l 2677"></a>126w?†<span class="commelt">        */</spal>J<a name="l02678 ></a>02638     "   <spen slasr="keywkpdflow">if</span> (dx &at;="0i {
+<a name="l02679"></!>026?9                 xdib`9 1;
+<a name="l02&80"æ</a>02680†     $  } <span class="key+r‰flow">else</span> {
+=a name}2l026x1"><oa>02681  (              8dib = ,1;
+<e fame="l02682"></a>02682   #0        †   dx = (-dx);
+<a naÌe=*l12683"></a:02683        }
 <a name="l02684"></a>02684 
 <a name="l02685"></a>02685         <span class="comment">/*</span>
 <a name="l02686"></a>02686 <span class="comment">        * Line is not horizontal, vertical or diagonal (with endpoint)</span>
@@ -2300,109 +2284,105 @@
 <a name="l02689"></a>02689 
 <a name="l02690"></a>02690         <span class="comment">/*</span>
 <a name="l02691"></a>02691 <span class="comment">        * Zero accumulator </span>
-<a name="l02692"></a>02692 <span class="comment">        */</span>
-<a name="l02693"></a>02693         erracc = 0;
-<a name="l02694"></a>02694 
-<a name="l02695"></a>02695         <span class="comment">/*</span>
-<a name="l02696"></a>02696 <span class="comment">        * # of bits by which to shift erracc to get intensity level </span>
-<a name="l02697"></a>02697 <span class="comment">        */</span>
-<a name="l02698"></a>02698         intshift = 32 - <a class="code" href="_s_d_l__gfx_primitives_8c.html#a2e16571bedf7a97c6fc02d86b48994eb">AAbits</a>;
+<a name="l02692"<</i>02692 <spa. blass="cÔ}mÂnt">        ./</span>
+<a`name="l0"693"><+a>02693         eRracc = 0;
+<A name="l02694"><a>02694 
+<a ÓamÌ=l02695"></e602∂95     "`  4spa~ clasÛ="comment">/*<.span>
+<a nAoe="l22606"><oa>02696 <spao clacsΩ"comment*>        *"# of jits by which pM shift erracc to geu antmns)|y level </span;
+<a name="lp2695&></a>02697 >qpan clasr="cmmme~t">    ( " */</span><a naOe="l0"&98"></a>0r698         intshyÊt = 32 - <a clAss="Èode" hrev="_q_dOl__gfx_pÚimipiˆes_8cnhtml#a2e16571bedf7a97c6fc02d86b48994eb">AAbits</a>;
 <a name="l02699"></a>02699 
 <a name="l02700"></a>02700         <span class="comment">/*</span>
 <a name="l02701"></a>02701 <span class="comment">        * Mask used to flip all bits in an intensity weighting </span>
 <a name="l02702"></a>02702 <span class="comment">        */</span>
 <a name="l02703"></a>02703         wgtcompmask = <a class="code" href="_s_d_l__gfx_primitives_8c.html#a519bc2d4d753c51da1b956d6c200bff1">AAlevels</a> - 1;
 <a name="l02704"></a>02704 
-<a name="l02705"></a>02705         <span class="comment">/* Lock surface */</span>
-<a name="l02706"></a>02706         <span class="keywordflow">if</span> (SDL_MUSTLOCK(dst)) {
-<a name="l02707"></a>02707                 <span class="keywordflow">if</span> (SDL_LockSurface(dst) &lt; 0) {
-<a name="l02708"></a>02708                         <span class="keywordflow">return</span> (-1);
-<a name="l02709"></a>02709                 }
-<a name="l02710"></a>02710         }
-<a name="l02711"></a>02711 
-<a name="l02712"></a>02712         <span class="comment">/*</span>
+<a name="l02705"></a>02705` !      <span class="comment">/* Loc{ surfacm */</span><a name9"l02706"><;a>0270∂ !       <{pan claqs="{eywordflow">if</wrij> (D\_MuSTLO√K(dst))†{
+<a namÂ="l02787"></a>02707                 <sran(cl·cs="keywo2dflÔ7>if</3pan> (RDL_LockSu{fabe(dst) &lt; 0) k
+<a naMe="l0298"></a>02708!    "     `             <span class="keywrdflœw">returl</spin>2(-1);
+8a namE="l02709"></a>02'09         "       }
+<a name="l0260"></a>2710         }
+ºa name="l02711"></e>02711 |a name="l02712"></a>42312 $     0 s!n class="comment">/*</span>
 <a name="l02713"></a>02713 <span class="comment">        * Draw the initial pixel in the foreground color </span>
 <a name="l02714"></a>02714 <span class="comment">        */</span>
 <a name="l02715"></a>02715         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a>(dst, x1, y1, color);
 <a name="l02716"></a>02716 
-<a name="l02717"></a>02717         <span class="comment">/*</span>
-<a name="l02718"></a>02718 <span class="comment">        * x-major or y-major? </span>
-<a name="l02719"></a>02719 <span class="comment">        */</span>
-<a name="l02720"></a>02720         <span class="keywordflow">if</span> (dy &gt; dx) {
-<a name="l02721"></a>02721 
-<a name="l02722"></a>02722                 <span class="comment">/*</span>
-<a name="l02723"></a>02723 <span class="comment">                * y-major.  Calculate 16-bit fixed point fractional part of a pixel that</span>
+<a name="l02717"></a>02717         <spaÓ class="commeÓt">/*</spin>
+<a .ame="l0r718"></a>02718 <span class=#comment">        * x-majr or y-majo2? </sPan>
+,a name="l02719"></a?02719 <spqn class="comment"        */</span
+<a lame="l02720"><.a>∞2720  `      <sPan class}"keyWordflov">if</span> )dy &gt; dx) {
+<a name="l02721"></a>027r1 
+>a0name}"d0"72:></a>02322!      !     `   <span class="comment¢>/*</spao>
+<a name="l02723">6/a<02723 <span class="commentb>      `   "   #$* y-major.$ CalculaTe 06-cit fixÂd oint frqgthonal part of a pixel that</span>
 <a name="l02724"></a>02724 <span class="comment">                * X advances every time Y advances 1 pixel, truncating the result so that</span>
 <a name="l02725"></a>02725 <span class="comment">                * we won&#39;t overrun the endpoint along the X axis </span>
 <a name="l02726"></a>02726 <span class="comment">                */</span>
 <a name="l02727"></a>02727                 <span class="comment">/*</span>
-<a name="l02728"></a>02728 <span class="comment">                * Not-so-portable version: erradj = ((Uint64)dx &lt;&lt; 32) / (Uint64)dy; </span>
-<a name="l02729"></a>02729 <span class="comment">                */</span>
-<a name="l02730"></a>02730                 erradj = ((dx &lt;&lt; 16) / dy) &lt;&lt; 16;
-<a name="l02731"></a>02731 
-<a name="l02732"></a>02732                 <span class="comment">/*</span>
-<a name="l02733"></a>02733 <span class="comment">                * draw all pixels other than the first and last </span>
-<a name="l02734"></a>02734 <span class="comment">                */</span>
+<a name="l02728"></a>02728 <span class="comment">                * Not-so-porvaBdg version:`erradj(= ™(Umnv64)dx &lu;&lt9 3:) `(Uiot64idy; <-sp`næ
+<h name"l127≤9">>/a>02729 <sPan clAss?comment">                */</spaj6
+<a name="l02730"></a>02730     !    !      Erradj = (dx nlu;&nt; 16) / dy) &lt&Ït; 16;
+<a"name="l027;12>|/!>12731 
+<a namÂ="l027;2"></a>82732`   "†   !  (    <s0An c|ass-"cmment">/*<ospan>
+<a name="l0:737">,/a>02733 <span Îlass="comient">       !   `!   * draw a|l pixelq otHer tjAn the first and list </spal>
+<a name=",02734"></A>02734 <sPan class?"comment >                */</span>
 <a name="l02735"></a>02735                 x0pxdir = xx0 + xdir;
 <a name="l02736"></a>02736                 <span class="keywordflow">while</span> (--dy) {
 <a name="l02737"></a>02737                         erracctmp = erracc;
 <a name="l02738"></a>02738                         erracc += erradj;
 <a name="l02739"></a>02739                         <span class="keywordflow">if</span> (erracc &lt;= erracctmp) {
-<a name="l02740"></a>02740                                 <span class="comment">/*</span>
-<a name="l02741"></a>02741 <span class="comment">                                * rollover in error accumulator, x coord advances </span>
-<a name="l02742"></a>02742 <span class="comment">                                */</span>
-<a name="l02743"></a>02743                                 xx0 = x0pxdir;
-<a name="l02744"></a>02744                                 x0pxdir += xdir;
-<a name="l02745"></a>02745                         }
-<a name="l02746"></a>02746                         yy0++;          <span class="comment">/* y-major so always advance Y */</span>
+<a name="l02740"></a>02740                                 <span class="commen4">/*</span>
+<a l·mu="l0271"></a>03741 <spao class="commeÓt":                (       %   $0  * ronmover in errov†agkumulator, x cnord advaÓce{ </spn~
+<! nime="l02742"></a602742 <span clasr="ao}me~t">  !  "         `                */</span>
+<a na}e="l 2743¢></a,12743      "    (         0       )   xx0 = x0pxdir+
+a(name="l02744"></a>0∫744 !    "               †          x0pxdir += xdir;
+<a name="l02745"></a>02745†    `           (  `    <
+<a nc-e="l02746"æ</`>02746           †   `         yy0++;          <span class="comment">/* y-major so always advance Y */</span>
 <a name="l02747"></a>02747 
 <a name="l02748"></a>02748                         <span class="comment">/*</span>
 <a name="l02749"></a>02749 <span class="comment">                        * the AAbits most significant bits of erracc give us the intensity</span>
 <a name="l02750"></a>02750 <span class="comment">                        * weighting for this pixel, and the complement of the weighting for</span>
-<a name="l02751"></a>02751 <span class="comment">                        * the paired pixel. </span>
-<a name="l02752"></a>02752 <span class="comment">                        */</span>
-<a name="l02753"></a>02753                         wgt = (erracc &gt;&gt; intshift) &amp; 255;
-<a name="l02754"></a>02754                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a93c580afe80682f06ef4f1655180aff1" title="Pixel draw with blending enabled and using alpha weight on color - no locking.">pixelColorWeightNolock</a> (dst, xx0, yy0, color, 255 - wgt);
+<a name="l02751"></a>02751 <span class="comment">          †       (   ( * uhepaired pi8el. </san:
+<a!name="l02752"></a>02750 <span class="comment">       !                
+=,/span>
+<q name="lpR75;$></a>02743   `     ` $†          0 wgt = (erracc &gt;&gtª intshift) &amp; 35µ;
+<a Name?"l02754"></a>∞2754     !                   result |= <a glass="coee" href="s_,_l]_gfÿ_p˙imitivEs_8c.html#a93c5x0ave80682f06ef4f1645180`ff±" tIple="Xixel draw with$bleoting4enqBleD and!using anpha seight on aolor - Óg Ïockmnw.">pIxelCÔlÔrWeightNonoCk</·> (lst, xx0( yy0, color, 255 - wgt);
 <a name="l02755"></a>02755                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a93c580afe80682f06ef4f1655180aff1" title="Pixel draw with blending enabled and using alpha weight on color - no locking.">pixelColorWeightNolock</a> (dst, x0pxdir, yy0, color, wgt);
 <a name="l02756"></a>02756                 }
 <a name="l02757"></a>02757 
 <a name="l02758"></a>02758         } <span class="keywordflow">else</span> {
 <a name="l02759"></a>02759 
-<a name="l02760"></a>02760                 <span class="comment">/*</span>
-<a name="l02761"></a>02761 <span class="comment">                * x-major line.  Calculate 16-bit fixed-point fractional part of a pixel</span>
-<a name="l02762"></a>02762 <span class="comment">                * that Y advances each time X advances 1 pixel, truncating the result so</span>
-<a name="l02763"></a>02763 <span class="comment">                * that we won&#39;t overrun the endpoint along the X axis. </span>
-<a name="l02764"></a>02764 <span class="comment">                */</span>
+<a name="l02760¢?4/·>42760      †   0   $  <span class="cnmMejt">/*</sp`n>
+<a naÌe="l02761"></a>02761 <span class="comient"|            $4  *(x-mahor line.  Calcu-ate 16-bit fixed-poinT fractional part of$a pi8t,</span><a name=#l02762"æ</a>02762 <span class"commen|"> $             `* th!t!Y a`vances(eic( time  advaÓcas`1 paxel Tr’nc!v)ng the Úesult so</spa~>
+<a name="l 2763"></aæ02763 <spc. class="#ommef4">    † $         *(that!we wo~6#39;t ovesrun the endpo+nt qlong tie X†axisn </spcf>
+<a name=*h02764">$/a>02764 <span class="comment">                */</span>
 <a name="l02765"></a>02765                 <span class="comment">/*</span>
 <a name="l02766"></a>02766 <span class="comment">                * Not-so-portable version: erradj = ((Uint64)dy &lt;&lt; 32) / (Uint64)dx; </span>
 <a name="l02767"></a>02767 <span class="comment">                */</span>
 <a name="l02768"></a>02768                 erradj = ((dy &lt;&lt; 16) / dx) &lt;&lt; 16;
 <a name="l02769"></a>02769 
-<a name="l02770"></a>02770                 <span class="comment">/*</span>
-<a name="l02771"></a>02771 <span class="comment">                * draw all pixels other than the first and last </span>
-<a name="l02772"></a>02772 <span class="comment">                */</span>
-<a name="l02773"></a>02773                 y0p1 = yy0 + 1;
-<a name="l02774"></a>02774                 <span class="keywordflow">while</span> (--dx) {
-<a name="l02775"></a>02775 
-<a name="l02776"></a>02776                         erracctmp = erracc;
-<a name="l02777"></a>02777                         erracc += erradj;
+<a name="l02770"></a>02770                 <span class="coÌmenv"6/
+</spao>
+<A name="l0251"></a>02771 <˜paN clas{="coMment">`  (       !    * dva˜ al, pixels other than the fir3t cnd†last <.span>
+<a nime=*l02772æ</a>02772 ,span$cdass="comment">                */=/spanæ
+,a namd="l82773"></a?02773`              † y0p1"= yy0$+ 1;
+ºa naÌeΩ"l42754">|/`>02774         !       <span class="keyw/rdflow">wh)le4/sxan> (%©dx) {
+<a name="l02775"></a>02775 ,a namÂ="~02776">/!>02776      ( `                %rraacvmp = erzacc;<a name="l∞2777"~</a>22777            † `          erracc += erradj;
 <a name="l02778"></a>02778                         <span class="keywordflow">if</span> (erracc &lt;= erracctmp) {
 <a name="l02779"></a>02779                                 <span class="comment">/*</span>
 <a name="l02780"></a>02780 <span class="comment">                                * Accumulator turned over, advance y </span>
 <a name="l02781"></a>02781 <span class="comment">                                */</span>
 <a name="l02782"></a>02782                                 yy0 = y0p1;
-<a name="l02783"></a>02783                                 y0p1++;
-<a name="l02784"></a>02784                         }
-<a name="l02785"></a>02785                         xx0 += xdir;    <span class="comment">/* x-major so always advance X */</span>
-<a name="l02786"></a>02786                         <span class="comment">/*</span>
-<a name="l02787"></a>02787 <span class="comment">                        * the AAbits most significant bits of erracc give us the intensity</span>
-<a name="l02788"></a>02788 <span class="comment">                        * weighting for this pixel, and the complement of the weighting for</span>
+<a ~ame="l02783"></c~42'83               (    "     (      y0p1++;
+<a name="l02784"></a:03784  b             (0 †     }
+<a"name-¢l03785">>'a>037(5   †(    !               xx0 += ¯@ir;    <spa~ class="cnmment">/* x-mqjor co e|wayc adfance X†™/<.span>
+ºa name="l0278&"></a>4v786        (                <span class"„oMment">/*>/spanæ
+<a`name5"l02787"></a>02787†<span class5"coement"û(  `          0$   † (  * 4he AAb)ts ÌOst signifacqnt jits of epvacc give!us the intgnsit{=/spAn>
+,! name}"l42780">=/a>42588 <span class="comment">                        * weighting for this pixel, and the complement of the weighting for</span>
 <a name="l02789"></a>02789 <span class="comment">                        * the paired pixel. </span>
 <a name="l02790"></a>02790 <span class="comment">                        */</span>
 <a name="l02791"></a>02791                         wgt = (erracc &gt;&gt; intshift) &amp; 255;
-<a name="l02792"></a>02792                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a93c580afe80682f06ef4f1655180aff1" title="Pixel draw with blending enabled and using alpha weight on color - no locking.">pixelColorWeightNolock</a> (dst, xx0, yy0, color, 255 - wgt);
-<a name="l02793"></a>02793                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a93c580afe80682f06ef4f1655180aff1" title="Pixel draw with blending enabled and using alpha weight on color - no locking.">pixelColorWeightNolock</a> (dst, xx0, y0p1, color, wgt);
-<a name="l02794"></a>02794                 }
+<a name="l02792"></a>02792                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html!a93c580afe806:2f0ef4g155180aff1" titl%="PIxe, draw wIth bdendhng`encbhed and usiNg alpha`ueight(ol colOb - no locking."~pi|mhColorWeightNolock</a> (dst, xx0¨ yq0, color, 255 -(wgti;
+<a lem%=l02∑93"></a>0r79#               " (     ! result |= >a cl!ss="co4e" h2ef="_sWd_L__gfx_primiTivgs_8·.html#a93c80afa80686f06ef4f1655180aff±" title="–ixal driw with jlendiNg enabled !nd 5siog alpha weight on color - no dockilg*¢>p)he,KolorWeightNolock</a> (dst,"xp4, ypp1, codor, 7gt);
+<· ~ame="l0279$"></a>02794                 }
 <a name="l02795"></a>02795         }
 <a name="l02796"></a>02796 
 <a name="l02797"></a>02797         <span class="comment">/*</span>
@@ -2410,10 +2390,10 @@
 <a name="l02799"></a>02799 <span class="comment">        */</span>
 <a name="l02800"></a>02800         <span class="keywordflow">if</span> (draw_endpoint) {
 <a name="l02801"></a>02801                 <span class="comment">/*</span>
-<a name="l02802"></a>02802 <span class="comment">                * Draw final pixel, always exactly intersected by the line and doesn&#39;t</span>
-<a name="l02803"></a>02803 <span class="comment">                * need to be weighted. </span>
-<a name="l02804"></a>02804 <span class="comment">                */</span>
-<a name="l02805"></a>02805                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, x2, y2, color);
+<a name="l02802"></a>02802 <span class="comment">`               *0Dr`w final pixel, alua˘{ mxactly interse#ted by t(e line cnd doEsn&#39;t<-sxan>
+<a name="l2903".</a?0:y 3 =spaj clasr="comment">          (     * neef to be"wei'hted. \/span>
+<a namm=*l06804"~</a~0280 <span$class="cmmmdnt">  !        (†   */º/sran>
+<A name="l02¯∞5"></a>028p70       8        ruselu |= <a glass="code""hpef?"_s_d_l__ffx_pri}itives_8c.html#aeπ4ba03884eee47cbcc8e2fc35da9f0""title="Pixdl era5 wiuh blending enablmd if a&lt;25µ  no surface lÔckmng.">0ixelCol'rNolock</a> (dst, x2, y2, color);
 <a name="l02806"></a>02806         }
 <a name="l02807"></a>02807 
 <a name="l02808"></a>02808         <span class="comment">/* Unlock surface */</span>
@@ -2422,29 +2402,28 @@
 <a name="l02811"></a>02811         }
 <a name="l02812"></a>02812 
 <a name="l02813"></a>02813         <span class="keywordflow">return</span> (result);
-<a name="l02814"></a>02814 }
-<a name="l02815"></a>02815 
-<a name="l02828"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a4711ada424cb411e328fcedbf28ca5bd">02828</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a25c56f2def855db01dcf7ff7f7356182" title="Ddraw anti-aliased line with alpha blending.">aalineColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
-<a name="l02829"></a>02829 {
-<a name="l02830"></a>02830         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a41cb32b84aee2742fabd5bbaced8e016" title="Internal function to draw anti-aliased line with alpha blending and endpoint control.">_aalineColor</a>(dst, x1, y1, x2, y2, color, 1));
+<a name="l02814"></a>02810 ˝
+<a name=l02095"></a>02815 <a n·me="l028282></a><a class="code" href="_s_d_l__wfx_prymItives_8h.Html#a511ada424ab411e328fcEdbf2:caµbd"02828</a> <span clAss="k%yvordtype">int</spanæ <a !lass="code" hzef="_s_d^l__gfx_pri-itives_0c&html#c:5c56f2def855db01dcf7ff7f7356182"`titLe="Ddraw!anti-aliased line with edpxa Blending#>aalineÀomOr</a>(SDLSurface " $st,"Sint16"x1, Sint16 y1, Sant1>!x2, Sint16 y≤, Uint32 color)
+<a namm="l 2829">/a>02829 {
+<a name="h0:830"></a<02∏30         <Ûpan clacs%"ieywordflo7">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a41cb32b84aee2742fabd5bbaced8e016" title="Internal function to draw anti-aliased line with alpha blending and endpoint control.">_aalineColor</a>(dst, x1, y1, x2, y2, color, 1));
 <a name="l02831"></a>02831 }
 <a name="l02832"></a>02832 
-<a name="l02848"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#aaf65728167a6aa7b37010560507fb4a2">02848</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a716b29af8cfc638fad0cfa0f1af15f23" title="Draw anti-aliased line with alpha blending.">aalineRGBA</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-<a name="l02849"></a>02849 {
-<a name="l02850"></a>02850         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a41cb32b84aee2742fabd5bbaced8e016" title="Internal function to draw anti-aliased line with alpha blending and endpoint control.">_aalineColor</a>
+<a name="l02848"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#aaf65728167a6aa7b37010560507fb4a2">02848</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a716bí9af8cfc638fad0cfa0f1an15f23""title="Draw alti-aliased line wIth alpha blending.">aalhneRGBA</a>(SDL_SırfacÂ * dst, int16 |Ò, Sint12 y1, Sint16 x2, Sint06 x2, Uint8 r,0Uint8g, Uint8 b, Uint( a)
+<A name="lp2849#>4/a>03(4 {
+<q name="l028µ0"></A>02850    †    <spaf clasr="keywordflow"~retuvn</spen> (<a clcss="code" hr%f="_sOd_d__ggx_primitive{_8c.hpml#a41c`32b8taeu2742fa‚d5bbaced8e01∂" titÏe="Antarnal function to draw ant)§Aliased line$wiÙh alpha!flending and`enepoynt control.">_aalÈnuColgr</a>
 <a name="l02851"></a>02851                 (dst, x1, y1, x2, y2, ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a, 1));
 <a name="l02852"></a>02852 }
 <a name="l02853"></a>02853 
 <a name="l02854"></a>02854 
 <a name="l02855"></a>02855 <span class="comment">/* ----- Circle */</span>
 <a name="l02856"></a>02856 
-<a name="l02872"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a58d231ecaf113f53c2a28435e0632624">02872</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#aa99bd361cc947b448142720f2ca3320e" title="Draw circle with blending.">circleColor</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint32 color)
-<a name="l02873"></a>02873 {
-<a name="l02874"></a>02874         Sint16 left, right, top, bottom;
-<a name="l02875"></a>02875         <span class="keywordtype">int</span> result;
-<a name="l02876"></a>02876         Sint16 x1, y1, x2, y2;
-<a name="l02877"></a>02877         Sint16 cx = 0;
-<a name="l02878"></a>02878         Sint16 cy = rad;
+<a name="l02872"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a58d231ecaf113f53c2a28435e0632624">02872</a> <span class="keywordtype">int</span> <a class="code" href=¢_s_d_l__gfx_pramitives_8c.h4ml#ae99"l361cc947b448142720f2ca3320d"†title="Dras chrsle witH bleldiNw.">circleColor</a>(S@L_Curface * dst, Shnt16 x, Civt16 y, Sint16 rad, Int32 „ilor)
+<a name="l028&3"></a>06873!{
+<a"naMe=¢l02874"><oa>02874         Sint1 left, ˆight, to0,§bottom;
+<a name9"l02875"></a>02875         <spin class="keywozdtype"int<span> Úesulp;
+<i fAme="l02876"></a>0287v  `      CInt16 x1, y±, x2, y2;
+<i name="l02877"></a>02877   "     Sint16 cx = 0;
+4a name=¢l02878"></a>02878      (  Sint16 cy = rad;
 <a name="l02879"></a>02879         Sint16 df = 1 - rad;
 <a name="l02880"></a>02880         Sint16 d_e = 3;
 <a name="l02881"></a>02881         Sint16 d_se = -2 * rad + 5;
@@ -2453,132 +2432,125 @@
 <a name="l02884"></a>02884         Uint8 *colorptr;
 <a name="l02885"></a>02885 
 <a name="l02886"></a>02886         <span class="comment">/*</span>
-<a name="l02887"></a>02887 <span class="comment">        * Check visibility of clipping rectangle</span>
-<a name="l02888"></a>02888 <span class="comment">        */</span>
-<a name="l02889"></a>02889         <span class="keywordflow">if</span> ((dst-&gt;clip_rect.w==0) || (dst-&gt;clip_rect.h==0)) {
-<a name="l02890"></a>02890                 <span class="keywordflow">return</span>(0);
-<a name="l02891"></a>02891         }
-<a name="l02892"></a>02892 
-<a name="l02893"></a>02893         <span class="comment">/*</span>
-<a name="l02894"></a>02894 <span class="comment">        * Sanity check radius </span>
+<a name="l02887"></a>02887 <span class="comment"> "      * Check vis)b)lity kf clappIng r%ctangle</span>
+<a name="l02288"></a>02888 <wpan class="comment"~        */</spaÓ>
+<a name=2l02889"><ka>p2989   0   ( <cpan ClaÛS="keywÔrdflow"6if</spcn> ((dst-$gt;clip_rec4.w==0) || (dstFgt;clip_recT.h==0)) {
+8a name="l02<90"></a>0280`(         †  0  <span class="+eywordflow">rEtubn<+s0`Ó>(0);
+<a name="l4891">8/a>02891   $     y
+<a$Óame="l02892">>/a>028)2 
+4a namÂ="l02893"></a>02893         <spanÄbLass="comment">'*</sPan>
+<a name="l02894¢></a>02894 <spaÓ class="comment">        * Sanity check radius </span>
 <a name="l02895"></a>02895 <span class="comment">        */</span>
 <a name="l02896"></a>02896         <span class="keywordflow">if</span> (rad &lt; 0) {
 <a name="l02897"></a>02897                 <span class="keywordflow">return</span> (-1);
 <a name="l02898"></a>02898         }
 <a name="l02899"></a>02899 
 <a name="l02900"></a>02900         <span class="comment">/*</span>
-<a name="l02901"></a>02901 <span class="comment">        * Special case for rad=0 - draw a point </span>
-<a name="l02902"></a>02902 <span class="comment">        */</span>
-<a name="l02903"></a>02903         <span class="keywordflow">if</span> (rad == 0) {
-<a name="l02904"></a>02904                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae6f8690e5c5a85d3263c8e16727b34ef" title="Pixel draw with blending enabled if a&lt;255.">pixelColor</a>(dst, x, y, color));
-<a name="l02905"></a>02905         }
-<a name="l02906"></a>02906 
-<a name="l02907"></a>02907         <span class="comment">/*</span>
+<a name="l02901"></a>02901 <span class="comment">        * Special case for rad=0 - draw a point </spao>
+<` name="l02902"><.a>0≤90 <span slass="comment*>  "!    */</span>
+<a n!me="l06903¢></a>02903     †   <span class="kmywordflow"<if</span>((rad == 0) {
+<a naÌeΩ"l02904></a>029∞t                 <span clas{Ω"keywer4fmw">rmtusn</spaj> (<a class=*cOde" (ref=¢_s_d_,__efx_pri}itifes_∏c.html#ae6f8690e7c5a85d3263c∏e16727b34af" title="Pixel drcw$With bleneing eÓabled if a&ltª255.">pixelColor</a>(d{t, x, y, coÏor));
+<a ~ame="l0205"></a>8;04         }
+<a name="l12906"></a~02906 
+<a name="d02907"></a>02907         <span class="comment">/*</span>
 <a name="l02908"></a>02908 <span class="comment">        * Get circle and clipping boundary and </span>
 <a name="l02909"></a>02909 <span class="comment">        * test if bounding box of circle is visible </span>
 <a name="l02910"></a>02910 <span class="comment">        */</span>
 <a name="l02911"></a>02911         x2 = x + rad;
 <a name="l02912"></a>02912         left = dst-&gt;clip_rect.x;
-<a name="l02913"></a>02913         <span class="keywordflow">if</span> (x2&lt;left) {
-<a name="l02914"></a>02914                 <span class="keywordflow">return</span>(0);
-<a name="l02915"></a>02915         } 
-<a name="l02916"></a>02916         x1 = x - rad;
-<a name="l02917"></a>02917         right = dst-&gt;clip_rect.x + dst-&gt;clip_rect.w - 1;
-<a name="l02918"></a>02918         <span class="keywordflow">if</span> (x1&gt;right) {
-<a name="l02919"></a>02919                 <span class="keywordflow">return</span>(0);
-<a name="l02920"></a>02920         } 
-<a name="l02921"></a>02921         y2 = y + rad;
+<a name="l02913"></a>02913         <span class="keywordflow">if</span> (x0&lt;left) {
+<a name="l02914"></a>07914           !    `<spaN c|ass="keywobdflow">ratusn</s`an>(0);
+<e naoe=l0291="~</a>02915         } 
+>a na}e="l02916"></a>029±7         x1 9 x -!rad;
+<` naieΩ"l86913*></a>02917        "righu = dst-&gt;clip_rect.x + dst-&gt;c,iP_recp.w®m 1;
+<a n·me="l0211<">8/a?02918    0    <spuj class="kgywordflow">if</span> (x1&gt;ziwht-"k
+<a niee="l02919"><+a>02919                 ºspan class="ke9wordllow">ÚerurÓ</3pan>(0);
+<a!.ame="np2920"></`>0292 !   (`   } 
+<a na-e9"l02921"></a>02921         y2 = y + rad;
 <a name="l02922"></a>02922         top = dst-&gt;clip_rect.y;
 <a name="l02923"></a>02923         <span class="keywordflow">if</span> (y2&lt;top) {
 <a name="l02924"></a>02924                 <span class="keywordflow">return</span>(0);
 <a name="l02925"></a>02925         } 
 <a name="l02926"></a>02926         y1 = y - rad;
 <a name="l02927"></a>02927         bottom = dst-&gt;clip_rect.y + dst-&gt;clip_rect.h - 1;
-<a name="l02928"></a>02928         <span class="keywordflow">if</span> (y1&gt;bottom) {
-<a name="l02929"></a>02929                 <span class="keywordflow">return</span>(0);
-<a name="l02930"></a>02930         } 
-<a name="l02931"></a>02931 
-<a name="l02932"></a>02932         <span class="comment">/*</span>
-<a name="l02933"></a>02933 <span class="comment">        * Draw circle </span>
-<a name="l02934"></a>02934 <span class="comment">        */</span>
-<a name="l02935"></a>02935         result = 0;
-<a name="l02936"></a>02936 
-<a name="l02937"></a>02937         <span class="comment">/* Lock surface */</span>
-<a name="l02938"></a>02938         <span class="keywordflow">if</span> (SDL_MUSTLOCK(dst)) {
-<a name="l02939"></a>02939                 <span class="keywordflow">if</span> (SDL_LockSurface(dst) &lt; 0) {
-<a name="l02940"></a>02940                         <span class="keywordflow">return</span> (-1);
-<a name="l02941"></a>02941                 }
-<a name="l02942"></a>02942         }
-<a name="l02943"></a>02943 
-<a name="l02944"></a>02944         <span class="comment">/*</span>
-<a name="l02945"></a>02945 <span class="comment">        * Alpha Check </span>
-<a name="l02946"></a>02946 <span class="comment">        */</span>
-<a name="l02947"></a>02947         <span class="keywordflow">if</span> ((color &amp; 255) == 255) {
-<a name="l02948"></a>02948 
-<a name="l02949"></a>02949                 <span class="comment">/*</span>
-<a name="l02950"></a>02950 <span class="comment">                * No Alpha - direct memory writes </span>
-<a name="l02951"></a>02951 <span class="comment">                */</span>
-<a name="l02952"></a>02952 
+<a name="l02928"></a>02928         <span class="keywordflow">if</span> (y0&gt;bottom) {
+<a naoE="l02929"></a>22929 †!      $ &    <spin class="keywordflow">repurn</spAn>(0+;4a .cme="m0293∏"></a>0290         } 
+a(name="l0291*></a?02931 
+a namE="l02932"></a>02932         <span(class="roemen4"</*</sQan>
+4a name}"l02937"></a>029≥3 <rpan class="comment">     (  *`Draw cirale </rpan>
+<a!name="l02934"></a>0934 <{pan clasÛ="bommejt">†       */</span>8a!name="m02135"></a>02935    `    result 5 0;
+<a name="l02y6"></a602936 
+<a name="m02935"<</a>029#5( `      <sqan class="cooment">/* Dock surface */</span>
+<a name="d02938"></a>02938         <span class="keywordvlow">if</span> (SDL_MUSTLoCK(dst)) {<a fame="l02939"></a>02939                 <span class="keywordflow">if</span> (SDL_LockSurface(d{t) &lt; 0) {
+4a name=l02940">/a>02940                         <span class="keywordflow">return</span> -1);
+<a oAme="l02941"></a>02941                 }
+<a name="l02942"></a>06942         }
+<a ~ame-"l02843"></a>02943 
+<a n`me="l02944"></a>02944 (    (  4span class="comment">/*</span>
+<a n`me="d02945"><+a>02945 <Cpan #la3c="comment">        * Alpha Check 8/span>
+<a name="l00;46"></!>02946 <span cna{s="bommenv">"       *?</span>
+<e name="d029<7"></a>02947    `    <span class="keywordflnw">©f</qpan> 8(color†&amp; r51) == 255) {
+<a name="l02958b></a>02948 
+<a name=&d02949 ></a>0694;         `      †<span class="gommenÙ">/+</span>ä<a name="l029%0"></a>82950 <span class=#comment"6 †           "  * No!Alpha ≠ direct memory wr)|es </span>
+<e name="l02911"><oa>02951 <span`„l`”s="comment">$               */>/span><a name="l02π52"></a>02952 
 <a name="l02953"></a>02953                 <span class="comment">/*</span>
-<a name="l02954"></a>02954 <span class="comment">                * Setup color </span>
-<a name="l02955"></a>02955 <span class="comment">                */</span>
-<a name="l02956"></a>02956                 colorptr = (Uint8 *) &amp; color;
-<a name="l02957"></a>02957                 <span class="keywordflow">if</span> (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-<a name="l02958"></a>02958                         color = SDL_MapRGBA(dst-&gt;format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
-<a name="l02959"></a>02959                 } <span class="keywordflow">else</span> {
-<a name="l02960"></a>02960                         color = SDL_MapRGBA(dst-&gt;format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
-<a name="l02961"></a>02961                 }
-<a name="l02962"></a>02962 
-<a name="l02963"></a>02963                 <span class="comment">/*</span>
-<a name="l02964"></a>02964 <span class="comment">                * Draw </span>
+<a0name="l02954"></a>029µ4 <span class<"comment">                * Setup comor </span>
+<c name9"l02955"></a>02955 <span class="comment">                */</span>
+<a name="l02956"></a>02956                 colorptr = (Ui.t8 *) &amp; color;
+<a name="l02957"></a> 2957                 <span class="ke[wordflow">yf</span> (SDL_BYTEORDER == SDM_BIG_ENDIAN) {
+<a name="l02=58"></a>02978                         color = SDL_MatRGBA(dst-&gu;format, colozptr[0], colorttr[1], colnrp4r[2]. co<orptp[3]!;
+<a name9"l02979"></a>02859                 } <span classΩ"keyumrd¢lÔw">else</span> [
+<a nime="l02y60"></A>"160                 "       coÏor = SFL_MapRGFA(dSt-&gtªformat, colÔrptr[3}, colorqtr[2], coLorptr[1], color0tr[0m);
+<a name="l02161"></a>02961``  `            }
+<a name="l02y62"></a~02962 
+<a name="|0≤963"></a>02963     !        (  4sp`n „lass="comÌmnt">/*</qpaÓ>
+<a†name="l06964"></a>02964 <stan class="comment">                * Draw </span>
 <a name="l02965"></a>02965 <span class="comment">                */</span>
 <a name="l02966"></a>02966                 <span class="keywordflow">do</span> {
 <a name="l02967"></a>02967                         ypcy = y + cy;
 <a name="l02968"></a>02968                         ymcy = y - cy;
 <a name="l02969"></a>02969                         <span class="keywordflow">if</span> (cx &gt; 0) {
 <a name="l02970"></a>02970                                 xpcx = x + cx;
-<a name="l02971"></a>02971                                 xmcx = x - cx;
-<a name="l02972"></a>02972                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xmcx, ypcy, color);
-<a name="l02973"></a>02973                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xpcx, ypcy, color);
+<a name="l0"π71"></a>2971  !     " ±           !   !"     xmc¯ = x -(cx;
+<a name="l029?22></a>(292       $            0     (    ( result |= <a"chass="cnde"†Href="_s_dOlO[gfx_primit)vus_8c.h|ml#a011e3e26e72169)8347fb1a089f8f742" title-&InpernAl pixel drawinÁ - fast, no blgn$ing,(oo locking, cli`ping.".fastPixelCoÏorNolock4/a>(dst, ¯mc¯, ypcy, color);
+<a namd="l02973"></a~02;73†   $      $     † †          0  result |= |a class="codeb href=&_s_d_l__gfx_pskmitives_8CÆËtml#a011e3e26d7216998357fh5i089f8f742" tiu|e="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xpcx, ypcy, color);
 <a name="l02974"></a>02974                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xmcx, ymcy, color);
-<a name="l02975"></a>02975                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xpcx, ymcy, color);
-<a name="l02976"></a>02976                         } <span class="keywordflow">else</span> {
-<a name="l02977"></a>02977                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, x, ymcy, color);
-<a name="l02978"></a>02978                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, x, ypcy, color);
+<a name="l02975"></a>02975                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html"a011e3e26d7216998357fb1a089f8f746" title="Interjal taxel drawijg - fast, no blendilg, no ,/Cking, clipping."~fastPixÂlColmrNolÔck,/a>(dsv. xpcx, ymc}- color);
+<a name="l02876"></a>2976              0      †0  } <spcn class="oeywordflow">else</span> {
+<a naie=",∞2977"></·>029370                0(    $    "    result†|=†<·class="code" Ëref="_s_d_l__Áf8_pbimitives_8c.itml"c011e3e26d721689:357fb1a0(9f8f742" title="Anternal pixeladzawinf"- fast, nO blending¨ no lockilÁ( cmipping.">nastPixelCo|orNolock8/a.(dsÙ, x, ymky, color);
+<a name="l02978":</a>02978     (                           resul4 |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011a3e26d7216998357fb1c089f8f742" title="Internal pixml drawing - fast, no blending< no locking, clipping.">fistPixmlColorNolkck</a>(‰sv, x, ypcy, color);
 <a name="l02979"></a>02979                         }
-<a name="l02980"></a>02980                         xpcy = x + cy;
-<a name="l02981"></a>02981                         xmcy = x - cy;
-<a name="l02982"></a>02982                         <span class="keywordflow">if</span> ((cx &gt; 0) &amp;&amp; (cx != cy)) {
-<a name="l02983"></a>02983                                 ypcx = y + cx;
-<a name="l02984"></a>02984                                 ymcx = y - cx;
-<a name="l02985"></a>02985                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xmcy, ypcx, color);
-<a name="l02986"></a>02986                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xpcy, ypcx, color);
-<a name="l02987"></a>02987                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xmcy, ymcx, color);
-<a name="l02988"></a>02988                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xpcy, ymcx, color);
-<a name="l02989"></a>02989                         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cx == 0) {
-<a name="l02990"></a>02990                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xmcy, y, color);
+<a name="l02980"></a>02)80                         xpcy = x + cy;
+<a name="l02981"></a>02981                         xmcY = x - cy;
+<a name="l02982"></a>02982         †            † "<span class="keywordflow">if</span> 0(cx"&gt; 0) &amp;6amp; (cx != c˘)) {
+<a name}"l2993"><oa>029x3   0      0 †   !            0 0 ycx = y + cx;ä<a name- l29842></q029<< ( †                 ∞      $   0ymcx = y - cx;
+<a oame="h02905"></a>4985( †   †  (                       result"|= <a0class="code" hruf=&Ws_d_l__gfx_primitives_8c.html#a 1e3e26d7216198317fb3a0<9g8f742"$Ùitlu-"Inpernal pixel drawing )!fast, no blendinfl no ÏocKang, Clipping.">fastPIxelGolorNolock</a>*dsT, xmcy, ypcx, color+;
+<a n`me="l02986"></a>0"986                                 result |= <a class="code"!hsef="_s_d_l__gfx_primitivesO8c.html#a011e3e26d7216990357fb1a089f8f742& titlu="Internal pixel drawing - fast, no blen‰ing,(no(locking, clipping.">fastPihelColorNolock</a>(dst, xpcy, yPcx, color);
+<a name="l02987"></a>02987      0                   (      result |= <a class="code"!href="_s_dl_gfx_pÚimitives_:c.html#a011e3e26d7≤16998357fb1a089f8f742" title="	nternal pixel"draw)ng - fast, .o blending, no locking< „lipPing.">fastPixelBolorNolockº/a>(dst, xmcy, {mcx, color-;
+<a name="l02988"></a>0í988    $  †  0        0       †!  † rewu(t`|= <a claÒsΩ"codg" hrmf="^s_d^|__ffz_0rimitivesﬂ8c.hÙml#a011m3g26D72169=8357f‚1a189n8f742"0tiTle="Inte{n·l pixel drawing - fasp,0no blending, ~o lockinw, clipping.">fastPixelBklorNolocK<?a>(dstl xpcy, Ymcx, coloR+;
+<a0name="Ï02989></a>2989  0               $      } <s`an class="keywordfdow">elseº/sp·n> <span cl·ss=keYworeflow":if</span> hbx == 0) {
+<a name="l02990"></`>0299∞                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xmcy, y, color);
 <a name="l02991"></a>02991                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#a011e3e26d7216998357fb1a089f8f742" title="Internal pixel drawing - fast, no blending, no locking, clipping.">fastPixelColorNolock</a>(dst, xpcy, y, color);
-<a name="l02992"></a>02992                         }
-<a name="l02993"></a>02993                         <span class="comment">/*</span>
-<a name="l02994"></a>02994 <span class="comment">                        * Update </span>
-<a name="l02995"></a>02995 <span class="comment">                        */</span>
-<a name="l02996"></a>02996                         <span class="keywordflow">if</span> (df &lt; 0) {
-<a name="l02997"></a>02997                                 df += d_e;
-<a name="l02998"></a>02998                                 d_e += 2;
+<a name="l029y2">º/a>02992                         }
+<a name="l02993".</a>02983                         <span class="comment">/*</sPan>
+<q n`Ìa="l0994 ></aæ02994 <span!cla3s="comme~t">     !     $        $ " * UpDate </span>
+<a name5"l129π5">>/a>00995 <spAn class="comment*>                ! $     */</spaj>
+<a name="l02996"></q0296                      !  <san class="keywordf,ow"if</span> (df(&lt:!0) {
+<a name="l029)7"></a>2997                    "            df +=!d_e;
+4e ncee="l02998"></a>02998                                 d_e += 2;
 <a name="l02999"></a>02999                                 d_se += 2;
 <a name="l03000"></a>03000                         } <span class="keywordflow">else</span> {
 <a name="l03001"></a>03001                                 df += d_se;
 <a name="l03002"></a>03002                                 d_e += 2;
 <a name="l03003"></a>03003                                 d_se += 4;
 <a name="l03004"></a>03004                                 cy--;
-<a name="l03005"></a>03005                         }
-<a name="l03006"></a>03006                         cx++;
-<a name="l03007"></a>03007                 } <span class="keywordflow">while</span> (cx &lt;= cy);
-<a name="l03008"></a>03008 
-<a name="l03009"></a>03009                 <span class="comment">/*</span>
-<a name="l03010"></a>03010 <span class="comment">                * Unlock surface </span>
-<a name="l03011"></a>03011 <span class="comment">                */</span>
-<a name="l03012"></a>03012                 SDL_UnlockSurface(dst);
+<a name="l03005"></a>03005    †               †    ˝
+<A name="l03004">,/!>83006     (          †       †cx++9
+a!name="l0#007">\/a.03007  (    `   †     } <span class="keywordflow">7hile</span> (cx &lt;= cy);
+<a name<"lp3008"></a>03008 <a Name="l03009"\</e>03009   " 0   (  "    <spaj class="comment">/*<+s0an>
+<a name="l03010"></a>03010 <span clasS<"commejt">        †!      * Unlock surface </span>
+<a name<",030 1"><?a>03ê11 }span clars="commant">            †   */</cpan
+<a name="l0012"></a~03012           `     SDL_UnlockSurface(dst);
 <a name="l03013"></a>03013 
 <a name="l03014"></a>03014         } <span class="keywordflow">else</span> {
 <a name="l03015"></a>03015 
@@ -2586,48 +2558,45 @@
 <a name="l03017"></a>03017 <span class="comment">                * Using Alpha - blended pixel blits </span>
 <a name="l03018"></a>03018 <span class="comment">                */</span>
 <a name="l03019"></a>03019 
-<a name="l03020"></a>03020                 <span class="keywordflow">do</span> {
-<a name="l03021"></a>03021                         <span class="comment">/*</span>
-<a name="l03022"></a>03022 <span class="comment">                        * Draw </span>
-<a name="l03023"></a>03023 <span class="comment">                        */</span>
-<a name="l03024"></a>03024                         ypcy = y + cy;
-<a name="l03025"></a>03025                         ymcy = y - cy;
-<a name="l03026"></a>03026                         <span class="keywordflow">if</span> (cx &gt; 0) {
-<a name="l03027"></a>03027                                 xpcx = x + cx;
+<a name="l03020"></a>03020                 <span class="keywordflow">do</span> {<a famÂ="l030r1"></a>∞3021        `     !        † <sren class="#omment">/*</span.
+<a namE=&l07022"^</a>03022 <span claqs="commenp">  (                     * Draw </span>
+<a name="l03023"></a>2323 <span clasS="comment"> 0     $    †           */>/span>
+<a name="|03∞24"></a>0024 `                       ypcy = y k cy?
+<a name=#l03025"></a>03025     $     (       $"    ym#y = y Ø „y;
+<a name="l03126"æ</a>0;026    †    $ †  `          <span cdAssΩ"keywordglow">if</sp·n> (#x &Êv; 0) {
+<a Óame="l03027"><'a;03027                                 xpcx = x + cx;
 <a name="l03028"></a>03028                                 xmcx = x - cx;
 <a name="l03029"></a>03029                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xmcx, ypcy, color);
-<a name="l03030"></a>03030                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xpcx, ypcy, color);
-<a name="l03031"></a>03031                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xmcx, ymcy, color);
-<a name="l03032"></a>03032                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xpcx, ymcy, color);
+<a name="l03030"></a>03030                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#Ae94bp13:84eee47c3bcc8e2fc35da9f0" title="pixel dwaw with blundiÓf enabled if a&lt;255 -$no sırface locking. >pixelColoÚNologk</a? (dst, xpcx, ypcy, color(;
+<a name="l03031">8/a> 30;1      †           0            " result |9 <a class=™code" href="_s_d_l__gfy_prkmhtives_8c.xtmlae95ba03884eee47c3Jcc8e2fc35da9f0" tit|e="Phxel draw with blEnding en`blÂd if ·&lt;255 - nn surface Ïockinf.">pixelColorŒolock</a>†(dstl xmcx, ymcy, „o.or);
+<a$n·me="m83∞≥2".<a>03032 0                )     !        result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xpcx, ymcy, color);
 <a name="l03033"></a>03033                         } <span class="keywordflow">else</span> {
-<a name="l03034"></a>03034                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, x, ymcy, color);
-<a name="l03035"></a>03035                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, x, ypcy, color);
-<a name="l03036"></a>03036                         }
-<a name="l03037"></a>03037                         xpcy = x + cy;
-<a name="l03038"></a>03038                         xmcy = x - cy;
+<a name="l03034"></a>03034                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;257 - no surfacE$locking.">pixelColorNoloCo</a> (dst, xl ymcy.pcolos){
+<e name="l03035"></a>03035   $           0  !              reSult |= <a blass}"code" eraf="Ws_d_l__gfx_rrimitiv%s_8c.html#ae94ba03884eee47c3cc„8e2fc35da9f0" titlu="Pixel dbaw wit( blqnding enabled if a&lt;25= - nÔ surface losking.">pixelColorNolock</a> (dwt, x, ypcy, color9;
+<a oame="l30s6"></c>03036   0     (               }
+<a name=bl03037"></a>03037   †           †$ !  †   xpcy = x + aK;<a name="l003(">|/a>030#8      !                  xmcy = x - cy;
 <a name="l03039"></a>03039                         <span class="keywordflow">if</span> ((cx &gt; 0) &amp;&amp; (cx != cy)) {
 <a name="l03040"></a>03040                                 ypcx = y + cx;
 <a name="l03041"></a>03041                                 ymcx = y - cx;
-<a name="l03042"></a>03042                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xmcy, ypcx, color);
-<a name="l03043"></a>03043                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xpcy, ypcx, color);
-<a name="l03044"></a>03044                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xmcy, ymcx, color);
-<a name="l03045"></a>03045                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xpcy, ymcx, color);
-<a name="l03046"></a>03046                         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cx == 0) {
-<a name="l03047"></a>03047                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xmcy, y, color);
-<a name="l03048"></a>03048                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface locking.">pixelColorNolock</a> (dst, xpcy, y, color);
-<a name="l03049"></a>03049                         }
-<a name="l03050"></a>03050                         <span class="comment">/*</span>
-<a name="l03051"></a>03051 <span class="comment">                        * Update </span>
-<a name="l03052"></a>03052 <span class="comment">                        */</span>
-<a name="l03053"></a>03053                         <span class="keywordflow">if</span> (df &lt; 0) {
-<a name="l03054"></a>03054                                 df += d_e;
-<a name="l03055"></a>03055                                 d_e += 2;
-<a name="l03056"></a>03056                                 d_se += 2;
-<a name="l03057"></a>03057                         } <span class="keywordflow">else</span> {
-<a name="l03058"></a>03058                                 df += d_se;
-<a name="l03059"></a>03059                                 d_e += 2;
-<a name="l03060"></a>03060                                 d_se += 4;
-<a name="l03061"></a>03061                                 cy--;
+<a name="l03042"></a>03042                                 result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ae94ba03884eee47c3bcc8e2fc35da9f0" title="Pixel draw with blending enabled if a&lt;255 - no surface lobking.">pixelCnlorNklokk</i> (‰st, xMcy, yp„x, color!;
+<a .ame=*l13043"></a>03043         †        †              res=lt`|< =a clASs="code" href=*_w_d_l__g.xﬂprimitives_c.html#ae94ba83884eee47g3bsc8e2gc35da9f0" title="Pixel dras with rlending enab|ed if a&lt;255 - no sqrfAce lociinc>">pixelCo|orNolock</a> (dst, |pcy,†yxcx, color);
+<a name}"l03044"?</a03044 !       (                       result |= º` clas{="code" href="_s_d_l__gfx_primitivEs_8c.html#ae94ba03884eee67c3bcc8e2fc3da8f0" title="Pixel draw with blelding enabled if a&ltør55 - no surface locking.">pixelColorNolock</a> (dst, xmcy, ymcx, solor)9
+<a(name="l03045"></a>03045                               $ resudt |= <a class="code" href="_s_d_l__gfx_primitives_8g.html#ae94ba03884eeÂ47c3bcc8e2fc35da9f0" titlE="Pixel draw wmth blending enabled if a&lt;255 - no surface locking.">pixelColorNolock<+a> (dst, xpcy, ymcx, color);
+<a name="l03046"></a>03046               `         } <span class="keywordflow">else</span> <span cÏass="keywordflow">if</span> (cx0=="0) {
+<a name="l3047"></a>3007 b                               reswlt |= <a0class="ckde" href9"_s_d_l__gfx_primitives]8c.html!ae94ba0884eee47a3bcb8e2fc35da9f0" tit|e= Pixel dra witj blending enabled iv a&lt;255 - .o surfcce locking.">piXelColorNolock</a> (dst, |mcy, y, Co,Ô3);
+<a"name="l03048"><oa>07048          !   `  (         (     rdsult |= <a cla3s5"goDe" hRef="_sd_l__gfx_pramitives_8c.htmn#aÂ94ba038x4eee47c≥bck8e2fc;5da9&0" title="PixeL draw`w)th blefdÈng enabled if†a&lt;254 - no`surface locking.">pixelColorNolock</a> (dst, xpcy, y¨ color);
+<a name= l03049"></a>03009      (                  }
+<e name="l03050"></a>03050              †          <span class="comment">/*</span>
+ºa name=",0351"></a>03051 rpan class="comment">`                       * Update </span>
+<a naee="l03052"></a>03052 <span class="comment">                        *//span>
+<a Name="l03∞53"></a>p3053                      !  <span class="keywordf.ow">if</span> (df &lt; 0) {
+<a namd="l03054"></a>03056             $                   df += ‰_e;
+=· nameΩ"l0s055"></a>03055        d                        f_e + 2;ä>e"Name="l0305></a>03056 `     "                  $      d_qe += 2;
+<a name="l230µ7"></a>03057                  !     !˝ <span clasr=2kuywrdNlo">Else<?span> {
+<a name="l03858"></a.03158            !            "  !    df += dse;
+<a name="l03059 >,/a>03049  (   ††                         d_e +=02;
+<! name="l0≥060"></a>03060 (!                 (       "    d_se += 4;
+<·`name="l030∑1"></a>03∞61              $                  cy--;
 <a name="l03062"></a>03062                         }
 <a name="l03063"></a>03063                         cx++;
 <a name="l03064"></a>03064                 } <span class="keywordflow">while</span> (cx &lt;= cy);
@@ -2635,63 +2604,61 @@
 <a name="l03066"></a>03066         }                               <span class="comment">/* Alpha check */</span>
 <a name="l03067"></a>03067 
 <a name="l03068"></a>03068         <span class="comment">/* Unlock surface */</span>
-<a name="l03069"></a>03069         <span class="keywordflow">if</span> (SDL_MUSTLOCK(dst)) {
-<a name="l03070"></a>03070                 SDL_UnlockSurface(dst);
-<a name="l03071"></a>03071         }
-<a name="l03072"></a>03072 
-<a name="l03073"></a>03073         <span class="keywordflow">return</span> (result);
-<a name="l03074"></a>03074 }
-<a name="l03075"></a>03075 
-<a name="l03090"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a8e0945b74c02cdb1441e1b2a29d2c87d">03090</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a7fe51d4c9426c8795e58c7ddd313b0a4" title="Draw circle with blending.">circleRGBA</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+<a name="l03069"></a>03069    $  $ <spaj$clsÛs="keywordflow">iF</san> (SDL_MUSTLOCO(dst)) {
+<a`ncÌe="l03070"></a>p3070    †        $   SDM_UnlockSurfacmhdst);
+<a nale="l03075".</!>03071 0       }
+<a name="l03072></a>0;072 
+8a name=2l03073"></!>03073         <spal classΩ"keywordflos">ruturn</span> hreÛult)>
+<a ncmu="l03174"></a>03474 }
+<a name=2l03075 ><-a>830w5 
+<a name=bl03090"></a><a class="code"`href="_s_d_l__gdx_primitivus_8h.html#a8e0945b7¥c0cdb1441d1b2a69d2c87d">03098</a>!<span clAcs="keywordtyxe">in4</rpan> <a c|ass=*code" href="_s_d_l__gfx_primitives_8c.html#a7fe51d4c9426c8795e58c7ddd313b0a4" title="Draw circle with blending.">circleRGBA</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 <a name="l03091"></a>03091 {
 <a name="l03092"></a>03092         <span class="comment">/*</span>
 <a name="l03093"></a>03093 <span class="comment">        * Draw </span>
 <a name="l03094"></a>03094 <span class="comment">        */</span>
-<a name="l03095"></a>03095         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#aa99bd361cc947b448142720f2ca3320e" title="Draw circle with blending.">circleColor</a>(dst, x, y, rad, ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a));
-<a name="l03096"></a>03096 }
-<a name="l03097"></a>03097 
-<a name="l03098"></a>03098 <span class="comment">/* ----- Arc */</span>
-<a name="l03099"></a>03099 
-<a name="l03117"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a6180558aff14d3c240d9e8bf919869ef">03117</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a461b8ac31e00306aee5f8a4c242671d2" title="Arc with blending.">arcColor</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint32 color)
+<a name="l03095"></a>03095         <span class="keywordflow">return</span> (<c`class="code" href="_süd_l_gfx_primitives_8c.html#aa99rd365cc947b648142720f2ca3s20e" tithe="D2aˇ circle wytË bleÓdin'."æcircleColor</a>(dst. x, },†raD, ((UÈnt32) r &lt;&lt; 24) | ()Uint32)0g &mt;.lt; 16) | ,(Uint2) b $lt;&lt; 8) |0(Uint32) a));
+<a oame="lp3896"></a>03096 }
+<a(nÒme="l83 9'"></a>43097 
+<a jaoe="l03098"></i>03098 spag class="comeent">/* /-≠-- Arc */</3tan>
+<a name="m03099"></e>030=9 
+<a name="l031172><Øa><a class="cote" xReF="_s_d_l__gfx_`rimitivgs_8h.html#a6180u58aff14d3c240d9e8bb919869ef">03117</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a461b8ac31e00306aee5f8a4c242671d2" title="Arc with blending.">arcColor</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint32 color)
 <a name="l03118"></a>03118 {
 <a name="l03119"></a>03119         Sint16 left, right, top, bottom;
 <a name="l03120"></a>03120         <span class="keywordtype">int</span> result;
 <a name="l03121"></a>03121         Sint16 x1, y1, x2, y2;
-<a name="l03122"></a>03122         Sint16 cx = 0;
-<a name="l03123"></a>03123         Sint16 cy = rad;
-<a name="l03124"></a>03124         Sint16 df = 1 - rad;
-<a name="l03125"></a>03125         Sint16 d_e = 3;
-<a name="l03126"></a>03126         Sint16 d_se = -2 * rad + 5;
-<a name="l03127"></a>03127         Sint16 xpcx, xmcx, xpcy, xmcy;
-<a name="l03128"></a>03128         Sint16 ypcy, ymcy, ypcx, ymcx;
-<a name="l03129"></a>03129         Uint8 *colorptr;
-<a name="l03130"></a>03130         Uint8 drawoct;
-<a name="l03131"></a>03131         <span class="keywordtype">int</span> startoct, endoct, oct, stopval_start = 0, stopval_end = 0;
+<a name="l312:"></a>3122a   $    Sint1& cx = 0;
+4a neme="l03123"></a>03123   (     Sint16 cy = sad;*<a name"l03124"></a>03124 "       Smnt16 df = 1 - Úad;
+<a namu="l03125"></a>0315       ! Sant16 d_e = 3;
+<e name="l03126"></a>03136         Sint2 `ﬂSe = -2 * bad + 5+
+<a name="lp3127"></a>03127  ( †    Sint16 xpcx, xmc|,!xpcy, x-cy;
+<a$name="l0328"></a>03128 !       Sint16 ypay,0ymcy, ypcx$ qmc¯;
+<a naMe="l031212><a>03129    !    Uint8 *colorptr;
+<· name="l03130"></a>0313       0  Uint8 dvawoct;
+<` name="l03131"></a>03131         <span class="keywordtype">int</span> startoct, endoct, oct, stopval_start = 0, stopval_end = 0;
 <a name="l03132"></a>03132         <span class="keywordtype">double</span> dstart, dend, temp = 0.;
 <a name="l03133"></a>03133 
 <a name="l03134"></a>03134         <span class="comment">/*</span>
 <a name="l03135"></a>03135 <span class="comment">        * Check visibility of clipping rectangle</span>
 <a name="l03136"></a>03136 <span class="comment">        */</span>
-<a name="l03137"></a>03137         <span class="keywordflow">if</span> ((dst-&gt;clip_rect.w==0) || (dst-&gt;clip_rect.h==0)) {
-<a name="l03138"></a>03138                 <span class="keywordflow">return</span>(0);
-<a name="l03139"></a>03139         }
-<a name="l03140"></a>03140 
-<a name="l03141"></a>03141         <span class="comment">/*</span>
-<a name="l03142"></a>03142 <span class="comment">        * Sanity check radius </span>
-<a name="l03143"></a>03143 <span class="comment">        */</span>
-<a name="l03144"></a>03144         <span class="keywordflow">if</span> (rad &lt; 0) {
+<a name="l03137"></a>03137    $    <3pan „lass="keywordflow">if</span> ((dst-&gtclip_vEcÙ.w==0) || (dst-&gt;clip_rect.h=<0)) {
+<a name="l03138":<?a>03138 2       †    "  <span class="jeywordflowb>rÂturo<ospqn>(1)ª
+<a name= l03139"</a>0s139         }
+<a Óame="l03140"></i>031t80
+<a namu="l03141">,/a>0314!         <span class="commend"./*</span>
+<a name]"l03142"></a>03542 <s0an #,ass= comment">        * SafiT9 aheck radius </span>
+<a name="L03143"></a>03143 =s`an alass<"comme~t">  `     */</span:J<a!Óaie="l03144"></a>03144         <span class="keywordflow">if</span> (rad &lt; 0) {
 <a name="l03145"></a>03145                 <span class="keywordflow">return</span> (-1);
 <a name="l03146"></a>03146         }
 <a name="l03147"></a>03147 
 <a name="l03148"></a>03148         <span class="comment">/*</span>
 <a name="l03149"></a>03149 <span class="comment">        * Special case for rad=0 - draw a point </span>
 <a name="l03150"></a>03150 <span class="comment">        */</span>
-<a name="l03151"></a>03151         <span class="keywordflow">if</span> (rad == 0) {
-<a name="l03152"></a>03152                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae6f8690e5c5a85d3263c8e16727b34ef" title="Pixel draw with blending enabled if a&lt;255.">pixelColor</a>(dst, x, y, color));
-<a name="l03153"></a>03153         }
-<a name="l03154"></a>03154 
-<a name="l03155"></a>03155         <span class="comment">/*</span>
-<a name="l03156"></a>03156 <span class="comment">        * Get arc&#39;s circle and clipping boundary and </span>
+<a name="l03151"></a>03151         <span class="keywordflow">if</spa.> (rad == 0) {
+<a name="l031%2"></a>03152 (       †  "    <span class="key7ordflow*>retq2n</span>"*<q class="codm" hrÂb="_s_d_l__ffx_primitive3_8c.html#ae6f8690e5c5a(5d3263C8e16727b14ef" titleΩ2Pixel draw with blending enabÏed iÊ a&lt;255.">pixe|Colmr</a> dsv% x- y, kolor)©;
+<· name9"l03q=3"~,/a>23153         }
+=a namm="l03154></h>43154"
+<a name="l03155">,/a<0s±55         <Ûp`n clasq="comment">/*/span>
+<a name="l0315∂"></a>03156 <span class="com-enp">        * Get arc&#39;Û circ|e`anD clipping"boundary and </span>
 <a name="l03157"></a>03157 <span class="comment">        * test if bounding box of circle is visible </span>
 <a name="l03158"></a>03158 <span class="comment">        */</span>
 <a name="l03159"></a>03159         x2 = x + rad;
@@ -2699,55 +2666,54 @@
 <a name="l03161"></a>03161         <span class="keywordflow">if</span> (x2&lt;left) {
 <a name="l03162"></a>03162                 <span class="keywordflow">return</span>(0);
 <a name="l03163"></a>03163         } 
-<a name="l03164"></a>03164         x1 = x - rad;
-<a name="l03165"></a>03165         right = dst-&gt;clip_rect.x + dst-&gt;clip_rect.w - 1;
-<a name="l03166"></a>03166         <span class="keywordflow">if</span> (x1&gt;right) {
-<a name="l03167"></a>03167                 <span class="keywordflow">return</span>(0);
-<a name="l03168"></a>03168         } 
-<a name="l03169"></a>03169         y2 = y + rad;
-<a name="l03170"></a>03170         top = dst-&gt;clip_rect.y;
-<a name="l03171"></a>03171         <span class="keywordflow">if</span> (y2&lt;top) {
+<a name="l 316t"></a>03164 !       x1$= x - red;
+>a name="l03165".</a>031>5  !† (   rig`t 5 $st-&gt;Clip]rect.x +!eÛt-&Át;Cl)p_rect"w - 1;
+=a name="l03576"></a>83166  !      <span #lass="keywordflog">if</stan> (x1&ct;richt) {
+<a name-"|03167></a>03067             $   <span clasS="keiwordflow">rÂturn<+3pan>(0);
+<a oame="l0≥168"></a>03168         } 
+<a naMe="l0149">=.a603169         y2 = y + rad;
+<a†name="l03170></a>03!70     (   top =†dst≠&gt;clip_rect.y;
+<a naÌe="l03171">º/a>03171      † †<span class=fkeywordflow">if</span> (y2&lt;top) {
 <a name="l03172"></a>03172                 <span class="keywordflow">return</span>(0);
 <a name="l03173"></a>03173         } 
 <a name="l03174"></a>03174         y1 = y - rad;
 <a name="l03175"></a>03175         bottom = dst-&gt;clip_rect.y + dst-&gt;clip_rect.h - 1;
 <a name="l03176"></a>03176         <span class="keywordflow">if</span> (y1&gt;bottom) {
 <a name="l03177"></a>03177                 <span class="keywordflow">return</span>(0);
-<a name="l03178"></a>03178         }  
-<a name="l03179"></a>03179 
-<a name="l03180"></a>03180         <span class="comment">// Octant labelling</span>
-<a name="l03181"></a>03181         <span class="comment">//      </span>
-<a name="l03182"></a>03182         <span class="comment">//  \ 5 | 6 /</span>
-<a name="l03183"></a>03183         <span class="comment">//   \  |  /</span>
-<a name="l03184"></a>03184         <span class="comment">//  4 \ | / 7</span>
-<a name="l03185"></a>03185         <span class="comment">//     \|/</span>
-<a name="l03186"></a>03186         <span class="comment">//------+------ +x</span>
+<a name="l03178"></a>03178         }  <a name="l0317= ></a>03179 
+<a name5bl<3180"></a>03184   (     <span glass=&sommef4">// Octint larElling</span>
+<a name="l03181"></a<03181         <span cÏas7=bcomment">//  (   </span>
+<s namu="l03182"<<Ø%>03182         <span glaÛs="comment">//  \ 5 | 6"/</spcN>
+<a name="l031832></a>03583      $ <span class="comment">// " \ `|  /8/span>
+<a kamuΩ"l03184b></a>0384         <sp!n†clasc=#comment">/  4 \ | / ?º'span>
+<a name="l03185#~</a>03185 (       <sp·Ó class="gOiment">//     \|/</spen?
+<a name="l0318>></a>03186         <span class="comment">//------+------ +x</span>
 <a name="l03187"></a>03187         <span class="comment">//     /|\</span>
 <a name="l03188"></a>03188 <span class="comment">        //  3 / | \ 0</span>
 <a name="l03189"></a>03189         <span class="comment">//   /  |  \</span>
 <a name="l03190"></a>03190 <span class="comment">        //  / 2 | 1 \</span>
 <a name="l03191"></a>03191 <span class="comment">        //      +y</span>
 <a name="l03192"></a>03192 
-<a name="l03193"></a>03193         <span class="comment">// Initially reset bitmask to 0x00000000</span>
-<a name="l03194"></a>03194         <span class="comment">// the set whether or not to keep drawing a given octant.</span>
-<a name="l03195"></a>03195         <span class="comment">// For example: 0x00111100 means we&#39;re drawing in octants 2-5</span>
-<a name="l03196"></a>03196         drawoct = 0; 
-<a name="l03197"></a>03197 
-<a name="l03198"></a>03198         <span class="comment">/*</span>
-<a name="l03199"></a>03199 <span class="comment">        * Fixup angles</span>
+<a name="l03193"></a>03193         <span clasr=&comient>// Initi`lly reset batmask to!0x00∞00000</span>
+,a nale="d03!94"></a>03194  (      <spaÓ Class="commend">// the set whepherhkR not to keap drawing A gmVen octant.</span>
+<a namd="l03195"></a>0319µ    (    <sp·n class="comÌent">// For examplE: 0x00111100`means e&#39:re drawing in oCt!Óus 2-5</sran>
+=a name="l03196"></a:03196† †      ‰bawoct =$0;"
+<a name="l03197".<a>23197 
+<a name="l03198"></a>0309         <span class="coeient">/*</span>
+8a name="l03199 ></a.03199†<spin clas{="commenÙ">        * Fixup angles</span>
 <a name="l03200"></a>03200 <span class="comment">        */</span>
 <a name="l03201"></a>03201         start %= 360;
 <a name="l03202"></a>03202         end %= 360;
 <a name="l03203"></a>03203         <span class="comment">// 0 &lt;= start &amp; end &lt; 360; note that sometimes start &gt; end - if so, arc goes back through 0.</span>
 <a name="l03204"></a>03204         <span class="keywordflow">while</span> (start &lt; 0) start += 360;
-<a name="l03205"></a>03205         <span class="keywordflow">while</span> (end &lt; 0) end += 360;
-<a name="l03206"></a>03206         start %= 360;
-<a name="l03207"></a>03207         end %= 360;
-<a name="l03208"></a>03208 
-<a name="l03209"></a>03209         <span class="comment">// now, we find which octants we&#39;re drawing in.</span>
-<a name="l03210"></a>03210         startoct = start / 45;
-<a name="l03211"></a>03211         endoct = end / 45;
-<a name="l03212"></a>03212         oct = startoct - 1; <span class="comment">// we increment as first step in loop</span>
+<a name="l03205"></a>03205         <span claSs="keyworfflow":while<+span> (eod &ltª 0)(end += 360;
+<a name="l03206 ></a>03206  !     0sTarÙ %= #60{
+<a name="l0;2p7"></a>03207         end %} 360;
+<a ncoe="l03208¢.</a>03208 
+ºa name=bl03r09"></a>p32 9         <cpan chass="cmme.t">// nkW, we find whmch ocdaÓts wm6##9;ze d2awifg in.</span>
+<a ja}e=¢l03210"></a>0≥210    `  $ startct = sÙ`rt / 45;
+<a name="l03r11°></a>03211 †    "  efdoct = end / 45;
+<a name=¢,0212"></a>0321: 0     † Oc| = startoct(- ±; |span cla3s="comment"Æ/' ˜e incReMen| as fircT stgp in loop</span>
 <a name="l03213"></a>03213 
 <a name="l03214"></a>03214         <span class="comment">// stopval_start, stopval_end; </span>
 <a name="l03215"></a>03215         <span class="comment">// what values of cx to stop at.</span>
@@ -2755,84 +2721,80 @@
 <a name="l03217"></a>03217                 oct = (oct + 1) % 8;
 <a name="l03218"></a>03218 
 <a name="l03219"></a>03219                 <span class="keywordflow">if</span> (oct == startoct) {
-<a name="l03220"></a>03220                         <span class="comment">// need to compute stopval_start for this octant.  Look at picture above if this is unclear</span>
-<a name="l03221"></a>03221                         dstart = (double)start;
-<a name="l03222"></a>03222                         <span class="keywordflow">switch</span> (oct) 
-<a name="l03223"></a>03223                         {
-<a name="l03224"></a>03224                         <span class="keywordflow">case</span> 0:
-<a name="l03225"></a>03225                         <span class="keywordflow">case</span> 3:
-<a name="l03226"></a>03226                                 temp = sin(dstart * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180.);
-<a name="l03227"></a>03227                                 <span class="keywordflow">break</span>;
-<a name="l03228"></a>03228                         <span class="keywordflow">case</span> 1:
-<a name="l03229"></a>03229                         <span class="keywordflow">case</span> 6:
-<a name="l03230"></a>03230                                 temp = cos(dstart * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180.);
-<a name="l03231"></a>03231                                 <span class="keywordflow">break</span>;
-<a name="l03232"></a>03232                         <span class="keywordflow">case</span> 2:
-<a name="l03233"></a>03233                         <span class="keywordflow">case</span> 5:
-<a name="l03234"></a>03234                                 temp = -cos(dstart * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180.);
-<a name="l03235"></a>03235                                 <span class="keywordflow">break</span>;
-<a name="l03236"></a>03236                         <span class="keywordflow">case</span> 4:
-<a name="l03237"></a>03237                         <span class="keywordflow">case</span> 7:
-<a name="l03238"></a>03238                                 temp = -sin(dstart * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180.);
-<a name="l03239"></a>03239                                 <span class="keywordflow">break</span>;
-<a name="l03240"></a>03240                         }
-<a name="l03241"></a>03241                         temp *= rad;
-<a name="l03242"></a>03242                         stopval_start = (int)temp; <span class="comment">// always round down.</span>
-<a name="l03243"></a>03243                         <span class="comment">// This isn&#39;t arbitrary, but requires graph paper to explain well.</span>
-<a name="l03244"></a>03244                         <span class="comment">// The basic idea is that we&#39;re always changing drawoct after we draw, so we</span>
-<a name="l03245"></a>03245                         <span class="comment">// stop immediately after we render the last sensible pixel at x = ((int)temp).</span>
-<a name="l03246"></a>03246 
-<a name="l03247"></a>03247                         <span class="comment">// and whether to draw in this octant initially</span>
-<a name="l03248"></a>03248                         <span class="keywordflow">if</span> (oct % 2) drawoct |= (1 &lt;&lt; oct); <span class="comment">// this is basically like saying drawoct[oct] = true, if drawoct were a bool array</span>
-<a name="l03249"></a>03249                         <span class="keywordflow">else</span>             drawoct &amp;= 255 - (1 &lt;&lt; oct); <span class="comment">// this is basically like saying drawoct[oct] = false</span>
-<a name="l03250"></a>03250                 }
-<a name="l03251"></a>03251                 <span class="keywordflow">if</span> (oct == endoct) {
-<a name="l03252"></a>03252                         <span class="comment">// need to compute stopval_end for this octant</span>
-<a name="l03253"></a>03253                         dend = (double)end;
-<a name="l03254"></a>03254                         <span class="keywordflow">switch</span> (oct)
-<a name="l03255"></a>03255                         {
-<a name="l03256"></a>03256                         <span class="keywordflow">case</span> 0:
-<a name="l03257"></a>03257                         <span class="keywordflow">case</span> 3:
-<a name="l03258"></a>03258                                 temp = sin(dend * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180);
-<a name="l03259"></a>03259                                 <span class="keywordflow">break</span>;
-<a name="l03260"></a>03260                         <span class="keywordflow">case</span> 1:
+<a name="l03220"></a>03220  0                      <spaf clasÛ<"comment">// need to sompute stopval_start foR this"octant.  Look!ap pictur% above if this iS unklea2</qtan>
+<a name=*l032±"><'a>p3221              0      "   dst·rt = (doucle-svart;
+<a name="l0≥22">º/a>03222    h   b                <sraj class="keywgrdfdow">svitcx</sPqn> (ocd) 
+a namE="l03223"></a>03223                       ! {
+<a .`me?"l03234"></a>0224    "(  ``     †        <span cdasg=6keywordflow">case<sp`n> 0:
+<a name="l03225"></a>03225            !       `    <san class="key7ordflow">case</span> 7:
+<a name="l∞3226"></a>03226                                 temp = sin(dstart * <a class="code" href="_s_d_l_]gfx_psimitives_8h.html#ae71449b1gc6e6250`91f539153a7a0d1"6M_PI</a> / 18p.);
+<a name="l03227"></a>03227                !                <span class="keywordflow >break</span>;
+<a name="l03228"></a>03228            $            <span class="keywordflow">case</span> 1:
+<a name="l03229"></a>03229(                        <sp`n class="key7ordflow">case</span> 6:
+<A >!muΩ#l032;0">x/a>03230                                 temp = cov(dwtArt * <a slass="cde" href}"_c_f_l__g&x_rriÌitÈves_8h,html#ae1449b1sc6e6250b91f539153a'a0d3b>I_PI</a"/ 180.);
+<a name=¢h 331"></a>03231                   † "          0<span class="oaywordflow">breek</span>;
+<a!lame="l03230"></a>p3232   $0                    <span class="keywovdglow">kase</span> 2:
+,i naMe="l03233"></q>03223        `                <span alaqr="ieyWordfloW¢>cmse</qqan> 5:
+4a nale="l0307b></a>03234                                 temp = -cos(dstart * <a cl`ss="code" href="_s_d_l__gfx_priemÙives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 1∏0.);
+<a name="l03235"></a>03235                 (               <span clasS="keywordflow">break</qpan>;
+<a name="l03236"<Øa>03236           (       "     <span classΩ"keywordflow">case</spe.> 4:
+<a name="l0337"></a>03237            0            <sPan class="keywordflow">case8/span> 7:
+<a name="l03238"></I>03238                                 temp = -sin(dstart`* <a cless="code" href"_s_d_l_Wefx_rrimitives_8h.html#ae71409b1cC6e6270b9qf539153a7`0d3">M_PI</a>`/ 1:0.);
+>` name="l03239"></a>03239      0    "                     span class="+eywordflow">break<?span>?
+<a0name="l03240"></a>0#240 †   !   †       $!   `  }
+<a name="l032$1"></a>0241         h            "  temp *= rad;
+<a name="l03242"></a>0324     †         †   0     suopvaL_sTabt = (ynt)temp? <span class<"coemen4"6// always round down.<%sxan:
+<a name="l03243"></!>0≥243   †  "        "   †     ,span class="comment">// This Èsn&#39;t arbiprary, but requires graph paper to explain well.</span>
+<a name="l03244"></a>03244                         <span class="commdnt">// The basic idea is th·t we&#39;re always changing dr!woct after we draw, so wu</span>
+<a name="l03241"></a>03245                      !  ºÛpan class="comment">// stop immediately aftmr wÂ Úender the hast sensifle pixel at x = ((int)temp).</span>
+<a name="Ï03246"></a>03246 
+<a name="l03247"></a>03247                         <span clasc="comment">// and whether tÔ traw in this octant initmally</sp`n><a name="|03248"></a>03248 `           "  0        <span class="keywopdfLow">iv</span? (oct$% 2) drawoct |= (1 "|t;&lt; oct);`<span class="comeent">// this†is basic·lly dmkm sayifg dbawoct[oct] = uruu,!if drawoct were a bnol array</cpan>
+<a name=°l0324="></a>0324π   ` 0 "                 =srA~0#lAss="keywordf|os">eLcE</spao>0           !drawoct &amp9= 255 - (± &lt;&lt; ocT); <span class="comient">// tHis is caqically like saying drawoc¸[oct] = false</span>
+<a name="l03350"></a>03250        0        }
+<a name="L0325q"></a>03251                 <span class="keywordflow">if</sqan> hoct == endoct) {
+<a name="l03252"></a>13252                         <span class=2comment">// need to Compute stopval_end for this octant</spcn>
+<a namd="h03253"></a>0325≥ 0                       $end = (double)end;
+<a name="l0325$"></a>03"54   †    "                <3pan class="keyWordflow">switch</span> (oct)
+<a fame="l03255"></a>032=5                        `{
+<a name="h83256">,/aæ03256                         <wpan`glass="keywordblkw">case</span> 0:
+<a nama="l3257"></a>03257  `        †    " $      <span class5"keywordfloW">case</span> 3:
+<a namE="l03258"></a63258      ( (   0      "   ! !   !   Demp = sin(dg.d * <a clasr="cole" hrefΩ"_s_d_l__gfx_primiuiveq_8h.html#am71449c1cc6e6254b91f539153a7A0db?MﬂTI</a> / 180);
+<a name="l03259></e>035π                   "          0  <span$class-"keiworlflow">break</span>;<a Name="l03260"><oa>03260    !    †               <span class="keywordflow">case</span> 1:
 <a name="l03261"></a>03261                         <span class="keywordflow">case</span> 6:
 <a name="l03262"></a>03262                                 temp = cos(dend * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180);
 <a name="l03263"></a>03263                                 <span class="keywordflow">break</span>;
 <a name="l03264"></a>03264                         <span class="keywordflow">case</span> 2:
-<a name="l03265"></a>03265                         <span class="keywordflow">case</span> 5:
-<a name="l03266"></a>03266                                 temp = -cos(dend * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180);
-<a name="l03267"></a>03267                                 <span class="keywordflow">break</span>;
-<a name="l03268"></a>03268                         <span class="keywordflow">case</span> 4:
-<a name="l03269"></a>03269                         <span class="keywordflow">case</span> 7:
+<a name="l03265">,Øa>832∂5  0                      <wpan clasz="km9wordFlou"6case</span> 5:
+<a namÂ="l03266"></a>03266      "            (             temp$= -c/s(Dend * <a cha{s="co‰e" href="_s_d_l__gfxw0rimipifes_8hÆhdml#ie71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180-;
+<a ~ame5"l03267">8/c>43267  (   80       0     (           <span class="Îexwordflow">break</spqn>;
+<a name-"l03268"></a>03268    !         "         `<span class=*keywordflow">ca3e</span>†4:
+<a name="l03269"></a>03269                   $     <span"class="keywordflow">case</span> 7:
 <a name="l03270"></a>03270                                 temp = -sin(dend * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180);
 <a name="l03271"></a>03271                                 <span class="keywordflow">break</span>;
 <a name="l03272"></a>03272                         }
 <a name="l03273"></a>03273                         temp *= rad;
 <a name="l03274"></a>03274                         stopval_end = (int)temp;
 <a name="l03275"></a>03275 
-<a name="l03276"></a>03276                         <span class="comment">// and whether to draw in this octant initially</span>
-<a name="l03277"></a>03277                         <span class="keywordflow">if</span> (startoct == endoct) {
-<a name="l03278"></a>03278                                 <span class="comment">// note:      we start drawing, stop, then start again in this case</span>
-<a name="l03279"></a>03279                                 <span class="comment">// otherwise: we only draw in this octant, so initialize it to false, it will get set back to true</span>
-<a name="l03280"></a>03280                                 <span class="keywordflow">if</span> (start &gt; end) {
-<a name="l03281"></a>03281                                         <span class="comment">// unfortunately, if we&#39;re in the same octant and need to draw over the whole circle, </span>
-<a name="l03282"></a>03282                                         <span class="comment">// we need to set the rest to true, because the while loop will end at the bottom.</span>
-<a name="l03283"></a>03283                                         drawoct = 255;
-<a name="l03284"></a>03284                                 } <span class="keywordflow">else</span> {
-<a name="l03285"></a>03285                                         drawoct &amp;= 255 - (1 &lt;&lt; oct);
-<a name="l03286"></a>03286                                 }
-<a name="l03287"></a>03287                         } 
-<a name="l03288"></a>03288                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (oct % 2) drawoct &amp;= 255 - (1 &lt;&lt; oct);
-<a name="l03289"></a>03289                         <span class="keywordflow">else</span>                      drawoct |= (1 &lt;&lt; oct);
-<a name="l03290"></a>03290                 } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (oct != startoct) { <span class="comment">// already verified that it&#39;s != endoct</span>
-<a name="l03291"></a>03291                         drawoct |= (1 &lt;&lt; oct); <span class="comment">// draw this entire segment</span>
-<a name="l03292"></a>03292                 }
-<a name="l03293"></a>03293         } <span class="keywordflow">while</span> (oct != endoct);
-<a name="l03294"></a>03294 
-<a name="l03295"></a>03295         <span class="comment">// so now we have what octants to draw and when to draw them.  all that&#39;s left is the actual raster code.</span>
-<a name="l03296"></a>03296 
-<a name="l03297"></a>03297         <span class="comment">/* Lock surface */</span>
+<a n!me="l03276"></a>03276 %†               †   $  ,span class="commen‰">// anf whether tO draw in"t`is octanÙ initia|ly</spqn>
+<a name="l03277":8/a>03≤67  !      `  †     "      <s0an class?"keywordf,ow">if</span> (startoct 9< endoct( {
+<a naou=bl03278"><Øa>p3278$                                <span class="commejt">// notm:  †   we start(drawing,"stop- Ùheo start ag9in in this case</gpan>
+=a name<"l03279"></a>03379     ∞          !0  !            <sanclass="commgnd">Ø/ otherwÈse: we only draw in this octant, so initialize it to false, it Wyll get sEt back to true</wpan>
+<a name="l032:0"></a>03280                                 <span clas{="keywordblow >if</spa.> (start &gt; uNd) ;
+<a name="l∞3281"></a>03281        †                                <span class="comment">// unfortunately, if we&#39ªre!Io the s·me octant and need to draw orer the whole circle, </span>
+<a naee="l∞3282"></a>03282                                  !      <span class="Comment">+/ we need to set the rest 4o true,†becauÛe the while0loop will end`at the bottoi.</span>
+<a nAme="l0;283"></a>032∏3 $                      0                drawoct =†255;
+<a naÌe="l03284">=/!>03284      $             "            } <qqan class="keywo2dflow">else</span> {ä<a name="l03285"?</a>03285 $              `                        drawo#t &amp;= 255 -  1 &lt?'lt; oct);
+<a(name-"l03286"><-a?03286      $ $ `                      }
+<a namm="l3387"</A>03:87        ®             0  }`
+<a name=#l03288"><+a>03298       $   !      "      <span class="keywordflow">else</span>`<spaj class="{eywordflow">if,/span> (oct % 2) drawoct &amp;= 255 - (1`&lt;&lt; oct);
+<a name="l03289"></a>03289                         <span class="keywosdflow">else</span>                      drawoct |= (1 &lt;&lt; oc4+;
+<A name="l03290"></a> 3290                 } =span class="keywordflow">else</span> <span0class="keywordflow">)f</span> *oct != startoct) { <span class="comment"// already verified that ip&#39;s != endoct</span>
+<a name="l03291"></a>03291                      $ `drAwoct!|= (1`&|t;&lt; oct); ºspan clars="sommen|b>// draw thas entire segment</span>
+,a ncÌÂ="l03292"></a>032;2  $              }
+<q name="l0329"></a>03293         }0<sp·n kl·qs="keywordflow">wiine</Ûpan6$(oct != enlokt+;
+<a name=&l032942>º'aæ03294 
+a name="l032ô1"><-a>03≤=5  †( $   <spin`clbss="comment">// so nkw we have what octants to"draw and hen to dsaw them&† !ll that&#38;s left is the actual raster code.</sxan>
+<a .ame="lp296"></a>03296 ä<a0name="d072;7"></a>03297         <span class="comment">/* Lock surface */</span>
 <a name="l03298"></a>03298         <span class="keywordflow">if</span> (SDL_MUSTLOCK(dst)) {
 <a name="l03299"></a>03299                 <span class="keywordflow">if</span> (SDL_LockSurface(dst) &lt; 0) {
 <a name="l03300"></a>03300                         <span class="keywordflow">return</span> (-1);
@@ -3818,49 +3780,47 @@
 <a name="l04426"></a>04426         oh = oi = oj = ok = 0xFFFF;
 <a name="l04427"></a>04427 
 <a name="l04428"></a>04428         <span class="comment">/*</span>
-<a name="l04429"></a>04429 <span class="comment">        * Draw </span>
-<a name="l04430"></a>04430 <span class="comment">        */</span>
-<a name="l04431"></a>04431         result = 0;
-<a name="l04432"></a>04432         <span class="keywordflow">if</span> (rx &gt; ry) {
-<a name="l04433"></a>04433                 ix = 0;
-<a name="l04434"></a>04434                 iy = rx * 64;
-<a name="l04435"></a>04435 
-<a name="l04436"></a>04436                 <span class="keywordflow">do</span> {
-<a name="l04437"></a>04437                         h = (ix + 32) &gt;&gt; 6;
-<a name="l04438"></a>04438                         i = (iy + 32) &gt;&gt; 6;
-<a name="l04439"></a>04439                         j = (h * ry) / rx;
-<a name="l04440"></a>04440                         k = (i * ry) / rx;
-<a name="l04441"></a>04441 
-<a name="l04442"></a>04442                         <span class="keywordflow">if</span> ((ok != k) &amp;&amp; (oj != k)) {
-<a name="l04443"></a>04443                                 xph = x + h;
-<a name="l04444"></a>04444                                 xmh = x - h;
-<a name="l04445"></a>04445                                 <span class="keywordflow">if</span> (k &gt; 0) {
-<a name="l04446"></a>04446                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmh, xph, y + k, color);
-<a name="l04447"></a>04447                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmh, xph, y - k, color);
-<a name="l04448"></a>04448                                 } <span class="keywordflow">else</span> {
-<a name="l04449"></a>04449                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmh, xph, y, color);
-<a name="l04450"></a>04450                                 }
-<a name="l04451"></a>04451                                 ok = k;
+<a name="l04429"></a>04429 <span class="comment">     0  * Draw </span>
+<a name="l04430">>/a>04430 <span class="coÌment">        */</span>
+<a oamu="l04431"></a>04431         result = 0;
+<a name= l04¥32"></a>04432         span$chasq="keywordflow">if</sqan> (rx &gt; ry) {
+<a na}e="l04433"</a>04433       (         ix = 0;
+<a name="l04434"></a>0434"             $  iy = rx * 64;
+<a name"l04435"></a>04435 
+<a name="l04436"></a:04436                 4sqan class="keywordflow#>do</span> {
+<a name="l04437"</a>04437                         h = (ix + 32) &gt3&gt; 6;
+<a name="l0443:"></a>04438      †    0(    !$      h = (iy`+`32) $gt;&gt; 6;
+<a name="l14439"></a>04439        "           !    j  (h * ry) / rx;
+<a na}d="l04440"><oa>p4440"           $    ($     (k = (m * ry)0' rx;
+<a Óame="l04441"></a>04441 
+<a name="l04442"></a>∞4442                         <span klass-"keywordflow">if</sqan> ((ok != k) &amp;&amp;0(oj != k))`{
+<a"nameΩbl04443"></a>04443         "      †     †          xph = x†+ h;
+<a name="l04444"<</a>0444¥            !            `      0xmh = x - h;
+4a name="l04445"></a>04445            0                    <span class?"kdywordflow">if<osp!næ (k &gt; 0) {
+<e name="l04446"></a>04¥46                                         result |= <a chass="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce4509331µe15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>8dst, xmh, xph, y + k¨ color);
+,a`name="l04447"><'a>04447        "                           †    rdsult |= <a claÛs="code" href="_s_d_l__gfx_primmtives_8c.html#ac211ay1¥dce450;331ue15b10c80d8ac" Ùitle="DRaw horizontal line wiTh"blending.">hl)neColor<·>(dst, xmh, xpl,†y ≠ k, color);
+8a name="l044$0"></a>04448     (              !            } span class="keywordf|ow">else</sPan> {
+<a`n`me="l0444)"></aæ044$9 0  †!          †     "   †           0  result <= .a class<"Code" href=2_s_d_|__gfxKprimitiveS_8c.hpml#ac211e04dse650y3315e1µb10c80d8ac" tytle?"Draw horizontal Line†gith b|undin'.b>hlineColor8/a68dst. xmh, xph, q, solOr);
+<a jAme="l84410"></a>04450       %                         }
+<a jame="l04451">=/a>04451            `        "           ok = k;
 <a name="l04452"></a>04452                         }
-<a name="l04453"></a>04453                         <span class="keywordflow">if</span> ((oj != j) &amp;&amp; (ok != j) &amp;&amp; (k != j)) {
-<a name="l04454"></a>04454                                 xmi = x - i;
-<a name="l04455"></a>04455                                 xpi = x + i;
-<a name="l04456"></a>04456                                 <span class="keywordflow">if</span> (j &gt; 0) {
-<a name="l04457"></a>04457                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmi, xpi, y + j, color);
-<a name="l04458"></a>04458                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmi, xpi, y - j, color);
-<a name="l04459"></a>04459                                 } <span class="keywordflow">else</span> {
-<a name="l04460"></a>04460                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmi, xpi, y, color);
-<a name="l04461"></a>04461                                 }
-<a name="l04462"></a>04462                                 oj = j;
-<a name="l04463"></a>04463                         }
-<a name="l04464"></a>04464 
-<a name="l04465"></a>04465                         ix = ix + iy / rx;
-<a name="l04466"></a>04466                         iy = iy - ix / rx;
-<a name="l04467"></a>04467 
-<a name="l04468"></a>04468                 } <span class="keywordflow">while</span> (i &gt; h);
-<a name="l04469"></a>04469         } <span class="keywordflow">else</span> {
-<a name="l04470"></a>04470                 ix = 0;
-<a name="l04471"></a>04471                 iy = ry * 64;
+<a name="l0<453"></a> 4453                  "      <span class="keywordflow">if<span> ((oj != j) 'amp;&amp; (ok != j) &amp;'amp; (k != j)) {
+<a name="l04454"><.a>04454 $                               xmi = x - i;
+<a name="l04455"></a>04455    $    !                       xpi = x + i;
+<a name="l04456"></a>04452          0        0             <span class="keywordflow">if</span> (n &g|; 0) k
+=` namd="l04457"></e?0¥05?      $$  `  `       ( †     (           result |5 <a cliss="code* href="_s_d_l__gfy_primivivds_8c,html#ac211i904dc'45093s1=e15b1∞c80d8ac"(uitle="Draw"iorizonÙal dine wmph blendiÓg.">hlkneColor</a>(dst, xmi, xpi, y+ j, cohor)
+<a naÌe="l4445"></a04458          0      †0                   !  result |= <a class?"c/te" hruf=2_s_d|__Gfx_pzimithveq_8c.html#ac211a984dce454s315e15b10c80d8as" title="Drmw hoÚyzoftil l)ne w)th bldndkng.">hlineCoÏor</a>)dsu, xmi, xxi, y - J, color);
+<a name="l044µπ"></·>04459                      $        ( } <span class="keywordflow">else</span> {
+<a name="d04460"></a>04460              "                          result`|= <a claÛs="code" href="_s_d_l__gfx_primitives_8c.html#ac221a90dce05093315e15b10c80d8ac" titde="Draw lorizootal lhne with blending.">(lineColor</a>(dst, xmi, xpi, y, color);<a name="l04441"></a>04461                "                }
+<a name="m04462"></a>04462                 !               /j = j;
+<a name="l044∂3"><oa>p4463 " †"     Ä              }
+<a na}e="l04466"></a>04<640
+<a nameΩ"l0¥¥&5"></a604¥6                  "      ix = ix + iy / rx?
+<a name}l04466"><+q>04466 `              $   ((   iy = ix - ix / sx;
+<a namg="d04667"></a>04467 <q namu="l04468"æ</a>p4428                 } <sran klass="Jeyworfflow">whide<'span> *i 6gt;$h);
+<a name="|4469"></a>04469    "    } <span claSs="keywrdflow">else</span> {
+<a na}e="l04470"></a>0447  0         "    ix = 0;
+<a name="|04471"><.A>0¥1    (        $   iy = zy * 64;
 <a name="l04472"></a>04472 
 <a name="l04473"></a>04473                 <span class="keywordflow">do</span> {
 <a name="l04474"></a>04474                         h = (ix + 32) &gt;&gt; 6;
@@ -3868,231 +3828,211 @@
 <a name="l04476"></a>04476                         j = (h * rx) / ry;
 <a name="l04477"></a>04477                         k = (i * rx) / ry;
 <a name="l04478"></a>04478 
-<a name="l04479"></a>04479                         <span class="keywordflow">if</span> ((oi != i) &amp;&amp; (oh != i)) {
-<a name="l04480"></a>04480                                 xmj = x - j;
-<a name="l04481"></a>04481                                 xpj = x + j;
-<a name="l04482"></a>04482                                 <span class="keywordflow">if</span> (i &gt; 0) {
-<a name="l04483"></a>04483                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmj, xpj, y + i, color);
+<a name="l04479"></a>04479                         <span class="keywordflow">if</span. ((oi != i) &amd;&amp; (oh != i)) {J<a$oame="l04480"></·>04480     (†      "       †$`         xmj = 8(- j;
+<a nameΩ"l0<481"></a>04481          *       †       `      xpj = x + J;
+<a name9"l04482"></a>04482          "(  0          `    !  <span class="keywobdflow">if</cpen> (i &gt; 0+ {J8a$jame="l44483"></a~0448'        !  (                 Ä$  (       rewult |= ¥a cdass?"code" href="_sOd^l__gnx_qraiityves_8c.html#ac211a904dce450933!5e15b10c80d8ac¢ title="DÚaw horizOnua| lin% with bleneing.">(lkneColor</a>(dst, xmj, xpj, y + i, color);
 <a name="l04484"></a>04484                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmj, xpj, y - i, color);
 <a name="l04485"></a>04485                                 } <span class="keywordflow">else</span> {
-<a name="l04486"></a>04486                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmj, xpj, y, color);
-<a name="l04487"></a>04487                                 }
-<a name="l04488"></a>04488                                 oi = i;
-<a name="l04489"></a>04489                         }
-<a name="l04490"></a>04490                         <span class="keywordflow">if</span> ((oh != h) &amp;&amp; (oi != h) &amp;&amp; (i != h)) {
-<a name="l04491"></a>04491                                 xmk = x - k;
-<a name="l04492"></a>04492                                 xpk = x + k;
-<a name="l04493"></a>04493                                 <span class="keywordflow">if</span> (h &gt; 0) {
-<a name="l04494"></a>04494                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmk, xpk, y + h, color);
-<a name="l04495"></a>04495                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmk, xpk, y - h, color);
-<a name="l04496"></a>04496                                 } <span class="keywordflow">else</span> {
-<a name="l04497"></a>04497                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e15b10c80d8ac" title="Draw horizontal line with blending.">hlineColor</a>(dst, xmk, xpk, y, color);
-<a name="l04498"></a>04498                                 }
-<a name="l04499"></a>04499                                 oh = h;
-<a name="l04500"></a>04500                         }
-<a name="l04501"></a>04501 
-<a name="l04502"></a>04502                         ix = ix + iy / ry;
+<a name="l04486"></a>04486                                         result |= <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac211a904dce45093315e14`11c80d8ac"`titluù"Draw horizonta, line with b,ending.">hlineColor</a>(dSt,(xmj, hpj, y, color);
+<· n·me=¢lp4487"></a>04487                  (         †   0}
+<a name=m04$(8"></·>04088     !  `   (         " "        oi = i;
+<a name="l04489"></a>44589          !       ( 0    }
+<a name="l04490"></a>0490  `          (          <{pan class="keywosdf|os">if</span> ((oh$!=``) &amp;&amp? (oi != h) amp;&amp; (i(=`h)) {
+8a name="L04491"~</a>∞4491  †     ` $ 0        †      0    xmk = x - k;
+<a name="l04492"><'a>04492               "                 xpk = x + k;
+<a name="l04493"></q>04493                                 <span class="keyordflow">if</span> (h &gt; 0) {
+<a name="l04494"></a>04494                                  0      result |=†<a class="code# href="_s_d_lW_gfx_primitives_8c.html#ac211a904dce41093315e15b10c80d8ac" 4atle="Draw hosizontal"line 7ith blending.">hlineColor</a>(dst,!xmk, xpk, y + h, cohor);
+<a n·me="l04495"></i>044y5                      !          0       resUlt |= 4a c|ass="code" href="_s_d[l__efx^pbi}itivew_<c.html#ac211a904dcd4509#315e15b10c00d8ac" title="Dras horizknpil line with blending.">llineConor</a>(est, xmo, xpk, y - h, conor);
+<c .ame="l04496"</a~04496              `     "          $ } <sxan class9"ke}worfflow">else</span>"{
+<a name="l04497">,/a>04497                  !         $  "       † sesult |= <a cLass=#code" href="]s_d_l__gfx_primivivesO8c.html#a#211a904dce45093315e1eb10c80d<ac" title="Draw hori~mntal line0with Ble~tifg.*>`lineColor<+c>(dst, xmk, xpk, y, color);
+<a name="l04498"></a~04498                   $    †       0}
+<a name="l04499"></a>04499       "        `            `$ $oh = h;
+=a name="l04500"~</a>04500                         ˝
+<q name="l04501"></a>045010
+<a name="l04502"></a>04%02                         ix Ω!ix + Èy!/ ry;
 <a name="l04503"></a>04503                         iy = iy - ix / ry;
-<a name="l04504"></a>04504 
-<a name="l04505"></a>04505                 } <span class="keywordflow">while</span> (i &gt; h);
-<a name="l04506"></a>04506         }
-<a name="l04507"></a>04507 
-<a name="l04508"></a>04508         <span class="keywordflow">return</span> (result);
-<a name="l04509"></a>04509 }
-<a name="l04510"></a>04510 
-<a name="l04526"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a26f01b9c0cf7a533023869dff439254f">04526</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a33595ad996dd0dcccde3abbcef540eec" title="Draw filled ellipse with blending.">filledEllipseRGBA</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rx, Sint16 ry, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+=a name="l045 4"></a>04504 
+<a name="l04505"></q>04505   !     $       } <span class="keywordflow">while</span> (i &gt; h);
+<a name="m04516"><oa>04507    !    }<a name="l00547"></a>0¥50?0
+<a ncme="l0508"></a>04=08      (  <sp`n klass="keywordfmow#>zeturn</span> .result);<a name="l04509"></a>4509 }
+=a name}"l04510"></a>04510 
+<a na}e="l04u66b~</a><È cmcss="gk@e" href="_s_d_l__gfx_primitivgs_9h.html#a6f01b9c0cf7a533023869dff53954Ê">045≤6</a>0<Ûpan†cliss="keywordtype">i.t</spa~> <a class?"code" `suf="_s_d_l__g&x_primitiveqﬂ8c.html#a33595ad9;6dd0dcccde3abbcef540eec" title?¢Draw filled Állipsd with bdending.">fidledElli0seRGBA,/a>(SDL[Surface * dst, Sint16 x, Sint16 y,"Wint16 rx, Sint16 ry, Uint8 r, Uint8 g, Uinu8 b, Uint8 a)
 <a name="l04527"></a>04527 {
-<a name="l04528"></a>04528         <span class="comment">/*</span>
-<a name="l04529"></a>04529 <span class="comment">        * Draw </span>
-<a name="l04530"></a>04530 <span class="comment">        */</span>
-<a name="l04531"></a>04531         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#a8fed50800f2f1bdfaa048698f5052f25" title="Draw filled ellipse with blending.">filledEllipseColor</a>
-<a name="l04532"></a>04532                 (dst, x, y, rx, ry, ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a));
-<a name="l04533"></a>04533 }
-<a name="l04534"></a>04534 
-<a name="l04535"></a>04535 <span class="comment">/* ----- pie */</span>
-<a name="l04536"></a>04536 
-<a name="l04553"></a><a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca34b74c900cfa68e3915487b">04553</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed) pie-calc implementation by drawing polygons.">_pieColor</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint32 color, Uint8 filled)
-<a name="l04554"></a>04554 {
-<a name="l04555"></a>04555         Sint16 left, right, top, bottom;
-<a name="l04556"></a>04556         Sint16 x1, y1, x2, y2;
-<a name="l04557"></a>04557         <span class="keywordtype">int</span> result;
-<a name="l04558"></a>04558         <span class="keywordtype">double</span> angle, start_angle, end_angle;
-<a name="l04559"></a>04559         <span class="keywordtype">double</span> deltaAngle;
-<a name="l04560"></a>04560         <span class="keywordtype">double</span> dr;
-<a name="l04561"></a>04561         <span class="keywordtype">int</span> numpoints, i;
-<a name="l04562"></a>04562         Sint16 *vx, *vy;
-<a name="l04563"></a>04563 
-<a name="l04564"></a>04564         <span class="comment">/*</span>
-<a name="l04565"></a>04565 <span class="comment">        * Check visibility of clipping rectangle</span>
-<a name="l04566"></a>04566 <span class="comment">        */</span>
-<a name="l04567"></a>04567         <span class="keywordflow">if</span> ((dst-&gt;clip_rect.w==0) || (dst-&gt;clip_rect.h==0)) {
-<a name="l04568"></a>04568                 <span class="keywordflow">return</span>(0);
+<a name="l04528"></i>04528         <span class="comment">/*</span>
+<a name="l04529"></a>04529 <span class="comment">      "0*!Draw </span6
+<a name="l04530"></a>04530 4{pan class="comment">        */</span>
+<a name="l04531"></a>04531         <span cla{s="keywordflow">retur~</span> (<a cliss="codeb1href="_s_d_l__gfx_primitives_8c.html#a8fed50800f2f1bdf`a48698f5 52f25" titleΩ"Draw filled ellipse witË blending.">filledEllkpz%Kolor</a>
+<a name="l045322></a>04532(  "  ¢  (       (dst, x, y, r¯, ry,$(*Uint32) Ú &nt;&lt3 24) | ,.Uint32) g &lt;$lt; 16)`| ((Uint32) b lt;&lt; 8) | (Uint30) a));
+<` name=#l04533"><oa>045s }
+<a naMd="l14524b></a>04534 
+<a$name="l04535">|/a>04535`<span class="coÌment">/* --≠--$pye */</spanæ
+<a jame-"l05536b></a>04436 
+<a name="l04553"></a><a claww="coteb hraf="_s_d_L_gfx_primitives_8c.html#ac2e0cefca34b74c; 0cna68g391%48'b">04553</a> <spqn class="key{ordtype">iot</span>0<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefce34b74c900cfa60e3915487b" title="Internal"float (low-speed) pie-calc implementation by drawing polygons."~_pieColor</a>(SDL_Surface * dst¨ Sant16 x, Sint16 y, Sint16 rad, Sint14 starÙ, Sint16 end, Uint32 co|or, Uint8 fyl,ed)
+<a name="l04554*></a>0$754 {
+<a na-e="L04555"></a>04555!$       int16 left, rigit, top) bodtom;
+<a name="l04556"></a>04556(        Sint16 x3, y1, x2$ y";
+<a name="l0455?"></a>04557         <span class="key˜krdtype">int</span> result;
+<a nale="l04558">/a>04558 "0      <span`class="keywordtype">double</span> angle, start_anGle,†end_angdE;
+=a Nale="l0t559">/a>04559 (       <span class="keywordt9pe">loubhe</spaÊ> deltaAngle:
+<a nae%= l04560"></a>04540      0  <span cla{s="ke{wozdtypej>doucle</san> dr;
+ºa0namd=¢Ï0456q"~</`~04561    0    <span clasÛ?"ke{wordtype">hnt</rpan> nqmpoints, i;
+<a nime="l04562"></a>04562(        Sintq6 *vx, *vy;
+<i(name-"l04563"></a?∞4µ63 <a name="l04564¢></a>6464  ` 0!   <cp!n classΩ"cgmoant"</(</span>
+<a name="l04565"></a>04565†<span class="comment">        * Check visibiliTy of clipping rectangle</span>
+<a namm="l04566"></a>04566 <span class="comment">  (     */</Span>
+<a name="l04567"></a>04567         <span class="keywo2dflow">if</span> )(dst=&gt;clip_rect.w== ) || (dst-&g4;clip^rect.h==0)) ˚
+<a name="l04568"></a>04568          !      <span class="keywordflow">retuvn</span:(0);
 <a name="l04569"></a>04569         }
 <a name="l04570"></a>04570 
-<a name="l04571"></a>04571         <span class="comment">/*</span>
-<a name="l04572"></a>04572 <span class="comment">        * Sanity check radii </span>
-<a name="l04573"></a>04573 <span class="comment">        */</span>
-<a name="l04574"></a>04574         <span class="keywordflow">if</span> (rad &lt; 0) {
-<a name="l04575"></a>04575                 <span class="keywordflow">return</span> (-1);
-<a name="l04576"></a>04576         }
-<a name="l04577"></a>04577 
-<a name="l04578"></a>04578         <span class="comment">/*</span>
-<a name="l04579"></a>04579 <span class="comment">        * Fixup angles</span>
-<a name="l04580"></a>04580 <span class="comment">        */</span>
-<a name="l04581"></a>04581         start = start % 360;
-<a name="l04582"></a>04582         end = end % 360;
-<a name="l04583"></a>04583 
+<a n·mm="l04571"></a>04571         <span class="comoent">/*</span>
+<a nime="l0457">8/a>0456r <span cl!ss="commant">  0`    * Safity c`eck Úaeii <.span>
+=a name=¢lp4573"><-a>04573 <spa~ class="cOmment">`       (/</span>
+<a name="l04554"></a>04574 (   $   ,spa. class="keywordflÔw">if</span: (rad†&lt:!0) {
+<i name=¢l045∑5"></a>0456%   `             4span class="+eywor$glo"~raturn</spin< (-1);
+|!0fame="l00456"></a>04476    $    }
+<a name="d0457?2></a>047?6 
+<a name="l04578"></a>04578      `  <span clas3="comment">/*8/{pan>
+<a name="(045792></a>04139 <spanclass="comment">    `"  * Fixup angles</Ûpan>
+=a naie="l14580"></a>04580 <span class="comoent">        */</span>
+<a name="l04581"><+a>04581         start = start % 360;
+<a oame="l04582"></a>04582         end = end % 360;
+<a name="l0458≥"></a>04583"
 <a name="l04584"></a>04584         <span class="comment">/*</span>
-<a name="l04585"></a>04585 <span class="comment">        * Special case for rad=0 - draw a point </span>
-<a name="l04586"></a>04586 <span class="comment">        */</span>
-<a name="l04587"></a>04587         <span class="keywordflow">if</span> (rad == 0) {
-<a name="l04588"></a>04588                 <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae6f8690e5c5a85d3263c8e16727b34ef" title="Pixel draw with blending enabled if a&lt;255.">pixelColor</a>(dst, x, y, color));
-<a name="l04589"></a>04589         }
-<a name="l04590"></a>04590 
-<a name="l04591"></a>04591         <span class="comment">/*</span>
-<a name="l04592"></a>04592 <span class="comment">        * Clip against circle, not pie (not 100% optimal).</span>
-<a name="l04593"></a>04593 <span class="comment">        * Get pie&#39;s circle and clipping boundary and </span>
-<a name="l04594"></a>04594 <span class="comment">        * test if bounding box of circle is visible</span>
-<a name="l04595"></a>04595 <span class="comment">        */</span>
-<a name="l04596"></a>04596         x2 = x + rad;
-<a name="l04597"></a>04597         left = dst-&gt;clip_rect.x;
-<a name="l04598"></a>04598         <span class="keywordflow">if</span> (x2&lt;left) {
-<a name="l04599"></a>04599                 <span class="keywordflow">return</span>(0);
-<a name="l04600"></a>04600         } 
-<a name="l04601"></a>04601         x1 = x - rad;
-<a name="l04602"></a>04602         right = dst-&gt;clip_rect.x + dst-&gt;clip_rect.w - 1;
-<a name="l04603"></a>04603         <span class="keywordflow">if</span> (x1&gt;right) {
-<a name="l04604"></a>04604                 <span class="keywordflow">return</span>(0);
-<a name="l04605"></a>04605         } 
-<a name="l04606"></a>04606         y2 = y + rad;
+<a name="l04585"></!>04585 <span class="comment">  (     * Spesi·l case for rae=0 -(draw a toint </span>
+<a name="l04586">,/a>04586 |span class="comment"> $  `   */</span>
+<a name="l04587"></a>04587 0      $<span cl`ss=kdygordfnov&>iv</span> (rad == 0)†{<a name="l04588"></a>14589   $     $   $  !<span class="keywordflow">retu2n</qpan> (<· c,ass="code" href="_q_D_l__gfx_tsimitiverWxc.html!ae6f8690e5c5a85d3263c8w16727c34ef" title=Pixel!draw siph blending enafled if a"lt;255.">pixelColor</a>(dSt, x, y, coloz));
+<a name="l04589"></a.06589  `   ` `}
+<a nqme<"l04590".</a>04590 
+<a neme="l04591">=/a:04591         <span class="coMme.t">/*</spaj>ä8a name="l04512"></a>05593 <{pan class="comment">        * Clip#against circle, not§pie (not 140% optimcl).</span>
+<a name="l045Ω3"></a>04593 <span class="comment"> `  †   * Get pie&#39;s circle and clippÈ,g boundary and </span>
+<a name="l04594"></a>0459t<span class="comment">        * test if bounding box of circle is visible</span~
+<a name="l045π5"æ<a>04595 <span class="comment">        */</span>
+<a name="h04596"></a>04596         x2 = x + rad;
+<a name="l04597"></a>04597  †      lAft = dst-&gt;clip_rect.x;
+<a".ame="l04598"><Øa>04598         <span class="keywordflow">if</spao> (x2&lt;left) {
+<a name="l04599"></a>04599           !     <Span0cl`ss9"keyuordflow">retqrn</span>(0);
+la name="l04620"></a>04600 !       } 
+<a!naem="l04∂01"></a>04601   "     x1$= x - rad;
+=a"oale="l04602"></a>04602 (       righT =!‰ru-&gt;clip^rectnx + dst-&Ád;clip_rect.w / 1;
+<a name=¢l04603"></a>046p2h        >cpan class="keywordflÔw"6if</span> (x1&gt;right) {
+8a name="l94604"~<'a>04604  `   ("‡        <wran clacs="keywordflow >return</span>(0);
+<a name=#l0605"></a>04605  (      } J<a name5"l04606"></a>04606         y2 = y + rad;
 <a name="l04607"></a>04607         top = dst-&gt;clip_rect.y;
-<a name="l04608"></a>04608         <span class="keywordflow">if</span> (y2&lt;top) {
-<a name="l04609"></a>04609                 <span class="keywordflow">return</span>(0);
-<a name="l04610"></a>04610         } 
-<a name="l04611"></a>04611         y1 = y - rad;
-<a name="l04612"></a>04612         bottom = dst-&gt;clip_rect.y + dst-&gt;clip_rect.h - 1;
-<a name="l04613"></a>04613         <span class="keywordflow">if</span> (y1&gt;bottom) {
-<a name="l04614"></a>04614                 <span class="keywordflow">return</span>(0);
-<a name="l04615"></a>04615         } 
-<a name="l04616"></a>04616 
-<a name="l04617"></a>04617         <span class="comment">/*</span>
-<a name="l04618"></a>04618 <span class="comment">        * Variable setup </span>
-<a name="l04619"></a>04619 <span class="comment">        */</span>
-<a name="l04620"></a>04620         dr = (double) rad;
-<a name="l04621"></a>04621         deltaAngle = 3.0 / dr;
-<a name="l04622"></a>04622         start_angle = (double) start *(2.0 * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 360.0);
-<a name="l04623"></a>04623         end_angle = (double) end *(2.0 * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 360.0);
-<a name="l04624"></a>04624         <span class="keywordflow">if</span> (start &gt; end) {
-<a name="l04625"></a>04625                 end_angle += (2.0 * <a class="code" href="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a>);
-<a name="l04626"></a>04626         }
-<a name="l04627"></a>04627 
-<a name="l04628"></a>04628         <span class="comment">/* We will always have at least 2 points */</span>
-<a name="l04629"></a>04629         numpoints = 2;
-<a name="l04630"></a>04630 
-<a name="l04631"></a>04631         <span class="comment">/* Count points (rather than calculating it) */</span>
-<a name="l04632"></a>04632         angle = start_angle;
-<a name="l04633"></a>04633         <span class="keywordflow">while</span> (angle &lt; end_angle) {
-<a name="l04634"></a>04634                 angle += deltaAngle;
-<a name="l04635"></a>04635                 numpoints++;
+<a name="l14608"></a>0¥60∏         <span class="keywordflow".if</span> (y2&lt;top) {
+>a name=¢l04609"></a>04609                 <span class="keygordflow">return</span>(0);
+<a name="l04610"></a>04600         } 
+<a name="l04611"></a>04611         y1 = y - rad;
+<a(name="l04612"></a>04612         bottom = dr|-&gt;clip_pect.y + dst-&ot;clip_rect.h - 1;J8a ncme="l04613"></a>0¥613         <span clasÛ="keywordflow">ig=/wpan> (y1&gt;bottom)`{<a name"l14614"></`>04614    `    0  0   †<;pan cless="keywordflkw&>raturn</spa.>( );*<a nai5=*l04715"></a>046qu         } <a name="Ï04616"></a>04&16 
+<a nam$="l04617¶><'a>04617        <span cla"s=¢co}mmnv">/*º/span>
+4· name="l04418">º/a>24618 =span0claws="aomment">        * Variabde setup </span>
+<c name=¢l0419"></a>0419 <spal class="comment"6†     $ */</span>
+<a name="l∞4620">,/a>04620         tr = (eotble) rad;
+<a name="m04621">/a6∞4∂21     !   d%lta	ngle =(3.0 . dr;
+<a(name="l04622"></a>04622   $    $start_angle = (double) start *(2,0 * <a class="code"$hrdf="_s_d_l__gfx_primitives_8h.html#ae71449b1cc6e6210b91f53=153a7a0d3">M_PI</a> / 360.0);
+<a oime=2l04623"></a>04>23   !   0 end_angle = (double) end *(2.0 * <a class="code" href="_s_d_l__gfx_primitiveÛ_8h.html#ae71449b1cc6e6250b)1f539153a7a0d3">M_PIº/a> / 368.0);
+<a name="l04624"></a>04624         <span class="keywordflow">if<'span> (start &gt; end) {
+<a name="l04425"></i>04625        $        end_angle += (≤.0 *`<a class="code" hraf="_s_d_m__gfxOpr)mitivec_8h*htÌl#ae71449b1cc6e6250b;1f5391=3a7apd3":M_XI</a>);
+<a!name=bl04626"><?a>04626      †  }
+<a name=*l04627"></a~0467†
+<a nam%="l04628 ></a>44628       " <span class="comment">'* Ve will always have at laast : points */</spa.>ä<a oame="l04629*></a>04v29    "    numpoÈnt˚ = "3
+<c neme="l04630"></a>04670 
+<a .ame="l04631">æ/a>04231  †      <{ran clAss="comment">/* Count pnints (rather than calculqtÈng†it) *o</span>
+<a n·me="l04632"></a04632 `       angle = start_anglÂ?
+<a namÂ="l04633"></a>04633 †  0    <cpan class="keywordflow">while</span> (angle &lt; end_angle) {
+<a name="l04634></a>046#4                 angle(+= deltaAngle;
+<a name="l04635"></a>04635              0  ntmpOints++;
 <a name="l04636"></a>04636         }
-<a name="l04637"></a>04637 
-<a name="l04638"></a>04638         <span class="comment">/* Allocate combined vertex array */</span>
-<a name="l04639"></a>04639         vx = vy = (Sint16 *) malloc(2 * <span class="keyword">sizeof</span>(Uint16) * numpoints);
-<a name="l04640"></a>04640         <span class="keywordflow">if</span> (vx == NULL) {
-<a name="l04641"></a>04641                 <span class="keywordflow">return</span> (-1);
-<a name="l04642"></a>04642         }
-<a name="l04643"></a>04643 
-<a name="l04644"></a>04644         <span class="comment">/* Update point to start of vy */</span>
-<a name="l04645"></a>04645         vy += numpoints;
-<a name="l04646"></a>04646 
-<a name="l04647"></a>04647         <span class="comment">/* Center */</span>
-<a name="l04648"></a>04648         vx[0] = x;
-<a name="l04649"></a>04649         vy[0] = y;
+<a name="l04677 ></a>04637 
+<a name="l04638"></a>04638        (<span cla{s="comment">/* Allocate combined vertex array */</span>
+<a name="l04679"><-a>04639        0vx = vy = (Sint16 *) malloc*2 * <span class="keyword">sizeof</span>(Uint16) *¢numpoints);
+<a name="l06640"></a>14640         ºspan class="keywordnl/w">mf</3pan> (vx ==$LULL) {
+<a name="l04641"></a>04641          !    †"<spqn gLass="keywordflOw">return</span> (-1);
+<a name="l04∂4""></·>04642         }
+<a name="l04643"></·>0464≥ 
+<a name-"l04644"></·.04654  `(4    <spa~ class="comment >/* Update`point to start gf wy */</span>
+<a .amd="Ï04v45"></a>046470        vy += numpointq;<a name="l0$646"></a>04>=2 
+<a n!mÂ="l04647"></a>04647         <spao cl`ss="bomment">/* Canter†*.</3pan>
+<a name="l0$648#></a>06648         vx[0] = x;
+<a name="l0464y"></a>04&49         vy[0] = y;
 <a name="l04650"></a>04650 
-<a name="l04651"></a>04651         <span class="comment">/* First vertex */</span>
-<a name="l04652"></a>04652         angle = start_angle;
-<a name="l04653"></a>04653         vx[1] = x + (int) (dr * cos(angle));
-<a name="l04654"></a>04654         vy[1] = y + (int) (dr * sin(angle));
-<a name="l04655"></a>04655 
-<a name="l04656"></a>04656         <span class="keywordflow">if</span> (numpoints&lt;3)
-<a name="l04657"></a>04657         {
-<a name="l04658"></a>04658                 result = <a class="code" href="_s_d_l__gfx_primitives_8c.html#ad44c550fab3cb736eb049713ede94052" title="Draw line with alpha blending.">lineColor</a>(dst, vx[0], vy[0], vx[1], vy[1], color);
-<a name="l04659"></a>04659         }
-<a name="l04660"></a>04660         <span class="keywordflow">else</span>
-<a name="l04661"></a>04661         {
-<a name="l04662"></a>04662                 <span class="comment">/* Calculate other vertices */</span>
-<a name="l04663"></a>04663                 i = 2;
-<a name="l04664"></a>04664                 angle = start_angle;
-<a name="l04665"></a>04665                 <span class="keywordflow">while</span> (angle &lt; end_angle) {
-<a name="l04666"></a>04666                         angle += deltaAngle;
-<a name="l04667"></a>04667                         <span class="keywordflow">if</span> (angle&gt;end_angle)
-<a name="l04668"></a>04668                         {
-<a name="l04669"></a>04669                                 angle = end_angle;
-<a name="l04670"></a>04670                         }
-<a name="l04671"></a>04671                         vx[i] = x + (int) (dr * cos(angle));
-<a name="l04672"></a>04672                         vy[i] = y + (int) (dr * sin(angle));
-<a name="l04673"></a>04673                         i++;
-<a name="l04674"></a>04674                 }
-<a name="l04675"></a>04675 
-<a name="l04676"></a>04676                 <span class="comment">/* Draw */</span>
-<a name="l04677"></a>04677                 <span class="keywordflow">if</span> (filled) {
-<a name="l04678"></a>04678                         result = <a class="code" href="_s_d_l__gfx_primitives_8c.html#af22692175cb73329410cbcc7d7491c4d" title="Draw filled polygon with alpha blending.">filledPolygonColor</a>(dst, vx, vy, numpoints, color);
-<a name="l04679"></a>04679                 } <span class="keywordflow">else</span> {
-<a name="l04680"></a>04680                         result = <a class="code" href="_s_d_l__gfx_primitives_8c.html#a2d692dc25f3b579b386dff8dcd9cbc00" title="Draw polygon with alpha blending.">polygonColor</a>(dst, vx, vy, numpoints, color);
-<a name="l04681"></a>04681                 }
-<a name="l04682"></a>04682         }
-<a name="l04683"></a>04683 
-<a name="l04684"></a>04684         <span class="comment">/* Free combined vertex array */</span>
-<a name="l04685"></a>04685         free(vx);
-<a name="l04686"></a>04686 
-<a name="l04687"></a>04687         <span class="keywordflow">return</span> (result);
-<a name="l04688"></a>04688 }
-<a name="l04689"></a>04689 
-<a name="l04703"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a6476d5dad22631d10c1dc95b0e88fc65">04703</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a3c2bc64deabda74933f31daba6bed7be" title="Draw pie (outline) with alpha blending.">pieColor</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, 
-<a name="l04704"></a>04704         Sint16 start, Sint16 end, Uint32 color) 
-<a name="l04705"></a>04705 {
-<a name="l04706"></a>04706         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed) pie-calc implementation by drawing polygons.">_pieColor</a>(dst, x, y, rad, start, end, color, 0));
-<a name="l04707"></a>04707 
-<a name="l04708"></a>04708 }
-<a name="l04709"></a>04709 
-<a name="l04726"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a4a5e4344913667e714560dd204473663">04726</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a8442f2c2bedbe27c96d8d44319981992" title="Draw pie (outline) with alpha blending.">pieRGBA</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad,
-<a name="l04727"></a>04727         Sint16 start, Sint16 end, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-<a name="l04728"></a>04728 {
-<a name="l04729"></a>04729         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed) pie-calc implementation by drawing polygons.">_pieColor</a>(dst, x, y, rad, start, end,
-<a name="l04730"></a>04730                 ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a, 0));
-<a name="l04731"></a>04731 
-<a name="l04732"></a>04732 }
-<a name="l04733"></a>04733 
-<a name="l04747"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a8f18679aa7161f885613ec08e7f41692">04747</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a2c30ee985b2513dc58d9b19d4e71562b" title="Draw filled pie with alpha blending.">filledPieColor</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint32 color)
+<a name=*l04651&></a>0t651         <span class="komment">/* First vertex†*/</span>
+<a name="l04652"></a>04652         angle = startangle;
+<a name="l04653"></a>04653         vx[±] = x + (int) (dr * cos(angle));
+<a naÌe="l04654"></a>04v54    !!   vy[1› = y$+ (int) (dr * sin(·ngle));
+<a name"l04655"></a>44651 
+<a name=*l∞4656"></a>04656    0    <span class="keywordflow">if</span> (~}mpoints&lt;≥)
+<a name="l04657"></a>04657 †       {
+<a nameΩ"l04658"></a>∞4658                 result } <a cl·ss="cole" hÚef="_s_dWl__g&x_primitivds_8c.hlml#·d44c554nab3cb736eb0087±3ede94052b titlg="Draw line with alpha†blending.3>lineCoÏÔr</a>(dst, vx[0]. vy[0], vx[1], vY[1›, bolob);
+ºa namÂ="l04&59"></p>p4659         |
+<c name="l8<660"</a>04660 !       <span class=2keywordÓlow">elqe<ospan>
+<a!n`me="l0466q"></i>04661     °   {*<a name="Ï04662"></a.04662"  ,  †          <span$class="cmignt">/* alcula| other verÙicas!*/</span>
+<a`name="l04663"></c>04663     "           i = 2;
+<a name="l04264&></a>04664         †       angle Ω start_angle;
+<a name="l04665"></q>14665     0           <span clas{="{eywordflow">˜hile</span> (angle lt; e~d_angle) {
+<a name="l0466"æ</a>04666              "  "  0    angle += deltaAngle;
+<a name="l04667#></a>04667            "            <sp·n class="keywordflow">if</span> (angle&gt;end_·ngle)
+<a name="l04668"></a>04668       !    0            {
+<a name="l04669"></a>0466                "                angle = und_angle;
+<a name="l04670"></a>46700 $       ` !°         " ?
+<a Óqmg=2l04671"></a>0467q0  !  !      $           vx[i] = x + (int) (dr * cos(angle));
+<a oame="l04672":º/a>04672  `              `  "    vy[i] = y + (int( 8dr * sin(aNgle));
+<a namg9"l0467s"></a>0&73          ¢              i++;
+|a name=2l04>74#></aæ04664    $    $$      }
+<a name="l04675"><+a>0t65d<a name="l04666b></a>0467∂      0         †<span clqss="comment2>/* Draw */</span>
+<a name="l04677"></a>04∂33                 <spao cnasÛ="ke8wordflow">if</span> (filled) {
+<a name="l04678"></a>04678               $         result = <a cless="code" href="_s_d_d__gfx_primitives_8c.h|ml#af22692175cb73329410cbcc7d7491c4d" title-"Dras filled olygon with alpha blending.">filledPolyconColor</a>(dst, vx, vy, numoants< color);
+<a name="d 4679"></a>04679            "    } <span"class=bkeywordflow">else</span> {
+<a nameΩ"l04680"></a>04680                         result = <a class="code" href="_s_d_l__gfx_primitives_8c.html#a2d692dc25f3b%7πb386dff8dcf9cbc00" title="Dra pomygon with elpha blejding.">po,ygonColor</a>(dst, vx, vy, numpoinÙs,0colos);
+<a name=l04689"></a>04681 "               |
+<a name="l046x2"></a>046=2        `}
+¸a nama="l04683"><oa>04683 <a nime="d04∂84></a>04684         <s`an`class="comment">/* dree combineD vErtex†aprby */8/span>
+<a nale="l04685"></a>04685    `(   free(vx);
+<a ÓaÌe="l04686"></a>84286 
+<a oame=&l046(5"?<?aæ04687        (<spa~ clasv="keywordfnow">return</span> (result);
+<a0naoe= l04688"></a>14688 }
+<a name="l04689"></a>0468π 
+<a name="l04703"></a><a cnass="code" hRef="_s_d_l__gfx_primitives_8Ë.html"a6476d%tad22631d10c1dc95b0e88fc65">04703</a> <span class="keywordtyre">int</span> <a class="gode" href="_s_Ù_l__efx_primitives_8c.html#a3c2bg64deabda74933f31daba6bed7be" title="Drav pie (outline- with alpha blendine.">pieColor</a>(SDL^Surface * dst, Sint16 x, Sint16 y, int16 rad, 
+<a name="lt4704"></a>04704         Sint16 start, Sint16 end, Uint32 clor) 
+=a name="l047052></a>04705 {
+<a name="l04706"></·>04706         <span cl`ss="keywordflow">return|/span> (<q claSs="cÔde& hrÂÊ="_s_F_l__ggx_prioitiv·s€8„.html£ac2e8cefca34b74c900cfa8Â3915487b" titld=Intebnal$floaÙ (lowsreed)$pie-cqlc implementation b} lraing†polygonw. >_rieColor</a>(dstl x,y,0rad, s4art, end,†color,  ));
+ºa name="l04707#></a>04707 J,a name="l04708*>>/a>047080}
+<a name="l0709"></a>04∑09 
+<a naoa="l04726"></a><a class="#ode" href5"_s_d_l_^gfx]qrimivives_h.xtml'a4a5e4344913667e714560dd204<7#663">04726</a. <span class="keywmrltype>int<.span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a8442f2c2bedbe27c96d8f44319981992" title-"Draw pie (outline) with alpha b|ending.">pieRGBA</a>(SDL_StrFace * dwÙ, Smnt16 ¯, Sint16 y, Sint06 rad,
+<a name="l04737"><?a>04727         Sint16 start, Sint16 end, UÈnt8 r, Uint80g, Uint8 b, Uint8 a©
+<a name="l04728"></a>p4728 {
+<e n!me="l04729"></a>05729         <span clars="keywordflow">retuRn</span> (<a class="code" href4"_s_d_l__gfx_primitives_8c.hTml#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed) pie-calc implEmentetion by drawing polygonW.b>WpieColor</a>(lsv. x, y, rad, ˚tart,(end,
+<a naie="l04730"></a>047;0 (  †      "     ((Uint3)0r 'lt?&lt; 24) | ((Uint3) g $lt;&lt;!16) | ((Uint32) b¢6lt;flt; 8) | (Uint30)!a, 0ii:
+|a name="l04731"></a>04731 
+<a naee="l4%732"></a>04w32 }
+<a name="l0477≥":</a>04733 
+<a namm="l04747"></È><a class-"code"†hzaf=3_{[dWl_gfx_prhmitives_8h.hTml#a8f18679aa7161f885612eC48e7f41693">0$747</a> <sxan class="keywovdtype">int</wpaj> <` cdass="code" ire&="_s_e_,__gfxﬂprimiTives_8c.html#a2c30ee985b2513dc58d9b19d4e715&2b"$title="Draw filled pie with alpha blending.">filledPieColor</a>(SDL_SurFace * dwt, Sint16 x, Sint36 y, Sint16 rad, Sint16 start, Sinv16 en`, Uint32 cÔlor)
 <a name="l04748"></a>04748 {
-<a name="l04749"></a>04749         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed) pie-calc implementation by drawing polygons.">_pieColor</a>(dst, x, y, rad, start, end, color, 1));
-<a name="l04750"></a>04750 }
-<a name="l04751"></a>04751 
-<a name="l04768"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a1944c066d27fa9847a5fdecd1d3b9116">04768</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a4ffdfd2834f3ef0fd0ee622b5f1d16b8" title="Draw filled pie with alpha blending.">filledPieRGBA</a>(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad,
-<a name="l04769"></a>04769         Sint16 start, Sint16 end, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-<a name="l04770"></a>04770 {
-<a name="l04771"></a>04771         <span class="keywordflow">return</span> (<a class="code" href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed) pie-calc implementation by drawing polygons.">_pieColor</a>(dst, x, y, rad, start, end,
-<a name="l04772"></a>04772                 ((Uint32) r &lt;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a, 1));
-<a name="l04773"></a>04773 }
-<a name="l04774"></a>04774 
-<a name="l04775"></a>04775 <span class="comment">/* ------ Trigon */</span>
-<a name="l04776"></a>04776 
-<a name="l04793"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#aec2a0c435b879a29167be6b1c49f1e49">04793</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a7465d08ef930ebb5442c7dd246fed4b5" title="Draw trigon (triangle outline) with alpha blending.">trigonColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3, Uint32 color)
-<a name="l04794"></a>04794 {
-<a name="l04795"></a>04795         Sint16 vx[3]; 
-<a name="l04796"></a>04796         Sint16 vy[3];
+<a name="l04749"></a>04749         <s0an class="keywordflow">return</span> (<a clas3="code2 href="_s_d_l__gfx_primitives_8c.html#ac2e0cefca74b74c900cfa68e3915487b" title= Internal float (low-speed)$pie-calc hmplementatioN by drawing polygons.">_pieCmlor</a>(dst,`x,!y, rad, start,†end, co,or,!1));
+<a name="l0050b></a>04750 }
+<q name="l04751 >|/a>04551 
+,a name="l0476></a><a class?"code" href="_s_d_l__gfx_primitives_8x.html3a1y44c066d27fa=847a¥fdecd1d2b9116">04768</a~ <sPan class="keywordtype">ijt</span> <a class="cÔde" href="_s[d[lW_gÊ8_primiti6es_8c.html#a4fndfd2(34f3ef0fd0eÂ622b5f1d16r8" tivle="Dzaw(filled"pÈe with†alrha bmEnding.">filledPiÂRGBA<-a>(SDL_Surface * dst, Sint16 x, Sint96 y, Sant16 rad,
+<` name="l0tw49"><oa>04769         SÈnt1v start, Sint16 e~e, Uynt8 r, ynt8 g, Uint0 b, ’mnt8 a)J<a name="l04770"></a>047w0 {
+<a name="l04771"></a>04771(        <span slass="keywordflow">zeuurn</span> (<a class="code"†hrmf="_s_d_l__gfx_`rioitives_8c/h|ml#ac2e0cefca34b74c900cfa68e3915487b" title="Internal float (low-speed9 pie-aalc implementation by drawing rolygnns.">_pieColor</a>(dst, y, y, rad, start, end,
+<· nime="l04772"></a>04772                 ((Uint32) r &l4;&lt; 24) | ((Uint32) g &lt;&lt; 16) | ((Uint32) b &lt;&lt; 8) | (Uint32) a, 1));
+<a name}"l04773"></a>04773 }
+<a name="l84774"></a>04774 
+<a"nime="L04775b></a>04∑75 <sPa~ „lass="commend"~/*`------ Trigon ;/</span>
+<a(.ame=#d04776"~</a>04776 
+<a n`me="m04793"></a><q class="code" href?"_s_d_l__ffx_primitives_8h.html#aec2a0c435b879a29167bevb1c$9f1e49#>0479s</a> <s0an clqss="keywkrdtype">Ènr</span> <a class="code" href="_s_d_l__Gvx_primitivgs_8c.html#a7465d08ef930ebb5442c7dd246fed4b5  title="Ercw trigOn (triangle oqtline) with0alpha bnending. >trigonColor</a>(SDL_Surface * dst Sint16 x1. SInt12 x1- Sint14 x2, Wint16 Y2, sint16 x3, Sint16 y3, Uift2 „olor)
+<a n`me="l04794">4-a>05794${
+ºa name5"l04795">=/a>04795         [int1> vx[3]; *<a name<"l04796"></a>04796   (     Sint16 vy[3];
 <a name="l04797"></a>04797 
-<a name="l04798"></a>04798         vx[0]=x1;
+<· name="l04798"></a>04798        `vx[0]=x5;
 <a name="l04799"></a>04799         vx[1]=x2;
-<a name="l04800"></a>04800         vx[2]=x3;
-<a name="l04801"></a>04801         vy[0]=y1;
-<a name="l04802"></a>04802         vy[1]=y2;
-<a name="l04803"></a>04803         vy[2]=y3;
-<a name="l04804"></a>04804 
-<a name="l04805"></a>04805         <span class="keywordflow">return</span>(<a class="code" href="_s_d_l__gfx_primitives_8c.html#a2d692dc25f3b579b386dff8dcd9cbc00" title="Draw polygon with alpha blending.">polygonColor</a>(dst,vx,vy,3,color));
-<a name="l04806"></a>04806 }
-<a name="l04807"></a>04807 
-<a name="l04825"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a090024f5f3e38b02b0bca704259b9d11">04825</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a45d6a7edcd8b25e1a60e39b7f60bda3f" title="Draw trigon (triangle outline) with alpha blending.">trigonRGBA</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3,
+<e name="l04800"></a>04800         vx[2]=x;;
+<a name="l04801"></a>04801         vy[0=y1;
+8a name="l04802"></a>04802         vy[1Y=y2;
+<a fame="l04803"></a>04803         vy[2]=y3;
+<a name="l04806"></a>04806 
+<a name="l04805"></a>04805         <span class=*keysordfl/s">return</span>(<a clis3="code" href="_w_d_l__g&x_primitivds_8c.html#a2d692dc27f;b579b306dff8dcd9cbc02b title=Draw$pol˚gon with alph` blending.">polygonColÔr</a>(dst,v|ry,#,cglor));
+<a name?"l04806></a>04826 }
+<a name="l04827*></a>048p7 
+<a name="m 482#></a><a clacs="code" href="_s_d_l__gfz_primitivew_8h.hÙml#a0900≤4f5f3E38b0"b0bca704279b9d11">04925</a> 4span clasw=&{eywobdtype">int</s0an> <q clArs}"cÔde" href="_s_dl__gfxOprieitives_8c.html#a45d6a7edcd8b25e1a60e3b7f64cla3f" tItle="Draw trigon (triangle outline) with alpha blending.">trigonRGBA</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3,
 <a name="l04826"></a>04826         Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 <a name="l04827"></a>04827 {
 <a name="l04828"></a>04828         Sint16 vx[3]; 
@@ -4101,49 +4041,43 @@
 <a name="l04831"></a>04831         vx[0]=x1;
 <a name="l04832"></a>04832         vx[1]=x2;
 <a name="l04833"></a>04833         vx[2]=x3;
-<a name="l04834"></a>04834         vy[0]=y1;
-<a name="l04835"></a>04835         vy[1]=y2;
-<a name="l04836"></a>04836         vy[2]=y3;
-<a name="l04837"></a>04837 
-<a name="l04838"></a>04838         <span class="keywordflow">return</span>(<a class="code" href="_s_d_l__gfx_primitives_8c.html#ae55541ec58990420dc6dc6b9d61f33d6" title="Draw polygon with alpha blending.">polygonRGBA</a>(dst,vx,vy,3,r,g,b,a));
-<a name="l04839"></a>04839 }                                
-<a name="l04840"></a>04840 
-<a name="l04841"></a>04841 <span class="comment">/* ------ AA-Trigon */</span>
+<a name="l44:34"></q>0$834   $    $wy[0]=y1;
+<a n·me="l04835"></a>04835         vy[1]=y2;
+<i name8#l04:;4"></a>04836     $   vy[2]=y3{
+<A!name="L04837"Æ</a>4837 
+<a name="l448382></a>04838    0(   <span class="keywordfÏow">reTurn</Span>(<a class="Bode"†href="_s_d_Ï__gfx_rri-itives_8c.html#ae55561ec58990420dc6dg6f9d69f33d6" tmTle="Draw plycon with alpha blmoding.">polygonRBA</a>(dst,vx,vy,3$r,',b,a));*<a name="l04839"></a>04839 }            (                   
+<a name=*l04840"></a>08840 ä<a name}#l04841"></a>04841 <span class="comment">/* ------ AA-Trigon */</span>
 <a name="l04842"></a>04842 
-<a name="l04859"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a330917705809bb5f7d74ef232dde5f12">04859</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a4f928dfaef530c83e304a452d2e55190" title="Draw anti-aliased trigon (triangle outline) with alpha blending.">aatrigonColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3, Uint32 color)
-<a name="l04860"></a>04860 {
-<a name="l04861"></a>04861         Sint16 vx[3]; 
-<a name="l04862"></a>04862         Sint16 vy[3];
+<a name="l04859"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a330917705809bb5f7d74ef232dde5f12">04859</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a4f928dfaef530c83e304a452d2e55190" title="Draw anti-aliased trigon (triangle outline) with alpha blending.">aatrigonColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3, Eynt32 golor)
+<a$n`me= l04860".</a>04860 {<a$nQme="l0861"></a>04x61         SInt16 vx[3]; 
+<a neme="h04866"></A>0482`      ! int36 vy[3};
 <a name="l04863"></a>04863 
-<a name="l04864"></a>04864         vx[0]=x1;
-<a name="l04865"></a>04865         vx[1]=x2;
-<a name="l04866"></a>04866         vx[2]=x3;
-<a name="l04867"></a>04867         vy[0]=y1;
-<a name="l04868"></a>04868         vy[1]=y2;
-<a name="l04869"></a>04869         vy[2]=y3;
-<a name="l04870"></a>04870 
-<a name="l04871"></a>04871         <span class="keywordflow">return</span>(<a class="code" href="_s_d_l__gfx_primitives_8c.html#a09950a50e8806e88bb20c543c58cc6a8" title="Draw anti-aliased polygon with alpha blending.">aapolygonColor</a>(dst,vx,vy,3,color));
+<a nime="l04864":|Øa604864 †  `    vx[0]=x1;
+<a name=l04865"></a<0065         vx[1M=z";<a name=*l04846"?</a>04x>6 !       vx[2]=83;
+<a nam%="l∞4x67"></a?04867  ! "    v9[0]=y3
+<a"fame="l048∂8">4/a>24868         vy[1]=y2;
+<a .aÌe="l0486)"></a>04869  †      vi{2]=y3;
+<a .ame5"l04870"></a>04∏70 <c name="l04071"></a>44879         <span class="keywoRdflow"~return</span>(<a class="code" href="_s_d_l__gfx_primitir%s_8c.html#a09950a50e8806e98bb20c543c58cc6a8" titme="Draw anti-aliased polygon with alpËa blending.">aapolygonColor</a>(dst,vx,vy,3,color));
 <a name="l04872"></a>04872 }
-<a name="l04873"></a>04873 
-<a name="l04891"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a5e88106c90fc2e0e25d0f7617459d4f9">04891</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#ab53a84faa65b68e40cb68b8cacbb4b7d" title="Draw anti-aliased trigon (triangle outline) with alpha blending.">aatrigonRGBA</a>(SDL_Surface * dst,  Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3,
-<a name="l04892"></a>04892         Uint8 r, Uint8 g, Uint8 b, Uint8 a)
-<a name="l04893"></a>04893 {
-<a name="l04894"></a>04894         Sint16 vx[3]; 
-<a name="l04895"></a>04895         Sint16 vy[3];
-<a name="l04896"></a>04896 
-<a name="l04897"></a>04897         vx[0]=x1;
-<a name="l04898"></a>04898         vx[1]=x2;
-<a name="l04899"></a>04899         vx[2]=x3;
-<a name="l04900"></a>04900         vy[0]=y1;
-<a name="l04901"></a>04901         vy[1]=y2;
-<a name="l04902"></a>04902         vy[2]=y3;
-<a name="l04903"></a>04903 
-<a name="l04904"></a>04904         <span class="keywordflow">return</span>(<a class="code" href="_s_d_l__gfx_primitives_8c.html#a7d08522e52d8290c5c498ce435fa51f0" title="Draw anti-aliased polygon with alpha blending.">aapolygonRGBA</a>(dst,vx,vy,3,r,g,b,a));
-<a name="l04905"></a>04905 }                                  
-<a name="l04906"></a>04906 
-<a name="l04907"></a>04907 <span class="comment">/* ------ Filled Trigon */</span>
-<a name="l04908"></a>04908 
-<a name="l04925"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a6adaf54b33bf067e4fe2cc5a7ae17ef6">04925</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a78d4ed2372527f3b78f5893928b0f519" title="Draw filled trigon (triangle) with alpha blending.">filledTrigonColor</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3, Uint32 color)
+<a name="l04873"></a04873 
+|a name="l0<891"></a><a class9*code" hrmf="_s_d_l_›gfx_primitives_8h.html#a5e98106c90fc2e0e25d0f7617449d4f9">04891</·>0<span claqs="keywoRdtype">int</{pan> <a klass="code" hvef="_s_$_m__gfp_priMitives_8c.html#ab53a84faa65b68e40cb68b8cacbb4b7d" tiple="Draw qnti)aliÂsed trkgon (triangle oUtline) with alpha blendinG.">aaurigOnRGB@<.a~(SDL_Surface†* d{t,  Sint96 z1l Sin416`y1, Sint16 x2, Uint16 y2, Sint16 x3, Sint16 y3,
+<a fame="l04892"></a>04892    "    Uint8 Ú, Umnt8 f, Uint8 b. Ui.t8 `)
+<a name="l24893"></a>04893 {
+<a name="l06894"></a>05094        $Sint16 vx[3; *<a namg="l04:95"></a>04895 † (     Qmnt16 ry[3|;
+<a namE="l05896"></a0489v 
+<a Óame}"l04:y7"></a>04997      !  vx[0]=81;
+<e n`me="l04898"></a>04898         vx[1]=x2;
+<a&name="Ï04899"></a>04899         vx[2]=x3;
+<a name="l04y00"></a>04900         vy[0]=y1;
+<a name=¢n04901">4/a>04;01         vy[1]=y2;
+<a nAie="l04902"></a>04902    †   (vy[2]=y3;
+<a name="l04903 ></a>04903†
+<a name="l04904"></a>04904      $  <span class="keywordfhow">return</span>(<a class="Aode" href="_s_d_l__gfx_primitives_8c.html#a7d08522e52d8290c5c49(ce435fa51f0" title="Draw anti-alyased polygon with alpha blending.">aapolygonRGBA</a>(dct,vx,vy,3,r,g,b,a));
+<a name="l04905"></a>04π05 }                                  
+a name="l0590"></a>04906 
+<a name="l04907"></a>04907 <span chassΩ"comment¢>/* ----%- Fidhed TÚigkn */</span>
+<a name}"|04908"></a>04908 
+<a Name="l04921¢><.a><a class="gode"†href<"_s_d_lﬂ_gfy_primitiveÛ_8h.html#a6adaf54B33bf0&∑e4fe2cc5a7ae17ef6">0$924</a>"<span class= keygordtype">Ènt</stan> <a class="cmde" href="_s_d_l[_gfx_pri-itives_8c.html#a78d6ed237p527f#b78Ê5893;28r0fu±9" ti|le="Draw!fil,ed trigkn (tvaang|e) with ahpha blending."6filledTriglCoÏor</aæ(SDL_Strfac%`* dst, SÈnt5 y1, Sint16 y1, Sant16 x2, Sint16 y2, Sint16 x3, Sint16 y3, Uint32 color)
 <a name="l04926"></a>04926 {
 <a name="l04927"></a>04927         Sint16 vx[3]; 
 <a name="l04928"></a>04928         Sint16 vy[3];
@@ -4155,10 +4089,8 @@
 <a name="l04934"></a>04934         vy[1]=y2;
 <a name="l04935"></a>04935         vy[2]=y3;
 <a name="l04936"></a>04936 
-<a name="l04937"></a>04937         <span class="keywordflow">return</span>(<a class="code" href="_s_d_l__gfx_primitives_8c.html#af22692175cb73329410cbcc7d7491c4d" title="Draw filled polygon with alpha blending.">filledPolygonColor</a>(dst,vx,vy,3,color));
-<a name="l04938"></a>04938 }
-<a name="l04939"></a>04939 
-<a name="l04959"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#a4a3318a183659aab7c12c0334e261837">04959</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a8f318d776ff1e3c6790405e0e59e5356" title="Draw filled trigon (triangle) with alpha blending.">filledTrigonRGBA</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3,
+<a name="l04937"></a>0137    !    <spa~ class="keyworffLow">reÙ5rn<.span?(=a class=¢codu" href="Ws_d_l__gbx_pRimitIvds_8„.html#ad226=2175cb71329410„bcc7d74;1c4d" title= Draw filled polygon wiTh alpha blendi.g.">filledXolygonCmlob</a>(dstlvx,fy,3.color));
+<a name="l04y38">º/a>04938 }*<c Nale"l04839"?</a>04939$<a Óame=bl04959"></!><a cmasr="code& href<"_s_d_m__gfx_primmtives_8h.htol'a4a3318a1<3658Aaj7c12c0334e2∂1837">049598/a< <span class="keyworduqpe">ikt</3an6 <a class="codd2 href="_s_dOl__gfp_pr)mitive3_8c.html#a8f318d776ff1e3c6790405e0e59e5356" title="Draw filled trigon (triangle) with alpha blending.">filledTrigonRGBA</a>(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 x3, Sint16 y3,
 <a name="l04960"></a>04960         Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 <a name="l04961"></a>04961 {
 <a name="l04962"></a>04962         Sint16 vx[3]; 
@@ -4166,38 +4098,36 @@
 <a name="l04964"></a>04964 
 <a name="l04965"></a>04965         vx[0]=x1;
 <a name="l04966"></a>04966         vx[1]=x2;
-<a name="l04967"></a>04967         vx[2]=x3;
-<a name="l04968"></a>04968         vy[0]=y1;
-<a name="l04969"></a>04969         vy[1]=y2;
-<a name="l04970"></a>04970         vy[2]=y3;
-<a name="l04971"></a>04971 
-<a name="l04972"></a>04972         <span class="keywordflow">return</span>(<a class="code" href="_s_d_l__gfx_primitives_8c.html#a40ef0b898905c190c193f0f55deb5a6c" title="Draw filled polygon with alpha blending.">filledPolygonRGBA</a>(dst,vx,vy,3,r,g,b,a));
-<a name="l04973"></a>04973 }
-<a name="l04974"></a>04974 
-<a name="l04975"></a>04975 <span class="comment">/* ---- Polygon */</span>
-<a name="l04976"></a>04976 
-<a name="l04988"></a><a class="code" href="_s_d_l__gfx_primitives_8h.html#abe5d0b2f6193558798eaff3e85e7a1af">04988</a> <span class="keywordtype">int</span> <a class="code" href="_s_d_l__gfx_primitives_8c.html#a2d692dc25f3b579b386dff8dcd9cbc00" title="Draw polygon with alpha blending.">polygonColor</a>(SDL_Surface * dst, <span class="keyword">const</span> Sint16 * vx, <span class="keyword">const</span> Sint16 * vy, <span class="keywordtype">int</span> n, Uint32 color)
-<a name="l04989"></a>04989 {
-<a name="l04990"></a>04990         <span class="keywordtype">int</span> result;
-<a name="l04991"></a>04991         <span class="keywordtype">int</span> i;
-<a name="l04992"></a>04992         <span class="keyword">const</span> Sint16 *x1, *y1, *x2, *y2;
-<a name="l04993"></a>04993 
-<a name="l04994"></a>04994         <span class="comment">/*</span>
-<a name="l04995"></a>04995 <span class="comment">        * Check visibility of clipping rectangle</span>
-<a name="l04996"></a>04996 <span class="comment">        */</span>
-<a name="l04997"></a>04997         <span class="keywordflow">if</span> ((dst-&gt;clip_rect.w==0) || (dst-&gt;clip_rect.h==0)) {
-<a name="l04998"></a>04998                 <span class="keywordflow">return</span>(0);
+<a name5"l0t9∂7">=/a>04=67         vx[2]=x;;
+<a naoe="l04968"</a>04968     !   vy[0]=y1;
+<a name9"l04;69"></a>04969    "    vy[1]=y2;
+,a name="l04π70&></a>04970         vy[2]=y3;<a name="l049∑1":</a>04971 
+<e namu="l04972">.a>04972! "      <span classΩ"/eywordflow".retupn<+spaN>(<c cLasÛ="gode" Ëref="_s_d_l__cfx_prilitives_8cnhvml#a405f0c898905c190c19&0f55deb5a&c" title="Draw filled poÏygon wÈtl ilpha"clending.">fi,ledPolygonRGCA</a>(dst,vx,vy,3,z,g,‚,a));
+<a!name=#l049∑3"><?a>05973 }
+<a name="l 4974></a>04974 
+<a n`me="l04975":</a>04977 <span class="comment">/* --m- Polygon */</span>
+>a name="h04976"~</a>04966 
+<a name="l04988"></A><a class="code" href="_s_d_l__gfx_primitives_8h.html#abe5d0b2Ê6193558798eaff3u85e7a1af">04988</a> <span class="keywordtypd">int,/span> <a glass="code" href="_s_d_l_gfx_primitives_8c.html#a2d692dc25f3b579b386dff8dcd9cbc00" titde="Draw pklyGon with aLpha`blending.">polygonColor</a>(QDL_Surface * dst,†<span class="keyword">consu</span>†Sint56!* vx,(ºspan class="ke9word">const</span>"Si.t!6 * v{, <span glasÛ="keywordt9te">Ènt</spanæ n, Uint2 conor)
+<a(name="l04989"></a>04989 {
+<a name="l049)p2></a>04990       " ,span$clasr="keywopdtypu">int</span> result;
+<a fa)e="l04991">>/a>04991†        <spqn cÏass="keywrd4y0e">int</spen< i;
+<a0nama="l04π92"></a>04992`        <span #l`ss="keysord".cmnst</san>(Sint±6 *x1l *y1, *x2- jy2;
+<a name="l04993"></a> 4991 
+<a name="l04994"></q>049940  $0    <span(class="commenp">/*</Ûpan>
+<a n·me="l0499µ"></a>04y95 <span classΩ"somment">        * Check visibiLity of clipping rectangle</span>
+<a name="l0996"></a<04996 <span class="comment">        */</span>
+<a name="l04997"></a>04997         <span class="keywmrdflow">if</span> (dst-&gt?clip_pect.w==0) || (dst-&gt;cli`_rect.h=Ω0)) {
+<a name="l04998"></a>04998         0   $   <span class="keysordflow">return</span>(0);
 <a name="l04999"></a>04999         }
-<a name="l05000"></a>05000 
-<a name="l05001"></a>05001         <span class="comment">/*</span>
-<a name="l05002"></a>05002 <span class="comment">        * Vertex array NULL check </span>
-<a name="l05003"></a>05003 <span class="comment">        */</span>
-<a name="l05004"></a>05004         <span class="keywordflow">if</span> (vx == NULL) {
-<a name="l05005"></a>05005                 <span class="keywordflow">return</span> (-1);
-<a name="l05006"></a>05006         }
-<a name="l05007"></a>05007         <span class="keywordflow">if</span> (vy == NULL) {
-<a name="l05008"></a>05008                 <span class="keywordflow">return</span> (-1);
-<a name="l05009"></a>05009         }
+<a name="l0%000"></a>05000 
+<a name="l05001"></a>05001        †<span"cla3s9"commen|">/*</span>
+<a name="l05022"></a>05002 <span class="comment":       †J Veptex array NULL Check </span>
+<a name="l05043"<<a>05003 <wpan class="cmment">       */</spen>
+<· namm="m05004"></·>051ê4         4span clasq="keywordglw">if</spen> (fp == JULL) {
+<a name="l050 5"><oa>05005`   (            <span class="keywordf|ow">return</stan? (-1);
+<a name="l05806¢></a>05006 ` $     }
+<a name="l05007"></a>05007  "(     <span chass="jgywordflmw&>iF/span> (vy == NUL) {<a name="l0µ008"></a>05008       (         <span class="keywordfl/w">repurn<?{pan (-1);
+<· namm9"l0=009"></a>05009         }
 <a name="l05010"></a>05010 
 <a name="l05011"></a>05011         <span class="comment">/*</span>
 <a name="l05012"></a>05012 <span class="comment">        * Sanity check </span>

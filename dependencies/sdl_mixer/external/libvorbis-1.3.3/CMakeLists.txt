@@ -12,6 +12,7 @@ endif()
 include_directories(../libogg-1.3.1/include)
 
 include_directories("${VORBIS_SOURCE_DIR}/include")
+include_directories("${VORBIS_SOURCE_DIR}/lib")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
 

@@ -32,7 +32,7 @@
 
 struct SDL_mutex {
 	pthread_mutex_t id;
-#if FAKE_RECURSIVE_MUTEX
+#ifdef FAKE_RECURSIVE_MUTEX
 	int recursive;
 	pthread_t owner;
 #endif
@@ -77,7 +77,7 @@ void SDL_DestroyMutex(SDL_mutex *mutex)
 int SDL_mutexP(SDL_mutex *mutex)
 {
 	int retval;
-#if FAKE_RECURSIVE_MUTEX
+#ifdef FAKE_RECURSIVE_MUTEX
 	pthread_t this_thread;
 #endif
 
@@ -87,7 +87,7 @@ int SDL_mutexP(SDL_mutex *mutex)
 	}
 
 	retval = 0;
-#if FAKE_RECURSIVE_MUTEX
+#ifdef FAKE_RECURSIVE_MUTEX
 	this_thread = pthread_self();
 	if ( mutex->owner == this_thread ) {
 		++mutex->recursive;
@@ -123,7 +123,7 @@ int SDL_mutexV(SDL_mutex *mutex)
 	}
 
 	retval = 0;
-#if FAKE_RECURSIVE_MUTEX
+#ifdef FAKE_RECURSIVE_MUTEX
 	/* We can only unlock the mutex if we own it */
 	if ( pthread_self() == mutex->owner ) {
 		if ( mutex->recursive ) {

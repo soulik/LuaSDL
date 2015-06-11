@@ -37,7 +37,7 @@ static struct {
 	TIFF* (*TIFFClientOpen)(const char*, const char*, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc);
 	void (*TIFFClose)(TIFF*);
 	int (*TIFFGetField)(TIFF*, ttag_t, ...);
-	int (*TIFFReadRGBAImage)(TIFF*, uint32, uint32, uint32*, int);
+	int (*TIFFReadRGBAImage)(TIFF*, TIFF_UINT32, TIFF_UINT32, TIFF_UINT32*, int);
 	TIFFErrorHandler (*TIFFSetErrorHandler)(TIFFErrorHandler);
 } lib;
 
@@ -71,7 +71,7 @@ int IMG_InitTIF()
 			return -1;
 		}
 		lib.TIFFReadRGBAImage =
-			(int (*)(TIFF*, uint32, uint32, uint32*, int))
+			(int (*)(TIFF*, TIFF_UINT32, TIFF_UINT32, TIFF_UINT32*, int))
 			SDL_LoadFunction(lib.handle, "TIFFReadRGBAImage");
 		if ( lib.TIFFReadRGBAImage == NULL ) {
 			SDL_UnloadObject(lib.handle);

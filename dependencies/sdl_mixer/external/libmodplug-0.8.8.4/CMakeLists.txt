@@ -77,7 +77,12 @@ if(WIN32)
 		configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/libmodplug.def ${CMAKE_CURRENT_BINARY_DIR}/src/libmodplug.def @ONLY)
 		set_target_properties(MODPLUG PROPERTIES LINK_FLAGS "/DEF:src/libmodplug.def")
 	endif()
+else()
+	configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/config.h @ONLY)
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/src")
+	add_definitions(-DHAVE_CONFIG_H)
 endif()
+
 include_directories("${MODPLUG_SOURCE_DIR}/src")
 include_directories("${MODPLUG_SOURCE_DIR}/src/libmodplug")
 

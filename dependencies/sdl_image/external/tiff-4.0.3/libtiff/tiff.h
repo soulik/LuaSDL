@@ -65,6 +65,7 @@
  * strings              unsigned char*
  */
 
+/*
 typedef TIFF_INT8_T   int8;
 typedef TIFF_UINT8_T  uint8;
 
@@ -76,6 +77,7 @@ typedef TIFF_UINT32_T uint32;
 
 typedef TIFF_INT64_T  int64;
 typedef TIFF_UINT64_T uint64;
+*/
 
 /*
  * Some types as promoted in a variable argument list

@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.1.0)
 project (luasdl)
 
-set(CMAKE_MODULE_PATH "${luasdl_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${luasdl_SOURCE_DIR}/cmake")
 
 set(luasdl_libraries "")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)

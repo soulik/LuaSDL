@@ -3,6 +3,7 @@
 set(SDL_VIDEO_DRIVER_AALIB OFF CACHE BOOL "Add support for AAlib")
 
 if (SDL_VIDEO_DRIVER_AALIB)
+	find_package(aa)
 	add_definitions(-DSDL_VIDEO_DRIVER_AALIB=1)
 endif()
 
@@ -11,10 +12,13 @@ endif()
 set(SDL_VIDEO_DRIVER_CACA OFF CACHE BOOL "Add support for CACA")
 
 if (SDL_VIDEO_DRIVER_CACA)
+	find_package(caca)
 	add_definitions(-DSDL_VIDEO_DRIVER_CACA=1)
 endif()
 
 # ------------------ AUDIO ------------------
+
+set(SDL_AUDIO_DISABLED OFF CACHE BOOL "Disable support for audio subsystem")
 
 set(SDL_AUDIO_SRC
     audio/disk/SDL_diskaudio.c
@@ -30,6 +34,9 @@ set(SDL_AUDIO_SRC
 )
 
 if (MINT)
+	set(SDL_AUDIO_DRIVER_MINT ON CACHE BOOL "Enable support for MINT audio driver")
+	
+	if (SDL_AUDIO_DRIVER_MINT)
 	list(APPEND SDL_AUDIO_SRC
 	    audio/mint/SDL_mintaudio.c
 	    audio/mint/SDL_mintaudio_dma8.c
@@ -38,6 +45,7 @@ if (MINT)
 	    audio/mint/SDL_mintaudio_stfa.c
 	    audio/mint/SDL_mintaudio_xbios.c
 	)
+	endif()
 endif()
 
 if (NDS)
@@ -48,15 +56,29 @@ if (NDS)
 endif()
 
 if (WIN32)
+	set(SDL_AUDIO_DRIVER_WAVEOUT ON CACHE BOOL "Enable support for Windows Waveout audio driver")
+	set(SDL_AUDIO_DRIVER_DSOUND ON CACHE BOOL "Enable support for MS DirectX audio driver")
+	
+	if (SDL_AUDIO_DRIVER_WAVEOUT)
 	list(APPEND SDL_AUDIO_SRC
 	    audio/windib/SDL_dibaudio.c
+	)
+	endif()
+	if (SDL_AUDIO_DRIVER_DSOUND)
+	list(APPEND SDL_AUDIO_SRC
 	    audio/windx5/SDL_dx5audio.c
 	)
+	endif()
 elseif(UNIX AND NOT APPLE)
-	list(APPEND SDL_AUDIO_SRC
-	    audio/dsp/SDL_dspaudio.c
-		audio/mme/SDL_mmeaudio.c
-    )
+	find_package(ALSA)
+	find_package(artsc)
+	find_package(ESD)
+	find_package(NASaudio)
+	find_package(pulseaudio)
+	#list(APPEND SDL_AUDIO_SRC
+	#	audio/dsp/SDL_dspaudio.c
+	#	audio/mme/SDL_mmeaudio.c
+	#)
 
 	if(BEOS)
 		list(APPEND SDL_AUDIO_SRC
@@ -79,18 +101,55 @@ elseif(UNIX AND NOT APPLE)
 		list(APPEND SDL_AUDIO_SRC
 		    audio/dmedia/SDL_irixaudio.c
 		)
-	else()
+	elseif(QNX)
 		list(APPEND SDL_AUDIO_SRC
-		    audio/alsa/SDL_alsa_audio.c
-		    audio/arts/SDL_artsaudio.c
-		    audio/dma/SDL_dmaaudio.c
-		    audio/esd/SDL_esdaudio.c
-		    audio/nas/SDL_nasaudio.c
 		    audio/nto/SDL_nto_audio.c
-		    audio/sun/SDL_sunaudio.c
-		    audio/ums/SDL_umsaudio.c
+		)
+	elseif(AIX)
+		list(APPEND SDL_AUDIO_SRC
 		    audio/paudio/SDL_paudio.c
-		    audio/pulse/SDL_pulseaudio.c
+		)
+	else()
+		if (ALSA_LIBRARY)
+			set(SDL_AUDIO_DRIVER_ALSA ON CACHE BOOL "Enable support for ALSA audio driver")
+			set(SDL_AUDIO_DRIVER_ALSA_DYNAMIC ON CACHE BOOL "Enable support for ALSA (dynamic) audio driver")
+			if (SDL_AUDIO_DRIVER_ALSA OR SDL_AUDIO_DRIVER_ALSA_DYNAMIC)
+			list(APPEND SDL_AUDIO_SRC
+				audio/alsa/SDL_alsa_audio.c
+			)
+			endif()
+		endif()
+		if (ARTS_LIBRARY)
+			list(APPEND SDL_AUDIO_SRC
+				audio/arts/SDL_artsaudio.c
+			)
+		endif()
+		if (ESD_LIBRARY)
+			set(SDL_AUDIO_DRIVER_ESD ON CACHE BOOL "Enable support for ESD audio driver")
+			set(SDL_AUDIO_DRIVER_ESD_DYNAMIC ON CACHE BOOL "Enable support for ESD (dynamic) audio driver")
+			if (SDL_AUDIO_DRIVER_ESD OR SDL_AUDIO_DRIVER_ESD_DYNAMIC)
+			list(APPEND SDL_AUDIO_SRC
+				audio/esd/SDL_esdaudio.c
+			)
+			endif()
+		endif()
+		if (NAS_LIBRARY)
+			list(APPEND SDL_AUDIO_SRC
+				audio/nas/SDL_nasaudio.c
+			)
+		endif()
+		if (PULSE_LIBRARY)
+			set(SDL_AUDIO_DRIVER_PULSE ON CACHE BOOL "Enable support for PulseAudio audio driver")
+			set(SDL_AUDIO_DRIVER_PULSE_DYNAMIC ON CACHE BOOL "Enable support for PulseAudio (dynamic) audio driver")
+			if (SDL_AUDIO_DRIVER_PULSE OR SDL_AUDIO_DRIVER_PULSE_DYNAMIC)
+			list(APPEND SDL_AUDIO_SRC
+				audio/pulse/SDL_pulseaudio.c
+			)
+			endif()
+		endif()
+		list(APPEND SDL_AUDIO_SRC
+		    audio/dma/SDL_dmaaudio.c
+		    audio/sun/SDL_sunaudio.c
 		)
 	endif()
 elseif(APPLE)
@@ -113,6 +172,8 @@ endif()
 
 # ------------------ CDROM ------------------
 
+set(SDL_CDROM_DISABLED OFF CACHE BOOL "Disable support for CD-ROM subsystem")
+
 set(SDL_CDROM_SRC
     cdrom/dummy/SDL_syscdrom.c
     cdrom/SDL_cdrom.c
@@ -125,6 +186,7 @@ if (MINT)
 endif()
 
 if (WIN32)
+	set(SDL_CDROM_DRIVER_WIN32 ON CACHE BOOL "Enable support for PulseAudio CD-ROM driver")
 	list(APPEND SDL_CDROM_SRC
 	    cdrom/win32/SDL_syscdrom.c
 	)
@@ -180,11 +242,15 @@ endif()
 
 # ------------------ CPUINFO ------------------
 
+set(SDL_CPUINFO_DISABLED OFF CACHE BOOL "Disable support for CPU-id subsystem")
+
 set(SDL_CPUINFO_SRC
     cpuinfo/SDL_cpuinfo.c
 )
 
 # ------------------ EVENTS ------------------
+
+set(SDL_EVENTS_DISABLED OFF CACHE BOOL "Disable support for events subsystem")
 
 set(SDL_EVENTS_SRC
     events/SDL_active.c
@@ -198,11 +264,15 @@ set(SDL_EVENTS_SRC
 
 # ------------------ FILE ------------------
 
+set(SDL_FILE_DISABLED OFF CACHE BOOL "Disable support for files subsystem")
+
 set(SDL_FILE_SRC
     file/SDL_rwops.c
 )
 
 # ------------------ JOYSTICK ------------------
+
+set(SDL_JOYSTICK_DISABLED OFF CACHE BOOL "Disable support for joystick subsystem")
 
 set(SDL_JOYSTICK_SRC
     joystick/dummy/SDL_sysjoystick.c
@@ -267,6 +337,8 @@ elseif(APPLE)
 endif()
 
 # ------------------ LOADSO ------------------
+
+set(SDL_LOADSO_DISABLED OFF CACHE BOOL "Disable support for dynamic-library-loading subsystem")
 
 set(SDL_LOADSO_SRC
     loadso/dummy/SDL_sysloadso.c
@@ -376,8 +448,9 @@ set(SDL_STDLIB_SRC
 
 # ------------------ THREAD ------------------
 
+set(SDL_THREAD_DISABLED OFF CACHE BOOL "Disable support for thread management subsystem")
+
 set(SDL_THREAD_SRC
-    thread/generic/SDL_syscond.c
     thread/SDL_thread.c
 )
 
@@ -385,20 +458,13 @@ if (PTH)
 	list(APPEND SDL_THREAD_SRC
 		thread/pth/SDL_syscond.c
 		thread/pth/SDL_sysmutex.c
-	    thread/pth/SDL_systhread.c
-	)
-endif()
-
-if (NOT WIN32)
-	list(APPEND SDL_THREAD_SRC
-	    thread/generic/SDL_sysmutex.c
-	    thread/generic/SDL_systhread.c
-	    thread/generic/SDL_syssem.c
+		thread/pth/SDL_systhread.c
 	)
 endif()
 
 if (WIN32)
 	list(APPEND SDL_THREAD_SRC
+	    thread/generic/SDL_syscond.c
 	    thread/win32/SDL_sysmutex.c
 	    thread/win32/SDL_syssem.c
 	    thread/win32/SDL_systhread.c
@@ -408,12 +474,24 @@ elseif(WINCE)
 	    thread/win32/win_ce_semaphore.c
 	)
 elseif(UNIX AND NOT APPLE)
-	list(APPEND SDL_THREAD_SRC
-	    thread/pthread/SDL_syscond.c
-	    thread/pthread/SDL_sysmutex.c
-	    thread/pthread/SDL_syssem.c
-	    thread/pthread/SDL_systhread.c
-	)
+	find_package(Threads)
+	
+	if (CMAKE_USE_PTHREADS_INIT)
+		list(APPEND SDL_THREAD_SRC
+			thread/pthread/SDL_syscond.c
+			thread/pthread/SDL_sysmutex.c
+			thread/pthread/SDL_syssem.c
+			thread/pthread/SDL_systhread.c
+		)
+	else()
+		list(APPEND SDL_THREAD_SRC
+			thread/generic/SDL_sysmutex.c
+			thread/generic/SDL_systhread.c
+			thread/generic/SDL_syssem.c
+			thread/generic/SDL_syscond.c
+		)
+	endif()
+	
 
 	if(BEOS)
 		list(APPEND SDL_THREAD_SRC
@@ -467,6 +545,8 @@ elseif(SYMBIAN)
 endif()
 
 # ------------------ TIMER ------------------
+
+set(SDL_TIMER_DISABLED OFF CACHE BOOL "Disable support for timer subsystem")
 
 set(SDL_TIMER_SRC
     timer/dummy/SDL_systimer.c
@@ -541,6 +621,8 @@ elseif(SYMBIAN)
 endif()
 
 # ------------------ VIDEO ------------------
+
+set(SDL_VIDEO_DISABLED OFF CACHE BOOL "Disable support for video subsystem")
 
 set(SDL_VIDEO_SRC
     video/dummy/SDL_nullevents.c
@@ -666,11 +748,20 @@ if (WIN32)
 	    video/windx5/SDL_dx5yuv.c
 	)
 elseif(UNIX AND NOT APPLE)
-	list(APPEND SDL_VIDEO_SRC
-	    video/svga/SDL_svgaevents.c
-	    video/svga/SDL_svgamouse.c
-	    video/svga/SDL_svgavideo.c
-	)
+	find_package(SVGAlib)
+	find_package(DirectFB)
+	find_package(FBcon)
+	find_package(NanoX)
+	find_package(X11)
+	
+	if (SVGALIB_LIBRARY)
+		list(APPEND SDL_VIDEO_SRC
+			video/svga/SDL_svgaevents.c
+			video/svga/SDL_svgamouse.c
+			video/svga/SDL_svgavideo.c
+		)
+	endif()
+	
 	if (VGL)
 		list(APPEND SDL_VIDEO_SRC
 		    video/vgl/SDL_vglevents.c
@@ -736,48 +827,62 @@ elseif(UNIX AND NOT APPLE)
 		    video/riscos/SDL_wimpvideo.c
 		)
 	else()
+		if (DIRECTFB_LIBRARY)
+			list(APPEND SDL_VIDEO_SRC
+				video/directfb/SDL_DirectFB_events.c
+				video/directfb/SDL_DirectFB_video.c
+				video/directfb/SDL_DirectFB_yuv.c
+			)
+		endif()
+		if (USE_FBCON)
+			list(APPEND SDL_VIDEO_SRC
+				video/fbcon/SDL_fb3dfx.c
+				video/fbcon/SDL_fbelo.c
+				video/fbcon/SDL_fbevents.c
+				video/fbcon/SDL_fbmatrox.c
+				video/fbcon/SDL_fbmouse.c
+				video/fbcon/SDL_fbriva.c
+				video/fbcon/SDL_fbvideo.c
+			)
+		endif()
+		if (NANOX_LIBRARY)
+			list(APPEND SDL_VIDEO_SRC
+				video/nanox/SDL_nxevents.c
+				video/nanox/SDL_nximage.c
+				video/nanox/SDL_nxmodes.c
+				video/nanox/SDL_nxmouse.c
+				video/nanox/SDL_nxvideo.c
+				video/nanox/SDL_nxwm.c
+			)
+		endif()
+		if (X11_FOUND)
+			list(APPEND SDL_VIDEO_SRC
+				video/x11/SDL_x11dga.c
+				video/x11/SDL_x11dyn.c
+				video/x11/SDL_x11events.c
+				video/x11/SDL_x11gamma.c
+				video/x11/SDL_x11gl.c
+				video/x11/SDL_x11image.c
+				video/x11/SDL_x11modes.c
+				video/x11/SDL_x11mouse.c
+				video/x11/SDL_x11video.c
+				video/x11/SDL_x11wm.c
+				video/x11/SDL_x11yuv.c
+			)
+			add_definitions(-DSDL_VIDEO_DRIVER_X11)
+		endif()
+		
 		list(APPEND SDL_VIDEO_SRC
-    		video/dga/SDL_dgaevents.c
-		    video/dga/SDL_dgamouse.c
-		    video/dga/SDL_dgavideo.c
+			video/dga/SDL_dgaevents.c
+			video/dga/SDL_dgamouse.c
+			video/dga/SDL_dgavideo.c
 
-		    video/directfb/SDL_DirectFB_events.c
-		    video/directfb/SDL_DirectFB_video.c
-		    video/directfb/SDL_DirectFB_yuv.c
-
-		    video/fbcon/SDL_fb3dfx.c
-		    video/fbcon/SDL_fbelo.c
-		    video/fbcon/SDL_fbevents.c
-		    video/fbcon/SDL_fbmatrox.c
-		    video/fbcon/SDL_fbmouse.c
-		    video/fbcon/SDL_fbriva.c
-		    video/fbcon/SDL_fbvideo.c
-
-    		video/nanox/SDL_nxevents.c
-		    video/nanox/SDL_nximage.c
-		    video/nanox/SDL_nxmodes.c
-		    video/nanox/SDL_nxmouse.c
-		    video/nanox/SDL_nxvideo.c
-		    video/nanox/SDL_nxwm.c
-
-		    video/x11/SDL_x11dga.c
-		    video/x11/SDL_x11dyn.c
-		    video/x11/SDL_x11events.c
-		    video/x11/SDL_x11gamma.c
-		    video/x11/SDL_x11gl.c
-		    video/x11/SDL_x11image.c
-		    video/x11/SDL_x11modes.c
-		    video/x11/SDL_x11mouse.c
-		    video/x11/SDL_x11video.c
-		    video/x11/SDL_x11wm.c
-		    video/x11/SDL_x11yuv.c
-
-		    video/Xext/Xinerama/Xinerama.c
-		    video/Xext/XME/xme.c
-		    video/Xext/Xv/Xv.c
-		    video/Xext/Xxf86dga/XF86DGA.c
-		    video/Xext/Xxf86dga/XF86DGA2.c
-		    video/Xext/Xxf86vm/XF86VMode.c
+			video/Xext/Xinerama/Xinerama.c
+			video/Xext/XME/xme.c
+			video/Xext/Xv/Xv.c
+			video/Xext/Xxf86dga/XF86DGA.c
+			video/Xext/Xxf86dga/XF86DGA2.c
+			video/Xext/Xxf86vm/XF86VMode.c
 		)
 	endif()
 elseif (APPLE)
@@ -844,6 +949,10 @@ source_group(timer FILES ${SDL_TIMER_SRC})
 source_group(video FILES ${SDL_VIDEO_SRC})
 
 include_directories(./)
+
+# -------------------------- CONFIG -----------------------------
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/SDL_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/SDL_config.h @ONLY)
 
 # ------------------- ADDITIONAL LIBRARIES ----------------------
 

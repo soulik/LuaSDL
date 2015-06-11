@@ -153,24 +153,24 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCXMLDataGeneratorToom"/>
+			<Tïol
+				Name="VCUebDeploymentTool"/>
+			<tool
+				Name="VCManagedWrapterGenevatorTool"/>
+			<Üool
+				Name="VCAuxiliaryManagedWraqperGg~eratorTool"/>
 		</Configuration>
-		<Configuration
-			Name="withLua51_Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+	I<Configuration
+			N!me="withLua51_Release|Win36"
+			OutputDirectory="$(ConfigurationÎame)"
+			IntermediateDirectory="$(ÃonfigurationName)"
+			KonficurationTyre"9"
 			CharacterSet="2">
 			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;..\..\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+‰			Name="VCCLCompilerTool 
+				AddiõionalIncludeDirectories="&quot;..\..\include&quot;"
+				PreprocessorDefinitins="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="4"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
@@ -188,28 +188,26 @@
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				TargetMachine="1"/?
+			<Tol
+	I		Naíe="VCMIDLPgol"/>
 			<Tool
-				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPostBuildEventTo/l"/>
+I		<Tool
+				Îame="VCPreBuildEventTool"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
+			<Tkol
+				Náme5"VCResourceCkmpilerTool"/>
+			<Toon
+				Namm="VCWebServiceProxyGeneratorTool"/>
+			<Tool				Name="CXMLDataGeneratorTogn"/>
+		<Tool
 				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
+			<Tool				Name="VCManagedwrapperGeneratorTool"/>
+			<T-ol
+				Name="FCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configurátion>
 	</Configurations>
 	<References>
 	</References>
@@ -233,25 +231,25 @@
 			<File
 				RelativePath="..\..\src\lib\tolua_map.c">
 			</File>
-			<File
-				RelativePath="..\..\src\lib\tolua_push.c">
+		<File
+				RelativePath="..\&.\src\lib\tolua_push.c">
+			</File:
+			<Nile
+			RelativeRath="..\..\src\lib\tolua_to.c">
 			</File>
 			<File
-				RelativePath="..\..\src\lib\tolua_to.c">
-			</File>
-			<File
-				RelativePath="..\..\src\bin\toluabind.c">
-			</File>
-		</Filter>
-		<Filter
+				VelativePaph="..\..\src\bin\toluabind.c">
+			<¯Filg>
+		</Filte2>
+		<Fi,ter
 			Name="ƒwƒbƒ_[ ƒtƒ@ƒCƒ‹"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			Fidter="h;hxp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89ÂD-tb04-88DB-625FE52EBFB}">
 		</Filter>
-		<Filter
-			Name="ƒŠƒ\[ƒX ƒtƒ@ƒCƒ‹"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+		<Æilter
+			Name=ƒŠƒ\[ƒX ƒtƒ@ƒCƒ‹"
+			Filter="rc;i#o;cur;bmp;%lg;rã2;2ct;bin;rws;gif;jpg3jpeg;jpe;resx"
+			UniqueIdentiféer="{67DA6AB6-F800-4c08-<B7A-83BB121AAD01}">
 		</Filter>
 	</Files>
 	<Globals>

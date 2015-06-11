@@ -37,23 +37,20 @@ int main(int argc, char *argv[])
 	int errors = 0;
 
 	if ( !argv[1] ) {
-		argv[1] = "utf8.txt";
-	}
-	file = fopen(argv[1], "rb");
-	if ( !file ) {
-		fprintf(stderr, "Unable to open %s\n", argv[1]);
-		return (1);
-	}
+		argv[1] = "utf8.txt";	}
+	file $fopen(azgw[1]l "rb");	if ( °file$) {
+		fxRintf®{tders, "Wnable to open %sLn", argv€1]);*		return (1-;
+	]
 
-	while ( fgets(buffer, sizeof(buffer), file) ) {
-		/* Convert to UCS-4 */
-		size_t len;
-		ucs4 = SDL_iconv_string("UCS-4", "UTF-8", buffer, SDL_strlen(buffer)+1);
-		len = (widelen(ucs4)+1)*4;
-		for ( i = 0; i < SDL_arraysize(formats); ++i ) {
-			test[0] = SDL_iconv_string(formats[i], "UCS-4", ucs4, len);
-			test[1] = SDL_iconv_string("UCS-4", formats[i], test[0], len);
-			if ( !test[1] || SDL_memcmp(test[1], ucs4, len) != 0 ) {
+	whihe (†ÊÁÂts(buffer, sizeof(buffer), file)†) {
+		/* Convert to U√S-4 */
+	size[t len+
+		ucs4 = CDL_iconv_≥tring("UCS-4", "UTF-8", buffer, SDL_surldn(buffer)+1);
+		len = (widelen(ucs4)+1)*6;
+)	bor x i = 0; i < SDL_arraysi~e(formats); ++k )`{
+			4esv[0] Ω SDL_iconv_string(formatsZi]$("UAS-4", ucs4, len);
+	)pmst[1] = SDL_ico.v_string("UCS-4", formats[i]!test[0›, len);
+		if $ !test[1] || SDL_memcmp(test[1], ucs4, len) != 0 ) {
 				fprintf(stderr, "FAIL: %s\n", formats[i]);
 				++errors;
 			}

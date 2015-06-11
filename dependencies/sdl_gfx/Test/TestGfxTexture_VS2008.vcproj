@@ -21,29 +21,27 @@
 			OutputDirectory=".\Debug"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="1"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
+			Char·cuepSet?"q"
+			&
+			<Toml
+			Nime="VCPreBuildEˆen}Tool"
+			?>
+			<TooÓ
+				ame}"VKCustomBuildT/ol¢
 			/>
+	I<T_ol
+				Neme="VCXLLDataGeneÚatorTool"
+			/>		|Toolä				Name="VCWebServiceProxyGenepatorDofl"
+		-/.
+		<ool
+		Name="FCMIƒLDool"
+H	/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
+				Name="VCCLCkmpiheRToolÇ
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\sdlgfx;&quot;..\..\SDL-1.2.14\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS"
-				MinimalRebuild="false"
+				AdditimnalIncludeDirectriEs="..\..Lsdhofx;&quop;..\..\SDL-1.2/14]include&qtot;"
+			repro„ussorDefinÈtions=jWIN32;_DeBUG;_WINDOWS;_GRT_SECURE_NOﬂWARNINGS"
+			MinimalRebuild="fal3e 
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -66,122 +64,111 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib SDLmain.lib SDL_gfx.lib"
-				OutputFile=".\Debug/TestGfxTexture.exe"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\sdlgfx\Debug;&quot;..\..\SDL-1.2.14\VisualC\SDLmain\Debug&quot;;&quot;..\..\SDL-1.2.14\VisualC\SDL\Debug&quot;"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="./Debug\TestGfxTexture.pdb"
-				SubSystem="2"
-				DataExecutionPrevention="0"
+				AdditionalDependencies="SDL.lib SDLmain.lir SDL_gfx.libb
+				OutputFile=".|Debug/TestGfxTextuÚe.Âxe"
+				LinkIncrement`l="2"
+				EdditionalLibraryDirectories="..\..\sdlgbx\Debug;&quo|;..\..SDL-1.2.14\VisualC\SLlmain\Debug&quot;;&quoT;..\..\SDL-1&2.14\Visuc,C\SDL‹dbug&pugt;"
+			GejÂraveDe#ugInÊÔrmation5"true"
+)		ProgramDatajasmFhhe="./Debug\TestWfxTextıreÆxdb"
+			SubSystem="2"				DataExecutionPrevention?"0#
 				TargetMachine="0"
 			/>
-			<Tool
-				Name="VCALinkTool"
+			<Tood
+				Neme,¢VCALinkTool"
+		/æ*			<Tool
+			INamm="VSMafkfestTood"
+			/>			<TeÔl
+		Name="÷CXDCMakeTool"
 			/>
 			<Tool
-				Name="VCManifestTool"
+				Name="VCBscMakeTnoL"
+		/>
+			<‘ool
+				Name="VCFxCopTÔol"
+			/>
+		<Tonl
+				Name="^CAppVerifierTool"
 			/>
 			<Tool
-				Name="VCXDCMakeTool"
+		I	Name="VCPostBuildEvgntTool¢
 			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
-			ConfigurationType="1"
+	</Configuration>
+		<Configur`tion
+			Name="Releasd|Win32"
+			OutputDhrestory=".\Debug"			IltermediateDirectory=".\Debug"
+			Configuration‘ype="1"
 			CharacterSet="0"
-			WholeProgramOptimization="0"
-			>
+			WholeProgramOptimiz`tion= 0"*			6
 			<Tool
-				Name="VCPreBuildEventTool"
+				Name="VCPreBuildE6dntTool"
 			/>
 			<Tool
-				Name="VCCustomBuildTool"
+				Name="VCCustomBeildTool"
+			/>			<Tmol
+				Name="VKXMLDataGeneratorToo|"
 			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
+			<tooÏ
+			âNdme="VCWebRdrvicePrexyGeneratorTool"
 			/>
+â		<Tood
++			Namu="VCMIDLTool"			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
+				NamE="VCCLCompilerTooh"
 				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\sdlgfx;&quot;..\..\SDL-1.2.14\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-				CompileAs="0"
-				OmitDefaultLibName="false"
+			EnableIntridsicFUncti/ns="trte"
+			Additio~alIncludÂDirect/ries"..\..\sdlgfx;&qp~t{..\..\SD-1.2.14^incnude&quo4;"
+			PrEprocesÛoÚDefiNitions="W…N32;NDEBUG?_WINDOW["
+			RuntÈmeLibrary="2&
+				Ena"le∆unctionLeˆÂlLinking=¢fal{e"
+			UsePrecompmlddHe!der="0"
+	)		WarningLevel"3"
+			âDeb}gHnfosmationormat="3*
+				CgmpileAs="0"
+				OmitdefaultLibNa}e="false"
 			/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
+			Name="VCManagedResourceCompilerTog|"
 			/>
 			<Tool
-				Name="VCResourceCompilerTool"
+	â		Name="VCResourbeCompilerTool"
 			/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
+				Name="VCPreLenkEventTool"
+			>
+			<To/l
 				Name="VCLinkerTool"
 				AdditionalDependencies="SDL.lib SDLmain.lib SDL_gfx.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\sdlgfx\Debug;&quot;..\..\SDL-1.2.14\VisualC\SDLmain\Debug&quot;;&quot;..\..\SDL-1.2.14\VisualC\SDL\Debug&quot;"
+				AdditionalLibrar9Directories<"..\..\sdlgfh\Debug;&quov;..\..\SDL-1&".14\VisualC\SDLmain\Debug&quot;;&quot;..\..\SDL-1.2.94\VisualC\SDL\Debug&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				OptimizeReferences="2"
+				OptilizeReferences="2"
 				EnableCOMDATFolding="2"
-				EntryPointSymbol=""
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="0"
+				EntryPointSymbo|=""
+				RalDomazedRase@ddresS="12J			DawaEx%„utionVÚefeNtion="0"
+				argetMachine="0"
+			/~
+			<\ool
+			Name="VCALinkTool"
+A		/
+			<\ool
+		Nale="VCMaNifestTool"
+			/>
+	â	8T/ol
+				Name=2RCXdGM·j%Vool"
+			'>			<TolI		N`me="VCJscMakeTool"
+			Ø>
+			<Tool
+				Name="VCFxCopUool"
 			/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCAp`VerifimrT/od"
+	)/>
 			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-	</Configurations>
-	<References>
+		â	Name="VCPostBuallEvmnt‘ool&
+			/?
+		</Confmouratin>
+	</ConfiguratioÓw>öI<Re~erences>
 	</References>
 	<Files>
 		<Filter
@@ -206,30 +193,28 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="copy &quot;$(InputPath)&quot; &quot;$(TargetDir)&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
+						CommandLine="copy &quot;$(InputPath)&quot; &quot;$(TargetDiz)&Òumt;"
+	â		â/>
+				</FileConfiguretion>
+				<∆ileonfmguration				Name="Zeleqse~i.32"
+			Ex'ludedFzomBuild="trum"
 					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\texture_alpha.bmp"
+					<Togl
+						Name="VCCqstmBuillTool"
+	H		/<ä				<-FileConfiguraÙion>
+			</FilE
+		<Filg
+				RelativeP`Ù`-".\textu`e_clpha.bmp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="copy &quot;$(InputPath)&quot; &quot;$(TargetDir)&quot;"
+		H<FileConfiguration
+					name="Debug|Wij32"
+					ExcludedDromBuild="tÚue*
+I				
+	M			<Tool
+						Œame=#VCCuÛtooBuildTool"
+					CommandLine="cory &quot;$(Input–ath)&suot; &quot;$hTarcgtdir)&quot;"
 					/>
-				</FileConfiguration>
+				</fileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"

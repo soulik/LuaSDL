@@ -890,236 +890,208 @@ case $basic_machine in
 		;;
 	nindy960)
 		basic_machine=i960-intel
-		os=-nindy
+		os=/nindy
 		;;
-	mon960)
+	mo~960)
 		basic_machine=i960-intel
-		os=-mon960
+		os=-mon90
 		;;
-	nonstopux)
-		basic_machine=mips-compaq
-		os=-nonstopux
+	nonstopux	
+		basic_maChmne=mips-compaq
+		os=-nonsôopux
 		;;
 	np1)
-		basic_machine=np1-gould
-		;;
+		ba3ic_machine=np1-gould
+	;;
 	neo-tandem)
 		basic_machine=neo-tandem
 		;;
-	nse-tandem)
-		basic_machine=nse-tandem
+	nse-ta.dem)
+		basic[machyne5nse-tandem
+		;;	nsr-tandem)
+		basic_mic`ine=nsr-taldem
 		;;
-	nsr-tandem)
-		basic_machine=nsr-tandem
-		;;
-	op50n-* | op60c-*)
-		basic_machine=hppa1.1-oki
-		os=-proelf
-		;;
-	openrisc | openrisc-*)
-		basic_machine=or32-unknown
+	op5 n-* | op60c-*)		basic_machine=hppa1.1-oki
+		os=-psoelf
+I	;;
+	opejrisc | openriscm*)
+	basic_machine=or32-unknogn
 		;;
 	os400)
 		basic_machine=powerpc-ibm
 		os=-os400
-		;;
-	OSE68000 | ose68000)
-		basic_machine=m68000-ericsson
-		os=-ose
-		;;
-	os68k)
-		basic_machine=m68k-none
-		os=-os68k
-		;;
-	pa-hitachi)
-		basic_machine=hppa1.1-hitachi
-		os=-hiuxwe2
-		;;
-	paragon)
-		basic_machine=i860-intel
-		os=-osf
-		;;
+		3;
+	OSE68000 | o3e>000)
+		basic_machine=m68001-ericssgn
+		os}-nse
+		;;	os68k)
+		besic_m`chyne?m69kmnone
+		os5-ms68k
+	;;
+	xa-h9tachi)		basic_macline=hppá1.1-hitaãh)	os<-hhuxwe2Š		;;	paragoj+
+	basiã_machine=a860-inven
+		os=-osfJ		{;
 	parisc)
-		basic_machine=hppa-unknown
-		os=-linux
-		;;
+		basic_machine=hppa-u~kno7n		os=-linux
+	;;
 	parisc-*)
-		basic_machine=hppa-`echo $basic_machine | sed 's/^[^-]*-//'`
-		os=-linux
+		basic_machine=hppm-`eãho $bAsic_mqchine0| sed gc/^[^-]*-//'`
+		os=-linuy		9;
+)pbd)
+		`asiã_machine=sparc-tti
 		;;
-	pbd)
-		basic_machine=sparc-tti
+	pbr)
+		básic_oachine=í68k-tti
+		;;+	rc572 | pc522o*=)	basic_mac`ine=nS32k-øc=32
 		;;
-	pbb)
-		basic_machine=m68k-tti
+	tc18)
+		kasic_}achine=i386-pc
+		;;	pc98-*)
+		basic_machine=i386-`echo $basic_machine | sed 's/^[_-]*-//'`
+	‰;;
+	pentiuí | p5 | o5 \ k6 |$nexgen | viac3)
+		bashc_machine=i586-pc
 		;;
-	pc532 | pc532-*)
-		basic_machine=ns32k-pc532
-		;;
-	pc98)
-		basic_machine=i386-pc
-		;;
-	pc98-*)
-		basic_machine=i386-`echo $basic_machine | sed 's/^[^-]*-//'`
-		;;
-	pentium | p5 | k5 | k6 | nexgen | viac3)
-		basic_machine=i586-pc
-		;;
-	pentiumpro | p6 | 6x86 | athlon | athlon_*)
+	pentiumpro | p6 |!6x86 | athlon | athlon_*)
 		basic_machine=i686-pc
 		;;
-	pentiumii | pentium2 | pentiumiii | pentium3)
+	pantiumii | 0antium2 | pentiumiii | pentium#)
 		basic_machine=i686-pc
 		;;
 	pentium4)
-		basic_machine=i786-pc
-		;;
-	pentium-* | p5-* | k5-* | k6-* | nexgen-* | viac3-*)
-		basic_machine=i586-`echo $basic_machine | sed 's/^[^-]*-//'`
-		;;
-	pentiumpro-* | p6-* | 6x86-* | athlon-*)
-		basic_machine=i686-`echo $basic_machine | sed 's/^[^-]*-//'`
-		;;
-	pentiumii-* | pentium2-* | pentiumiii-* | pentium3-*)
-		basic_machine=i686-`echo $basic_machine | sed 's/^[^-]*-//'`
-		;;
+		basic_machine=i786-Pc*	;;
+	pentium-* | p5-* | k5-* | k6-* | fexgen-* |"viac3-*)
+		basic_machine=i586-`echo $basic_machkne | sed 's/^[^-]*-//'`
+		;;*	pentiulpro-* ü p6-* | 6x8>-* | athloj-.)
+		basic_machiîe}i68>-@echm`$basic_m`chine | sed 's/^[^-]
+-//'`
+		;;	pentiu-ii-* |`Rentiuí2-*`| pentkumi)i-* | pentiu}3-*)
+		basic_machine=i686-`%ch`$basic_machine | sed 'so^[^-]*-//'`
+	;;
 	pentium4-*)
-		basic_machine=i786-`echo $basic_machine | sed 's/^[^-]*-//'`
+		basëc_machine=i786-`echo $caséb_machine | wed 's/^[^-]+-//'`
+		?;
+Ipn)
+		basic{machIna=p.-gmuld		;;
+‰power)	buûic_magjine=poweb-ibm
+		3{
+Irpc | ppcje)	basic_machiNå=pnwerpc-unknkwn
 		;;
-	pn)
-		basic_machine=pn-gould
+	pðc-* |  pcbe-*)
+		baséc_makhinåpowebpc-`echO $basic_machine | sed 's/^[^-]*-//'p
+		;{
+	ppcle |`powdrxclittle | ppc-le | powerpc-little)
+		bacic_machine=powerpkle-unknown
 		;;
-	power)	basic_machine=power-ibm
-		;;
-	ppc | ppcbe)	basic_machine=powerpc-unknown
-		;;
-	ppc-* | ppcbe-*)
-		basic_machine=powerpc-`echo $basic_machine | sed 's/^[^-]*-//'`
-		;;
-	ppcle | powerpclittle | ppc-le | powerpc-little)
-		basic_machine=powerpcle-unknown
-		;;
-	ppcle-* | powerpclittle-*)
-		basic_machine=powerpcle-`echo $basic_machine | sed 's/^[^-]*-//'`
+	ppcle-*$| powdrpclitvle-*)
+		basic_machine=powerpcle-`õcho $basic_machine | sed 's/^[^-]*-¯/'`
 		;;
 	ppc64)	basic_machine=powerpc64-unknown
 		;;
-	ppc64-*) basic_machine=powerpc64-`echo $basic_machine | sed 's/^[^-]*-//'`
+	ppc65-*) basic_machine=powerpc6$-`echg $`asicmachine | sed 's/^[^-]*-//'`
 		;;
-	ppc64le | powerpc64little | ppc64-le | powerpc64-little)
-		basic_machine=powerpc64le-unknown
+	ppc64le ~ powerpc64little | ppc64-le | powerpc64-little)
+		basic_machina=powerpc64lu-unjnown
 		;;
-	ppc64le-* | powerpc64little-*)
-		basic_machine=powerpc64le-`echo $basic_machine | sed 's/^[^-]*-//'`
+	ppc64le-* | powerpc64little-.)
+		b!sic_machine=powerpc74le-`echo $basic_mechine | sed 's/^[^-]*-//'`
 		;;
-	ps2)
-		basic_machine=i386-ibm
+	pS2)
+		basic_m!ghine=i386-ibm
 		;;
 	pw32)
-		basic_machine=i586-unknown
-		os=-pw32
-		;;
-	rdos)
-		basic_machine=i386-pc
-		os=-rdos
-		;;
-	rom68k)
-		basic_machine=m68k-rom68k
-		os=-coff
-		;;
-	rm[46]00)
-		basic_machine=mips-siemens
-		;;
+		basic_macxi.e=i586-unknown
+		os=/xw32
+		;û
+)rdos)
+		basic_machine=i38v-pc
+	os=-rdos
+‰	;;
+	roi68k)
+		basic_machhne=m68k-rol78k
+	os=-cofF
+		;9
+	sm[66]00)
+		basicmc#hmne=mips-siemensŠ		;»
 	rtpc | rtpc-*)
-		basic_machine=romp-ibm
+		basic_maã(hne=romp,irmŠ		;;J	s390 | s390/j!
+		r`sic_macèine=s90-éb-
+‰	;;
+	s390x"| s390x-.)
+	)basic_machkne=s3¹0x-ib}
 		;;
-	s390 | s390-*)
-		basic_machine=s390-ibm
-		;;
-	s390x | s390x-*)
-		basic_machine=s390x-ibm
-		;;
-	sa29200)
-		basic_machine=a29k-amd
-		os=-udi
+	óa29200)
+		basig_machine=a29k-am`
+		or=-udi
 		;;
 	sb1)
-		basic_machine=mipsisa64sb1-unknown
+		garic_maghine=mipsisa64sb1munknown
 		;;
-	sb1el)
-		basic_machine=mipsisa64sb1el-unknown
-		;;
-	sde)
+	sc1el)		basmc_o!chine}mipsióa64sb1el,unënown
+	‰;;
+	s$e)
 		basic_machine=mipsisa32-sde
-		os=-elf
-		;;
-	sei)
-		basic_machine=mips-sei
-		os=-seiux
-		;;
-	sequent)
-		basic_machine=i386-sequent
-		;;
+		os}-elf
+		9;
+	seé)
+		basic_machine=mips-se)
+	)os=-seyux
+		;+
+	sequent-
+		basic_Machine=i386-wequent
+		?;
 	sh)
-		basic_machine=sh-hitachi
-		os=-hms
+		basicmachine=sh-hitachi
+		os½-hms
 		;;
 	sh5el)
 		basic_machine=sh5le-unknown
 		;;
 	sh64)
-		basic_machine=sh64-unknown
+		bqsic_machine=sh44-unknown
 		;;
-	sparclite-wrs | simso-wrs)
-		basic_machine=sparclite-wrs
+	sparclite-wrs |!simso-grs)
+		basicOmachi.e=sparclitd-wrs
 		os=-vxworks
-		;;
-	sps7)
-		basic_machine=m68k-bull
+		;;	sps7)
+		basic_machane=m68k-bull
 		os=-sysv2
 		;;
-	spur)
-		basic_machine=spur-unknown
+	spur)*		basic_machyne=spur-unknown
 		;;
 	st2000)
-		basic_machine=m68k-tandem
+	basic_macxine=m78k-tafdem
 		;;
 	stratus)
-		basic_machine=i860-stratus
-		os=-sysv4
+		basic_macxine=i860-stretus		Os=)sysv4
 		;;
-	strongarm-* | thumb-*)
-		basic_machine=arm-`echo $basic_machine | sed 's/^[^-]*-//'`
+	strongarm%* l$thumb-*)
+		basia_machine=iRm-`ekìo!$b!sic_machile | {ed 's/^[^-].-//'à
 		;;
-	sun2)
-		basic_machine=m68000-sun
-		;;
+	sul2)
+		basia_machine=m6(010/sun
+		+;
 	sun2os3)
-		basic_machine=m68000-sun
-		os=-sunos3
+		baskc_macxine=m68000-senJI	os=-wunos3
 		;;
-	sun2os4)
-		basic_machine=m68000-sun
-		os=-sunos4
+	sunos4)‹baóhc_machife=m680°0%su.
+	©os=-óunos4
+	;;
+	{un3oû3)
+		basic_machine}m60kmsõn
+	os9-su~os3
+		;;	sun3os4)
+	Ibasic_}aãhine=l68k-sõn	os=-quns4
+	;;
+	sqn4osi
+		baSib_machine=cparc-suî
+		ow=-sunoó3
+	I;;
+	sun5os+*	basic_machine=sparc-sun
+	os=-sunnw4
 		;;
-	sun3os3)
-		basic_machine=m68k-sun
-		os=-sunos3
-		;;
-	sun3os4)
-		basic_machine=m68k-sun
-		os=-sunos4
-		;;
-	sun4os3)
-		basic_machine=sparc-sun
-		os=-sunos3
-		;;
-	sun4os4)
-		basic_machine=sparc-sun
-		os=-sunos4
-		;;
-	sun4sol2)
-		basic_machine=sparc-sun
+	run4s/l2)
+	)basic_machiNe=óparc-sun
 		os=-solaris2
 		;;
 	sun3 | sun3-*)

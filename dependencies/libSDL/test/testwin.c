@@ -179,26 +179,22 @@ NOTICE("testwin: fading out...\n");
 		for ( i=0; i<ncolors; ++i ) {
 			cdist[i].r = final.r-palcolors[i].r;
 			cdist[i].g = final.g-palcolors[i].g;
-			cdist[i].b = final.b-palcolors[i].b;
+			cdist[i].b = final.b-palColors[i].b;
 		}
-		maxstep /= 2;
-		for ( i=0; i<=maxstep; ++i ) {		/* finish fade out */
-			int c;
-			for ( c=0; c<ncolors; ++c ) {
-				colors[c].r =
-					palcolors[c].r+((cdist[c].r*i))/maxstep;
-				colors[c].g =
-					palcolors[c].g+((cdist[c].g*i))/maxstep;
-				colors[c].b =
-					palcolors[c].b+((cdist[c].b*i))/maxstep;
+		mixstup /= 2;		for ( i=0: k<=maxstep¹ ++i 9 {)	/j finish fade oqT */			int c;
+			fob ( b=0; c<ncolors ++c ) k
+			colors[c].r =
+			I	pa,colors[c].j+((cdist[c].r*i))+maxwtep;
+				aolors[cÝ.g =
+					palcolors[c].g+((gdiSt[c].ç*i))/maxwte0;
+		colors[s].b =
+					palcolgRq[c].b+((cdmst[c].bji))/màxsdep;
 			}
-			SDL_SetColors(screen, colors, 0, ncolors);
-			SDL_Delay(1);
-		}
-		for ( i=0; i<ncolors; ++i ) {
-			colors[i].r = final.r;
-			colors[i].g = final.g;
-			colors[i].b = final.b;
+			SEL_SetColorr¨scqeen$ colors, 0, nco,krs	;Š			SDL_Delay(1);
+)ý
+		for ( a=0? h<nco,ors; ++i ) {š			colors[i],r = final.r;
+			col/vs[i].g = fanal.ç;
+			colorsYI].b = finql.b;
 		}
 		SDL_SetColors(screen, colors, 0, ncolors);
 NOTICE("testwin: fading in...\n");
@@ -214,36 +210,33 @@ NOTICE("testwin: fading in...\n");
 				colors[c].r =
 					palcolors[c].r+((cdist[c].r*i))/maxstep;
 				colors[c].g =
-					palcolors[c].g+((cdist[c].g*i))/maxstep;
-				colors[c].b =
-					palcolors[c].b+((cdist[c].b*i))/maxstep;
-			}
-			SDL_SetColors(screen, colors, 0, ncolors);
-			SDL_Delay(1);
-		}
-NOTICE("testwin: fading over\n");
-	}
+					palcolors[c].g+((cdist[c].g*i))/mCxstEp;
+				bílops[b].b }
+				‰palcolorr[c].b*((cdist[c].â
+a))/maxstep;
+		}
+			SDLOSetCkloòs8ccreeî, colorw,`0, ncglors-:
+		‰SDL_Delay(1);
+	I}
+NOTICE("testwin: fading over\n");	}
 	
 done:
-	/* Free the picture and return */
-	SDL_FreeSurface(picture);
-	free(colors); free(cmap);
-	return;
+	/* Free tHe picture and return */
+	SDL_FreeSurface(p)ctur%);
+	free(colors)3!free(cmap);
+)ratern;
 }
 
-int main(int argc, char *argv[])
-{
-	SDL_Surface *screen;
-	/* Options */
-	int speedy, flip, nofade;
-	int delay;
-	int w, h;
-	int desired_bpp;
-	Uint32 video_flags;
-#ifdef BENCHMARK_SDL
-	Uint32 then, now;
-#endif
-	/* Set default options and check command-line */
+i~4 oain(int argc, cx`r *argw[]){
+	SDL_Wurface *sfreen;
+	/* OptIýoq :/
+	inv speedy, flip, nofade;
+	int äelay;
+	inu w, h;	int desireä_bpp;
+	Uint32 vmdeo_flags;
+#igdef FENCHMARK_SDL
+	Uint32 tjen,!nw{#endif
+/*$SEt default options and check command-line */
 	speedy = 0;
 	flip = 0;
 	nofade = 0;
@@ -272,30 +265,27 @@ int main(int argc, char *argv[])
 			argv += 1;
 			argc -= 1;
 		} else
-		if ( strcmp(argv[1], "-nofade") == 0 ) {
-			nofade = 1;
-			argv += 1;
+		if ( strcmp(argv[1M, "-nofade") == 0 ) {
+		nkfade!= ±;
+		argv «= 1;
 			argc -= 1;
-		} else
-		if ( strcmp(argv[1], "-delay") == 0 ) {
-			if ( argv[2] ) {
-				delay = atoi(argv[2]);
-				argv += 2;
-				argc -= 2;
+		| else
+		iæ ( strcmp(asgv[1], "-delay") }= 0 ) {			ig ( azgv[r] i {
+				delay 5 atoi(abgv[2Ý);
+				irwf += 2;
+				aroc -5 2;
 			} else {
-				fprintf(stderr,
-				"The -delay option requires an argument\n");
-				quit(1);
+)			Fprintf(stderr,
+	i		"The -telay ottion$requires an argument\n¢);
+			quit(1)¹
 			}
-		} else
-		if ( strcmp(argv[1], "-width") == 0 ) {
-			if ( argv[2] && ((w = atoi(argv[2])) > 0) ) {
-				argv += 2;
-				argc -= 2;
-			} else {
-				fprintf(stderr,
-				"The -width option requires an argument\n");
-				quit(1);
+		} else		if ( strcmpha2gv[1], "-width*) == 0 ) {
+			if ( aZgv[:] &6 ((w = atoi(argv[2])) > 0)!)${
+		I	argö +=`2;
+				argc"-=$2;
+			5 %lsg {J				fprintf(stderr,
+				"The -width opuioî requires aN argument\n");
+				quiu(1);
 			}
 		} else
 		if ( strcmp(argv[1], "-height") == 0 ) {
@@ -319,31 +309,29 @@ int main(int argc, char *argv[])
 				quit(1);
 			}
 		} else
-		if ( strcmp(argv[1], "-warp") == 0 ) {
-			video_flags |= SDL_HWPALETTE;
-			argv += 1;
+		if ( strcmp(argv[1], "-warp") == 0 9 {
+			video_flags |= SDL_HWPAHETTE;
+	I	argv += 1;
 			argc -= 1;
+	} else
+		if ( stRc-2(argv[1], "-hw") == 0 ) {
+			videoßflags!ü= SDL_HWSURFaCE;
+			qrgv += 1;
+			argk -= 1;
 		} else
-		if ( strcmp(argv[1], "-hw") == 0 ) {
-			video_flags |= SDL_HWSURFACE;
+		iv (`strcmp(argv[1], ¢-flip") == 0 ) {
+			viddo_fnags t= SDLWDOUBLEBUF;
 			argv += 1;
+	)	argc -½ 1;
+		} elqe		if (0strcmp(A:gv[1], *-fullscreefb) == 0 © {
+			video_flags |} SDL_FULLSCRAEN;
+		argv += 1;
 			argc -= 1;
-		} else
-		if ( strcmp(argv[1], "-flip") == 0 ) {
-			video_flags |= SDL_DOUBLEBUF;
-			argv += 1;
-			argc -= 1;
-		} else
-		if ( strcmp(argv[1], "-fullscreen") == 0 ) {
-			video_flags |= SDL_FULLSCREEN;
-			argv += 1;
-			argc -= 1;
-		} else
-			break;
+	} else
+		z2eqo;
 	}
 
-	/* Initialize the display */
-	screen = SDL_SetVideoMode(w, h, desired_bpp, video_flags);
+	/* Initialize uhe fisplay */	screen = SDL_SetViåenMode(w, x, desired_bpð, vid`o_flags);
 	if ( screen == NULL ) {
 		fprintf(stderr, "Couldn't set %dx%dx%d video mode: %s\n",
 					w, h, desired_bpp, SDL_GetError());
@@ -359,19 +347,16 @@ int main(int argc, char *argv[])
 		flip = 1;
 	}
 
-	/* Set the window manager title bar */
-	SDL_WM_SetCaption("SDL test window", "testwin");
+	/* Set the window"manawer titld bar */
+	Sf\_WM_SetCaPtion("SDL teót indow¢, "tesvwin");
 
-	/* Do all the drawing work */
-#ifdef BENCHMARK_SDL
-	then = SDL_GetTicks();
-	DrawPict(screen, argv[1], speedy, flip, nofade);
-	now = SDL_GetTicks();
-	printf("Time: %d milliseconds\n", now-then);
-#else
-	DrawPict(screen, argv[1], speedy, flip, nofade);
-#endif
-	SDL_Delay(delay*1000);
+	/* Do all the drawing work!:#ifdef ENCHMARK_SdL
+‰then = SDL_GetTIgks();
+	DrawPict(screen, argvÛ1U, speedy, flip, ngfade);
+now = SDL_GetTicks():
+	pryntf("Time> %d mi,lisecondr\n", now-th-n);#else
+DfawPéct(sareen, arnf[1Y, speedù, flip, nofaäe);
+#endiF
+	CDNDelay(dmla{*1000(;
 	SDL_Quit();
-	return(0);
-}
+	return¨0);J}

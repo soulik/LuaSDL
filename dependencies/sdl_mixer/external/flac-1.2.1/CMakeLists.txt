@@ -31,45 +31,56 @@ set(FLAC_SRC_FLAC
 )
 
 set(FLAC_SRC_LIBFLAC
-	src/libflac/bitmath.c
-	src/libflac/bitreader.c
-	src/libflac/bitwriter.c
-	src/libflac/cpu.c
-	src/libflac/crc.c
-	src/libflac/fixed.c
-	src/libflac/float.c
-	src/libflac/format.c
-	src/libflac/lpc.c
-	src/libflac/md5.c
-	src/libflac/memory.c
-	src/libflac/metadata_iterators.c
-	src/libflac/metadata_object.c
-	src/libflac/ogg_decoder_aspect.c
-	src/libflac/ogg_encoder_aspect.c
-	src/libflac/ogg_helper.c
-	src/libflac/ogg_mapping.c
-	src/libflac/stream_decoder.c
-	src/libflac/stream_encoder.c
-	src/libflac/stream_encoder_framing.c
-	src/libflac/window.c
+	src/libFLAC/bitmath.c
+	src/libFLAC/bitreader.c
+	src/libFLAC/bitwriter.c
+	src/libFLAC/cpu.c
+	src/libFLAC/crc.c
+	src/libFLAC/fixed.c
+	src/libFLAC/float.c
+	src/libFLAC/format.c
+	src/libFLAC/lpc.c
+	src/libFLAC/md5.c
+	src/libFLAC/memory.c
+	src/libFLAC/metadata_iterators.c
+	src/libFLAC/metadata_object.c
+	src/libFLAC/ogg_decoder_aspect.c
+	src/libFLAC/ogg_encoder_aspect.c
+	src/libFLAC/ogg_helper.c
+	src/libFLAC/ogg_mapping.c
+	src/libFLAC/stream_decoder.c
+	src/libFLAC/stream_encoder.c
+	src/libFLAC/stream_encoder_framing.c
+	src/libFLAC/window.c
 )
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	add_definitions(-DFLAC__CPU_PPC -DFLAC__USE_ALTIVEC -DFLAC__ALIGN_MALLOC_DATA)
 	set(FLAC_SRC_LIBFLAC_NASM
-		src/libflac/ppc/as/lpc_asm.s
+		src/libFLAC/ppc/as/lpc_asm.s
 	)
 ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Solaris")
 	add_definitions(-DFLAC__NO_ASM -DFLAC__ALIGN_MALLOC_DATA)
 ELSE()
-	add_definitions(-DFLAC__CPU_IA32 -DFLAC__USE_3DNOW -DFLAC__HAS_NASM -DFLAC__ALIGN_MALLOC_DATA)
-	set(FLAC_SRC_LIBFLAC_NASM
-		src/libflac/ia32/bitreader_asm.nasm
-		src/libflac/ia32/cpu_asm.nasm
-		src/libflac/ia32/fixed_asm.nasm
-		src/libflac/ia32/lpc_asm.nasm
-		src/libflac/ia32/stream_encoder_asm.nasm
-	)
+	if (NOT WIN32)
+		EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE TARGET_ARCH)
+	else()
+		set(TARGET_ARCH unknown)
+	endif()
+	
+	message("Target CPU architecture: ${TARGET_ARCH}")
+	
+	if ((${TARGET_ARCH} MATCHES "x86_64|x86"))
+		add_definitions(-DFLAC__CPU_IA32 -DFLAC__USE_3DNOW -DFLAC__HAS_NASM -DFLAC__ALIGN_MALLOC_DATA)
+		set(FLAC_SRC_LIBFLAC_NASM
+			src/libFLAC/ia32/bitreader_asm.nasm
+			src/libFLAC/ia32/cpu_asm.nasm
+			src/libFLAC/ia32/fixed_asm.nasm
+			src/libFLAC/ia32/lpc_asm.nasm
+			src/libFLAC/ia32/stream_encoder_asm.nasm
+		)
+	endif()
+	
 ENDIF()
 
 nasm_command(FLAC_SRC_LIBFLAC_NASM FLAC_ASM_OUT)
@@ -77,7 +88,7 @@ nasm_command(FLAC_SRC_LIBFLAC_NASM FLAC_ASM_OUT)
 set(FLAC_SOURCES ${FLAC_SRC_LIBFLAC})
 
 include_directories("${FLAC_SOURCE_DIR}/include")
-include_directories("${FLAC_SOURCE_DIR}/src/libflac/include")
+include_directories("${FLAC_SOURCE_DIR}/src/libFLAC/include")
 
 add_library(FLAC SHARED
 	${FLAC_SOURCES}

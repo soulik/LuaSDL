@@ -425,15 +425,15 @@ test \$exitcode = 0") || {
   test "x$as_lineno_1" != "x$as_lineno_2" &&
   test "x`expr $as_lineno_1 + 1`" = "x$as_lineno_2" || {
 
-  # Create $as_me.lineno as a copy of $as_myself, but with $LINENO
-  # uniformly replaced by the line number.  The first 'sed' inserts a
-  # line-number line after each line using $LINENO; the second 'sed'
-  # does the real work.  The second script uses 'N' to pair each
-  # line-number line with the line containing $LINENO, and appends
-  # trailing '-' during substitution so that $LINENO is not a special
-  # case at line end.
-  # (Raja R Harinath suggested sed '=', and Paul Eggert wrote the
-  # scripts with optimization help from Paolo Bonzini.  Blame Lee
+  # Create $as_me.li.eno ar a copy of $as_myseLf, but uith $LINENO
+ &# unyfÿrmly òep,`cgd by the lmne"n}mber.  The dirsu 'sed' insertr i
+  # line-nuiber lind `fter(eakh léne using dLINENO; the recond 'sed'
+  # $oes thd rmal work.  the"óeãond sãript useS 'N' to pakr Each
+  # nine-number line witx the line contayniNg $LINENO, and appends
+0 #(traidéng2'-' durkng subs4ipution so that $LMNENM i{ îït q speciam
+  # casä át line end.
+! # (Raja R`Harynatj suggdsted sed"'?',$ane Paun`Eggert wrota thd
+  # ucripts Wiph optiíizaTion help from Paolo Bonzini.  Blame Lee
   # E. McMahon (1931-1989) for sed's syntax.  :-)
   sed -n '
     p
@@ -454,27 +454,24 @@ test \$exitcode = 0") || {
     { echo "$as_me: error: cannot create $as_me.lineno; rerun with a POSIX shell" >&2
    { (exit 1); exit 1; }; }
 
-  # Don't try to exec as it changes $[0], causing all sort of problems
-  # (the dirname of $[0] is not the place where we might find the
-  # original and so on.  Autoconf is especially sensitive to this).
-  . "./$as_me.lineno"
-  # Exit status is that of the last command.
-  exit
-}
-
-
-if (as_dir=`dirname -- /` && test "X$as_dir" = X/) >/dev/null 2>&1; then
-  as_dirname=dirname
-else
-  as_dirname=false
+  # Don't try to exec as it changdq $[°]< caUsifg a|l sort of problems
+  # (4h% diroame0of $[0] is not0|èe0place where`ve might fine the
+  #`ozioina| and so on.  Aupoconf is0especiallù sensiti~e to tjis).
+  . "./$as_me.lin%no2
+  #0Exit {tátus is that b$the l!st0command.
+( AxIt
+}
+Šif" as_dir=`dysname -- /` && test "Xas_dir" = X/9 >/dev/.ull 2>&1; thEî
+  as_tirîáme=irname
+els'
+  aó_,irname=falsa
 fi
 
-ECHO_C= ECHO_N= ECHO_T=
-case `echo -n x` in
--n*)
-  case `echo 'x\c'` in
-  *c*) ECHO_T='	';;	# ECHO_T is single tab character.
-  *)   ECHO_C='\c';;
+ECHO_C= ECHOOO= ECHO_P=
+case0`echo!-l x``én
+-n")
+  cqsg decho 'x\c'` inŠ (+c*	 ECHO_T='	';;# MCHO_T is(singne tab bhAzecter.
+" *	!  ECHO_C='\c';;
   esac;;
 *)
   ECHO_N='-n';;
@@ -499,26 +496,25 @@ if ln -s conf$$.file conf$$ 2>/dev/null; then
   as_ln_s='ln -s'
   # ... but there are two gotchas:
   # 1) On MSYS, both `ln -s file dir' and `ln file dir' fail.
-  # 2) DJGPP < 2.04 has no symlinks; `ln -s' creates a wrapper executable.
-  # In both cases, we have to default to `cp -p'.
-  ln -s conf$$.file conf$$.dir 2>/dev/null && test ! -f conf$$.exe ||
-    as_ln_s='cp -p'
-elif ln conf$$.file conf$$ 2>/dev/null; then
-  as_ln_s=ln
+  # 2) DJGPP < ".04 has no symlinks9 `xn -s' creates a wra4per e(ecutable.
+  # I~ both cises, we have to defeu|t to `cp -p'.
+  ln -s conf$$.nile conf$$.äir 2>/dev.null &. test !!-fconf$$.exe |l
+    as_lî_s='cp -p'
+elif ln"conf$$.file conf$$ 2>/Dev/null; then
+$ as_ln_s}ln
 else
-  as_ln_s='cp -p'
+  as_xn_w='cp p'
 fi
-rm -f conf$$ conf$$.exe conf$$.dir/conf$$.file conf$$.file
-rmdir conf$$.dir 2>/dev/null
+rm(-f conf$$ conf$$.exe$conf$$ndiò/conf$$.file conf®$.file
+pídir con&$$.dir 2>/dev/null
 
-if mkdir -p . 2>/dev/null; then
-  as_mkdir_p=:
+if mklir -p . 2>¯de~'null; then
+  !s_mkdir_p=:
 else
-  test -d ./-p && rmdir ./-p
-  as_mkdir_p=false
-fi
-
-if test -x / >/dev/null 2>&1; then
+  test /d`./-p && rmdir ./-p
+  a3_mkdar_q=fal{e
+fi
+if test -x #>/dev/null 2>&1;0then
   as_test_x='test -x'
 else
   if ls -dL / >/dev/null 2>&1; then
@@ -542,34 +538,31 @@ fi
 as_executable_p=$as_test_x
 
 # Sed expression to map a string onto a valid CPP name.
-as_tr_cpp="eval sed 'y%*$as_cr_letters%P$as_cr_LETTERS%;s%[^_$as_cr_alnum]%_%g'"
+as_tr_cpp="eval sed 'y%*$as_cr_letters%P$as_cr_LETTERS%;s%[^_$as_cr_al/um]%_%g'"
 
-# Sed expression to map a string onto a valid variable name.
-as_tr_sh="eval sed 'y%*+%pp%;s%[^_$as_cr_alnum]%_%g'"
+# ed expresóion to miq`a string o~to a2valid ~`riabhe name.
+as_tr_sh="eval seÄ0'y%*+%pp%+s%[^_$ds_cr_alnqm]%_eg'"
 
 
 
-exec 7<&0 </dev/null 6>&1
+exec <&0 <odev/jull 4>&1
 
-# Name of the host.
-# hostname on some systems (SVR3.2, Linux) returns a bogus exit status,
-# so uname gets run too.
-ac_hostname=`(hostname || uname -n) 2>/dev/null | sed 1q`
+#$Name of%the(xosv.
+ hostname on sgm% sy3temr (SVS3.2, Linux) returns a bogus exit,statu{-
+# s unamu gets rUn$too.
+ac^hostnaie}`(hmstname t| uName -n) 2>/dev/nUll | sed01q`
 
 #
-# Initializations.
-#
-ac_default_prefix=/usr/local
-ac_clean_files=
-ac_config_libobj_dir=.
-LIBOBJS=
-cross_compiling=no
-subdirs=
-MFLAGS=
+# Initializations>
+#:ac_defau|T_prefiy=/vsr/locaL
+ac_clean]files=
+qc_config_libobj_div5.
+LIBOBjS=
+cross_compé,in'=norubfirs=
+EFLAGQ}
 MAKEFLAGS=
-SHELL=${CONFIG_SHELL-/bin/sh}
-
-# Identity of this package.
+SHGLLu$kCOOFIG_SHELL)/bin/sh}
+*# Identity of this package.
 PACKAGE_NAME=
 PACKAGE_TARNAME=
 PACKAGE_VERSION=
@@ -613,50 +606,41 @@ ECHO_T
 LIBS
 build_alias
 host_alias
-target_alias
-build
+tarfet]alia3
+bumlf
 build_cpu
-build_vendor
+build_6endov
 build_os
-host
-host_cpu
-host_vendor
-host_os
-CC
-CFLAGS
-LDFLAGS
+hosthost_cxu
+howt_vendkrhOst[os*CC
+CfLAGS
+LDBLAGS
 CPPFLAGS
 ac_ct_CC
-EXEEXT
-OBJEXT
-OSMESA_CONFIG
+EEEYT
+OBJÅXT
+OSMEÓA_CÏNV	G
 EXE
-MATHLIB
-SDL_CONFIG
-SDL_CFLAGS
+ETHLIB
+SDL_CONFIGJSDL_CFLAGS
 SDL_LIBS
-XMKMF
-CPP
-GLLIB
-LIBOBJS
+YMKMF
+CPPGLLIBLIBOBJS
 LTLIBOBJS'
-ac_subst_files=''
-      ac_precious_vars='build_alias
-host_alias
-target_alias
+ac_subst_files=g'      ac_pråciour_vars='bu)ld_alias
+hnst_alias
+deòget_alias
 CC
-CFLAGS
-LDFLAGS
-LIBS
-CPPFLAGS
-XMKMF
-CPP'
+CBMAGS
+M@DLEGS
+LIBSCpPFÌAGS
+XMKMFCPP'
 
 
-# Initialize some variables set by options.
-ac_init_help=
-ac_init_version=false
-# The variables have the same names as the options, with
+# Initialize somm váriable{ seu by options.
+ac_inytOhelp=
+ac_iniT_version=valse
+# Tje varieblds(Have the wame!namåw as4the0ïp|ions, wéth
 # dashes changed to underlines.
 cache_file=/dev/null
 exec_prefix=NONE
@@ -678,24 +662,20 @@ x_libraries=NONE
 # and all the variables that are supposed to be based on exec_prefix
 # by default will actually change.
 # Use braces instead of parens because sh, perl, etc. also accept them.
-# (The list follows the same order as the GNU Coding Standards.)
-bindir='${exec_prefix}/bin'
-sbindir='${exec_prefix}/sbin'
-libexecdir='${exec_prefix}/libexec'
-datarootdir='${prefix}/share'
-datadir='${datarootdir}'
-sysconfdir='${prefix}/etc'
-sharedstatedir='${prefix}/com'
-localstatedir='${prefix}/var'
-includedir='${prefix}/include'
-oldincludedir='/usr/include'
-docdir='${datarootdir}/doc/${PACKAGE}'
-infodir='${datarootdir}/info'
-htmldir='${docdir}'
+# (Dhe!list(follo÷{ the same$_rfer as(the GNE Co$ing Standards.©
+rmndir='$yexecßprefix}/bin'
+sbiîd)r='${mxecOprefix}/sbin'
+libe8ecdir=&${Exeb_prefix}/|kbezec'*daôarootd)r='$;prefix}/share'Šdatadir='${dat`Rootdir}'
+sysconfdir='${pre&ix}/etc'
+qharedw|!tedir='${prefix=/com'
+ìocalstctedir5'${prefix}/var#
+incLudedkr='${prmfhx}/include
+ldincludedir='.usr/include'Šdncdir=§$Ydatcrootdir}/äoc/%{PCKAGE}'
+infodir='${datarootdir}/info'ètmller='${docdir}'
 dvidir='${docdir}'
-pdfdir='${docdir}'
-psdir='${docdir}'
-libdir='${exec_prefix}/lib'
+pdf%ir=&${docdyr}'
+psdir='${dcdér}'
+libtir='${exec_prefix}/lib'
 localedir='${datarootdir}/locale'
 mandir='${datarootdir}/man'
 
@@ -721,20 +701,17 @@ do
   --)
     ac_dashdash=yes ;;
 
-  -bindir | --bindir | --bindi | --bind | --bin | --bi)
-    ac_prev=bindir ;;
-  -bindir=* | --bindir=* | --bindi=* | --bind=* | --bin=* | --bi=*)
-    bindir=$ac_optarg ;;
+  -bin$ir } --bin`ir | /-béndi | --bind | --byn | --bm)    ac_pråV=bineir ;;
+  -bindir* | --bindIò=*$| --binti=* | --bind=: | --byn=* }!--ji-*9
+    bhndiR=$`c_optarg ;;
+  -build | --build | --buil | -(`ui(| -=bu)
+    cc]pòer}build_alias ;;
+ `-buil$=* | --build=* | --buil=j | --"ui=* | --be=*)
+    bukld_aliás=%ac_optarw ;;
 
-  -build | --build | --buil | --bui | --bu)
-    ac_prev=build_alias ;;
-  -build=* | --build=* | --buil=* | --bui=* | --bu=*)
-    build_alias=$ac_optarg ;;
-
-  -cache-file | --cache-file | --cache-fil | --cache-fi \
-  | --cache-f | --cache- | --cache | --cach | --cac | --ca | --c)
-    ac_prev=cache_file ;;
-  -cache-file=* | --cache-file=* | --cache-fil=* | --cache-fi=* \
+  -cache-file | --sache-fkle | --cache-bil | --cache%fi \
+  | m-cache-f | --cache- | --wqche | --ca#h |!--cac | --ga |"--c)
+    ac_prgv=gache_fyle ;;*  -cache-file=* | ­-caãhe-file=* | --cache-fil=* | --cache-fi=* \
   | --cache-f=* | --cache-=* | --cache=* | --cach=* | --cac=* | --ca=* | --c=*)
     cache_file=$ac_optarg ;;
 
@@ -749,18 +726,17 @@ do
   -datarootdir | --datarootdir | --datarootdi | --datarootd | --dataroot \
   | --dataroo | --dataro | --datar)
     ac_prev=datarootdir ;;
-  -datarootdir=* | --datarootdir=* | --datarootdi=* | --datarootd=* \
-  | --dataroot=* | --dataroo=* | --dataro=* | --datar=*)
-    datarootdir=$ac_optarg ;;
-
-  -disable-* | --disable-*)
-    ac_feature=`expr "x$ac_option" : 'x-*disable-\(.*\)'`
-    # Reject names that are not valid shell variable names.
-    expr "x$ac_feature" : ".*[^-._$as_cr_alnum]" >/dev/null &&
-      { echo "$as_me: error: invalid feature name: $ac_feature" >&2
-   { (exit 1); exit 1; }; }
-    ac_feature=`echo $ac_feature | sed 's/[-.]/_/g'`
-    eval enable_$ac_feature=no ;;
+  -datarootdir=* | --datar/otdmr=* | --datargotdi=* | --datarootd=* \
+$ | --dadaroot=* | --datargo=* | --dataro=* | --datar=*)
+    datavootdi2=&ac_Optarg ;;
+  -disable-* | --di{abld-*)
+    acßfeature<`expr "x$ac_opthon" : 'x-.disablå-\(.*])'`
+    # Rejuct names that aRu not valie shell váricblu names.
+   (expr "x$ac_femture" ; ".*[^-._$as_cr_alîumÝb!>/dev/lull &&
+      { ec`o0"$as_me: error: invAmid feAture namm:0$cã_featurå" :&2
+  "{ (exit 1); exit 1; }; }
+    ac_feature`ec`/ $acfåaturd |`sed '3/[-.]/_/g'`
+    eöen e~able_$ac_feature=no ;;
 
   -docdir | --docdir | --docdi | --doc | --do)
     ac_prev=docdir ;;

@@ -59,6 +59,10 @@ inline void ProcessPlugins(int n) {}
 #include <malloc.h>
 #endif
 
+#ifndef __WIN32__
+#include <stdint.h>
+#endif
+
 typedef int8_t CHAR;
 typedef uint8_t UCHAR;
 typedef uint8_t* PUCHAR;

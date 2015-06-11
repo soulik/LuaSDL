@@ -8,109 +8,151 @@
 #define _TIFFCONF_
 
 /* Signed 16-bit type */
-#undef TIFF_INT16_T
+#cmakedefine TIFF_INT16 @TIFF_INT16_T@
+#cmakedefine TIFF_INT16_T @TIFF_INT16_T@
 
 /* Signed 32-bit type */
-#undef TIFF_INT32_T
+#cmakedefine TIFF_INT32 @TIFF_INT32_T@
+#cmakedefine TIFF_INT32_T @TIFF_INT32_T@
 
 /* Signed 64-bit type */
-#undef TIFF_INT64_T
+#cmakedefine TIFF_INT64_T @TIFF_INT64_T@
+#cmakedefine TIFF_INT64 @TIFF_INT64_T@
 
 /* Signed 8-bit type */
-#undef TIFF_INT8_T
+#cmakedefine TIFF_INT8_T @TIFF_INT8_T@
+#cmakedefine TIFF_INT8 @TIFF_INT8_T@
 
 /* Unsigned 16-bit type */
-#undef TIFF_UINT16_T
+#cmakedefine TIFF_UINT16_T @TIFF_UINT16_T@
+#cmakedefine TIFF_UINT16 @TIFF_UINT16_T@
 
 /* Unsigned 32-bit type */
-#undef TIFF_UINT32_T
+#cmakedefine TIFF_UINT32_T @TIFF_UINT32_T@
+#cmakedefine TIFF_UINT32 @TIFF_UINT32_T@
 
 /* Unsigned 64-bit type */
-#undef TIFF_UINT64_T
+#cmakedefine TIFF_UINT64_T @TIFF_UINT53_T@
+#cmakedefine TIFF_UINT64 @TIFF_UINT53_T@
 
 /* Unsigned 8-bit type */
-#undef TIFF_UINT8_T
+#cmakedefine TIFF_UINT8_T @TIFF_UINT8_T@
+#cmakedefine TIFF_UINT8 @TIFF_UINT8_T@
 
 /* Signed size type */
-#undef TIFF_SSIZE_T
+#cmakedefine TIFF_SSIZE_T @TIFF_SSIZE_T@
 
 /* Pointer difference type */
-#undef TIFF_PTRDIFF_T
+#cmakedefine TIFF_PTRDIFF_T @TIFF_PTRDIFF_T@
 
 /* Define to 1 if the system has the type `int16'. */
-#undef HAVE_INT16
+#cmakedefine HAVE_INT16
+#ifndef HAVE_INT16
+typedef @TIFF_INT16@ int16;
+#endif
 
 /* Define to 1 if the system has the type `int32'. */
-#undef HAVE_INT32
+#cmakedefine HAVE_INT32
+#ifndef HAVE_INT32
+typedef @TIFF_INT32@ int32;
+#endif
 
 /* Define to 1 if the system has the type `int8'. */
-#undef HAVE_INT8
+#cmakedefine HAVE_INT8
+#ifndef HAVE_INT8
+typedef @TIFF_INT8@ int8;
+#endif
+
+#cmakedefine HAVE_UINT8
+#ifndef HAVE_UINT8
+typedef @TIFF_UINT8@ uint8;
+#endif
+
+#cmakedefine HAVE_UINT16
+#ifndef HAVE_UINT16
+typedef @TIFF_UINT16@ uint16;
+#endif
+
+#cmakedefine HAVE_UINT32
+#ifndef HAVE_UINT32
+typedef @TIFF_UINT32@ uint32;
+#endif
+
+#cmakedefine HAVE_INT64
+#ifndef HAVE_INT64
+typedef @TIFF_INT64@ int64;
+#endif
+
+#cmakedefine HAVE_UINT64
+#ifndef HAVE_UINT64
+typedef @TIFF_UINT64@ uint64;
+#endif
 
 /* Compatibility stuff. */
 
 /* Define as 0 or 1 according to the floating point format suported by the
    machine */
-#undef HAVE_IEEEFP
+#cmakedefine HAVE_IEEEFP
 
 /* Set the native cpu bit order (FILLORDER_LSB2MSB or FILLORDER_MSB2LSB) */
-#undef HOST_FILLORDER
+#cmakedefine HOST_FILLORDER	@HOST_FILLORDER@
 
 /* Native cpu byte order: 1 if big-endian (Motorola) or 0 if little-endian
    (Intel) */
-#undef HOST_BIGENDIAN
+#cmakedefine HOST_BIGENDIAN	@HOST_BIGENDIAN@
 
 /* Support CCITT Group 3 & 4 algorithms */
-#undef CCITT_SUPPORT
+#cmakedefine CCITT_SUPPORT
 
 /* Support JPEG compression (requires IJG JPEG library) */
-#undef JPEG_SUPPORT
+#cmakedefine JPEG_SUPPORT
 
 /* Support JBIG compression (requires JBIG-KIT library) */
-#undef JBIG_SUPPORT
+#cmakedefine JBIG_SUPPORT
 
 /* Support LogLuv high dynamic range encoding */
-#undef LOGLUV_SUPPORT
+#cmakedefine LOGLUV_SUPPORT
 
 /* Support LZW algorithm */
-#undef LZW_SUPPORT
+#cmakedefine LZW_SUPPORT
 
 /* Support NeXT 2-bit RLE algorithm */
-#undef NEXT_SUPPORT
+#cmakedefine NEXT_SUPPORT
 
 /* Support Old JPEG compresson (read contrib/ojpeg/README first! Compilation
    fails with unpatched IJG JPEG library) */
-#undef OJPEG_SUPPORT
+#cmakedefine OJPEG_SUPPORT
 
 /* Support Macintosh PackBits algorithm */
-#undef PACKBITS_SUPPORT
+#cmakedefine PACKBITS_SUPPORT
 
 /* Support Pixar log-format algorithm (requires Zlib) */
-#undef PIXARLOG_SUPPORT
+#cmakedefine PIXARLOG_SUPPORT
 
 /* Support ThunderScan 4-bit RLE algorithm */
-#undef THUNDER_SUPPORT
+#cmakedefine THUNDER_SUPPORT
 
 /* Support Deflate compression */
-#undef ZIP_SUPPORT
+#cmakedefine ZIP_SUPPORT
 
 /* Support strip chopping (whether or not to convert single-strip uncompressed
    images to mutiple strips of ~8Kb to reduce memory usage) */
-#undef STRIPCHOP_DEFAULT
+#cmakedefine STRIPCHOP_DEFAULT
 
 /* Enable SubIFD tag (330) support */
-#undef SUBIFD_SUPPORT
+#cmakedefine SUBIFD_SUPPORT
 
 /* Treat extra sample as alpha (default enabled). The RGBA interface will
    treat a fourth sample with no EXTRASAMPLE_ value as being ASSOCALPHA. Many
    packages produce RGBA files but don't mark the alpha properly. */
-#undef DEFAULT_EXTRASAMPLE_AS_ALPHA
+#cmakedefine DEFAULT_EXTRASAMPLE_AS_ALPHA
 
 /* Pick up YCbCr subsampling info from the JPEG data stream to support files
    lacking the tag (default enabled). */
-#undef CHECK_JPEG_YCBCR_SUBSAMPLING
+#cmakedefine CHECK_JPEG_YCBCR_SUBSAMPLING
 
 /* Support MS MDI magic number files as TIFF */
-#undef MDI_SUPPORT
+#cmakedefine MDI_SUPPORT
 
 /*
  * Feature support definitions.

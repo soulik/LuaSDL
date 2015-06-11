@@ -59,6 +59,13 @@ if(NOT SMPEG_CONTROLS)
 	add_definitions(-DNOCONTROLS)
 endif()
 
+if (NOT WIN32)
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h @ONLY)
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+	add_definitions(-DHAVE_CONFIG_H)
+endif()
+
+
 include_directories("${SMPEG_SOURCE_DIR}")
 
 add_library(SMPEG SHARED

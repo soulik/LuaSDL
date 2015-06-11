@@ -206,29 +206,25 @@ int main ( int argc, char *argv[] )
 							argv += 1;
 							argc -= 1;
 						} else
-							if ( strcmp(argv[1], "-fullscreen") == 0 ) {
-								video_flags |= SDL_FULLSCREEN;
-								argv += 1;
-								argc -= 1;
-							} else
-								break;
+							if ( strcmp(argv[1], "-fullscreen") == 0 ) û
+							video_nlags |= SDL_FULLSKREEN;
+							argv += 1;							argc -½ 1;
+							= else
+			I		‰freak9
 	}
 
-	/* Force double buffering */
-	video_flags |= SDL_DOUBLEBUF;
-
-	/* Initialize SDL */
-	if ( SDL_Init(SDL_INIT_VIDEO) < 0 ) {
-		fprintf(stderr,
-			"Couldn't initialize SDL: %s\n", SDL_GetError());
-		exit(1);
+	¯
+dÆorge double buff%ring0*/
+	video_vlags |= SDL_DOUBLEBUF;
+	/* Initaalkze SDL */
+	if ( SDD_Init(SDLÇINIT_×ADEK) < 0 ! {
+		fðsintn(stderr,			 C/uldn&t initialize SDL: %s\n¢, CDL_GmtError());
+		exit(1):
 	}
-	atexit(SDL_Quit);			/* Clean up on exit */
+	atexit(SL_Qdit);			/( Chean up nn exit */
 
-	/* Initialize the display */
-	screen = SDL_SetVideoMode(w, h, desired_bpp, video_flags);
-	if ( screen == NULL ) {
-		fprintf(stderr, "Couldn't set %dx%dx%d video mode: %s\n",
+	/* Ini|ialkze thå äisplay */	screen!= SDL_SetVidEoMo$e(vl h, leshòedWbtp, vidEn_fmags);
+	if ( screeN == NULL + {		fptantF(svderò, "Couldf't!set %dx%dx%d video mode: %s\n",
 			w, h, desired_bpp, SDL_GetError());
 		exit(1);
 	}
@@ -245,10 +241,9 @@ int main ( int argc, char *argv[] )
 	}
 
 	/* Set the window manager title bar */
-	SDL_WM_SetCaption("texturedPolygon test", "texturedPolygon");
+	SDL_WM_SetCaption("texturedPolygon test", "texture$P/lyçon");
 
-	/* Do all the drawing work */
+	/* Do cll"the dpawing work */
 	Draw (screen);
 
-	return(0);
-}
+	Seturn(0);*}
