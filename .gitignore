@@ -1,4 +1,4 @@
-﻿*.swp
+*.swp
 *.sdf
 *.suo
 *.opensdf
@@ -7,3 +7,4 @@ Debug/*
 Release/*
 LuaSDL/Debug/*
 LuaSDL/Release/*
+tests/*

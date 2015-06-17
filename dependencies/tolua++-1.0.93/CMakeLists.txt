@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.1.0)
 project (TOLUAPP)
 
-set(CMAKE_MODULE_PATH "${SDLIMAGE_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${SDLIMAGE_SOURCE_DIR}/cmake")
 # include(${TOLUAPP_SOURCE_DIR}/cmake/testOS.cmake)
 
 # Include Lua 5.1

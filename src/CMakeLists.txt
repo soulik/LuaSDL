@@ -17,13 +17,16 @@ set(luasdl_version_script luasdl.version)
 
 IF(UNIX)
     IF(CMAKE_COMPILER_IS_GNUCC)
-         SET(CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} ${CMAKE_CXX_COMPILE_OPTIONS_VISIBILITY}hidden -Wl,--version-script=${luasdl_version_script}")
+         SET(CMAKE_SHARED_LINKER_FLAGS  "${CMAKE_SHARED_LINKER_FLAGS} ${CMAKE_CXX_COMPILE_OPTIONS_VISIBILITY}hidden -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/${luasdl_version_script}")
     ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-declarations")
 ENDIF(UNIX)
 
-add_definitions(-DLUA_BUILD_AS_DLL)
+if (WIN32)
+	add_definitions(-DLUA_BUILD_AS_DLL)
+endif()
+
 add_definitions(-DLUA_LIB)
 
 add_library(luasdl SHARED

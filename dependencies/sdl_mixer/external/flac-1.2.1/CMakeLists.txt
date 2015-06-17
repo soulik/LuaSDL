@@ -9,6 +9,8 @@ include(CheckIncludeFile)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/nasm.cmake)
 
+set(FLAC_USE_ASSEMBLY OFF CACHE BOOL "Use faster assembly compiled routines")
+
 # Ogg Vorbis
 
 if (NOT TARGET OGG)
@@ -54,36 +56,29 @@ set(FLAC_SRC_LIBFLAC
 	src/libFLAC/window.c
 )
 
-IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-	add_definitions(-DFLAC__CPU_PPC -DFLAC__USE_ALTIVEC -DFLAC__ALIGN_MALLOC_DATA)
-	set(FLAC_SRC_LIBFLAC_NASM
-		src/libFLAC/ppc/as/lpc_asm.s
-	)
-ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Solaris")
-	add_definitions(-DFLAC__NO_ASM -DFLAC__ALIGN_MALLOC_DATA)
-ELSE()
-	if (NOT WIN32)
-		EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE TARGET_ARCH)
-	else()
-		set(TARGET_ARCH unknown)
-	endif()
-	
-	message("Target CPU architecture: ${TARGET_ARCH}")
-	
-	if ((${TARGET_ARCH} MATCHES "x86_64|x86"))
-		add_definitions(-DFLAC__CPU_IA32 -DFLAC__USE_3DNOW -DFLAC__HAS_NASM -DFLAC__ALIGN_MALLOC_DATA)
+if (FLAC_USE_ASSEMBLY)
+	IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		add_definitions(-DFLAC__CPU_PPC -DFLAC__USE_ALTIVEC -DFLAC__ALIGN_MALLOC_DATA)
 		set(FLAC_SRC_LIBFLAC_NASM
-			src/libFLAC/ia32/bitreader_asm.nasm
-			src/libFLAC/ia32/cpu_asm.nasm
-			src/libFLAC/ia32/fixed_asm.nasm
-			src/libFLAC/ia32/lpc_asm.nasm
-			src/libFLAC/ia32/stream_encoder_asm.nasm
+			src/libFLAC/ppc/as/lpc_asm.s
 		)
-	endif()
-	
-ENDIF()
+	ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Solaris")
+		add_definitions(-DFLAC__NO_ASM -DFLAC__ALIGN_MALLOC_DATA)
+	ELSE()
+		if ((${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64|x86"))
+			add_definitions(-DFLAC__CPU_IA32 -DFLAC__USE_3DNOW -DFLAC__HAS_NASM -DFLAC__ALIGN_MALLOC_DATA)
+			set(FLAC_SRC_LIBFLAC_NASM
+				src/libFLAC/ia32/bitreader_asm.nasm
+				src/libFLAC/ia32/cpu_asm.nasm
+				src/libFLAC/ia32/fixed_asm.nasm
+				src/libFLAC/ia32/lpc_asm.nasm
+				src/libFLAC/ia32/stream_encoder_asm.nasm
+			)
+		endif()
+	ENDIF()
+	nasm_command(FLAC_SRC_LIBFLAC_NASM FLAC_ASM_OUT)
+endif()
 
-nasm_command(FLAC_SRC_LIBFLAC_NASM FLAC_ASM_OUT)
 
 set(FLAC_SOURCES ${FLAC_SRC_LIBFLAC})
 

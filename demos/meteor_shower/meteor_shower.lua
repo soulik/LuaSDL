@@ -1,3 +1,5 @@
+#!/usr/bin/lua5.1
+
 --======================================================================
 --
 -- meteor_shower.lua
@@ -17,6 +19,7 @@
 --   absolute path SDL.LuaSDL_DirApp)
 --======================================================================
 
+require 'LuaSDL'
 local table = table     -- local references
 local math = math
 local tonumber = tonumber

@@ -5,7 +5,7 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)
 
-set(CMAKE_MODULE_PATH "${SDLGFX_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${SDLGFX_SOURCE_DIR}/cmake")
 
 find_package(SDL REQUIRED)
 
@@ -45,6 +45,16 @@ add_definitions(-DDLL_EXPORT)
 add_library(SDLGFX SHARED
 	${SDLGFX_SOURCES}
 )
+
+set(SDLGFX_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_framerate.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_framerate.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_gfxBlitFunc.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_gfxBlitFunc.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_gfx.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_gfx.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_gfxPrimitives_font.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_gfxPrimitives_font.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_gfxPrimitives.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_gfxPrimitives.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_imageFilter.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_imageFilter.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_rotozoom.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_rotozoom.h @ONLY)
 
 set_target_properties(SDLGFX
     PROPERTIES

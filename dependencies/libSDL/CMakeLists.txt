@@ -2,8 +2,10 @@ cmake_minimum_required (VERSION 3.1.0)
 project (SDL)
 
 list(APPEND CMAKE_MODULE_PATH "${SDLIMAGE_SOURCE_DIR}/cmake")
-include(${SDL_SOURCE_DIR}/cmake/testOS.cmake)
-include(${SDL_SOURCE_DIR}/cmake/AC_HEADER_STDC.cmake)
+
+include(testOS)
+include(testArchitecture)
+include(AC_HEADER_STDC)
 
 include_directories(include)
 

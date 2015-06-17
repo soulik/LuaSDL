@@ -20,7 +20,11 @@ if(luasdl_USE_INTERNAL_SDL)
 	set(SDL_DYNAMIC_LIBRARY_DIRECTORIES )
 
 	set(SDL_LIBRARY $<TARGET_LINKER_FILE:SDL>)
-	set(SDL_INCLUDE_DIR dependencies/libSDL/include)
+
+	set(SDL_INCLUDE_DIR
+		${CMAKE_CURRENT_BINARY_DIR}/dependencies/libSDL/include
+		dependencies/libSDL/include
+	)
 
 	include_directories( ${SDL_INCLUDE_DIR})
 	list(APPEND luasdl_libraries ${SDL_LIBRARY})
@@ -71,12 +75,15 @@ list(APPEND luasdl_libraries SDLNET)
 # set(SDLGFX_LIBRARY "" CACHE FILEPATH "libSDL_gfx library")
 add_subdirectory(dependencies/sdl_gfx)
 include_directories(dependencies/sdl_gfx)
+include_directories(${CMAKE_BINARY_DIR}/dependencies/sdl_gfx)
+include_directories(${SDLGFX_INCLUDE_DIR})
 list(APPEND luasdl_libraries SDLGFX)
 
 # tolua++
 
 add_subdirectory(dependencies/tolua++-1.0.93)
 include_directories(dependencies/tolua++-1.0.93)
+include_directories(dependencies/tolua++-1.0.93/include)
 list(APPEND luasdl_libraries TOLUAPP)
 
 # Include Lua 5.1

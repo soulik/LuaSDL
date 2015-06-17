@@ -8,10 +8,6 @@
 #endif
 #include "string.h"
 
-#include "tolua++.h"
-#define MAX_PATH 1024
-/* Exported function */
-TOLUA_API int tolua_SDL_open (lua_State* tolua_S);
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -20,7 +16,14 @@ TOLUA_API int tolua_SDL_open (lua_State* tolua_S);
 #include "SDL_ttf.h"
 #include "SDL_mutex.h"
 #include <SDL_gfx/SDL_gfx.h>
+
+#include "tolua++.h"
+
 #include "sdllib.h"
+
+#ifndef MAX_PATH
+#define MAX_PATH 1024
+#endif
 
 #ifdef __WIN32__
 #define WIN32_LEAN_AND_MEAN
@@ -28,6 +31,9 @@ TOLUA_API int tolua_SDL_open (lua_State* tolua_S);
 #include <windows.h>
 #include <shellapi.h>
 #endif
+
+/* Exported function */
+TOLUA_API int tolua_SDL_open (lua_State* tolua_S);
 
 typedef unsigned int GLenum;
 typedef unsigned char GLboolean;
@@ -1899,8 +1905,8 @@ static int tolua_set_SDL_AudioSpec_callback(lua_State* tolua_S)
 	if (!tolua_isuserdata(tolua_S,2,0,&tolua_err))
 		tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-	self->callback = ((void (__cdecl *)(void *,Uint8 *,int))  tolua_touserdata(tolua_S,2,0))
-		;
+	self->callback = ((void (*)(void *,Uint8 *,int))  tolua_touserdata(tolua_S,2,0));
+	//self->callback = ((void (__cdecl *)(void *,Uint8 *,int))  tolua_touserdata(tolua_S,2,0));
 	return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
@@ -18001,7 +18007,12 @@ TOLUA_API int tolua_SDL_open (lua_State* tolua_S)
 	tolua_beginmodule(tolua_S,NULL);
 	tolua_module(tolua_S,"SDL",1);
 	tolua_beginmodule(tolua_S,"SDL");
+#ifdef __WIN32__
 	tolua_constant(tolua_S,"__WIN32__",__WIN32__);
+#else
+	tolua_constant(tolua_S,"__WIN32__", 0);
+#endif
+
 	tolua_constant(tolua_S,"SDL_AUDIO_DRIVER_DSOUND",SDL_AUDIO_DRIVER_DSOUND);
 	tolua_constant(tolua_S,"SDL_AUDIO_DRIVER_WAVEOUT",SDL_AUDIO_DRIVER_WAVEOUT);
 	tolua_constant(tolua_S,"SDL_AUDIO_DRIVER_DISK",SDL_AUDIO_DRIVER_DISK);

@@ -6,7 +6,7 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)
 
-set(CMAKE_MODULE_PATH "${SMPEG_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${SMPEG_SOURCE_DIR}/cmake")
 
 find_package(SDL REQUIRED)
 

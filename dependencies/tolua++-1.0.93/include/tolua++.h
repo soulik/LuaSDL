@@ -18,26 +18,20 @@
 
 #define TOLUA_VERSION "tolua++-1.0.92"
 
-#if defined(LUA_BUILD_AS_DLL)
-
-#if defined(LUA_CORE) || defined(LUA_LIB)
-
-#ifndef TOLUA_API
-#define TOLUA_API __declspec(dllexport)
-#endif
+#if defined(LUA_BUILD_AS_DLL) && defined(_WIN32)
+	#if defined(LUA_CORE) || defined(LUA_LIB)
+		#ifndef TOLUA_API
+			#define TOLUA_API __declspec(dllexport)
+		#endif
+	#else
+		#ifndef TOLUA_API
+			#define TOLUA_API __declspec(dllimport)
+		#endif
+	#endif
 #else
-
-#ifndef TOLUA_API
-#define TOLUA_API __declspec(dllimport)
-#endif
-
-#endif
-#else
-
-#ifndef TOLUA_API
-#define TOLUA_API extern
-#endif
-
+	#ifndef TOLUA_API
+		#define TOLUA_API extern
+	#endif
 #endif
 
 

@@ -1,0 +1,1 @@
+message("Target architecture: ${CMAKE_SYSTEM_PROCESSOR}")

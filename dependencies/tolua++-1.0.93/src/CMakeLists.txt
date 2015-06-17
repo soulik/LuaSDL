@@ -1,4 +1,4 @@
-﻿set (TOLUAPP_BIN_SRC
+set (TOLUAPP_BIN_SRC
 #	bin/tolua.c
 	bin/toluabind.c
 #	bin/toluabind_default.c
@@ -16,8 +16,10 @@ set(TOLUAPP_SOURCES
 	${TOLUAPP_BIN_SRC} ${TOLUAPP_LIB_SRC}
 )
 
+if (WIN32)
+	add_definitions(-DLUA_BUILD_AS_DLL)
+endif()
 
-add_definitions(-DLUA_BUILD_AS_DLL)
 add_definitions(-DLUA_LIB)
 
 include_directories(./)

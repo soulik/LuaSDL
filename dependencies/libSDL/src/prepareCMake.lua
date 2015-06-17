@@ -1,22 +1,209 @@
 #!/usr/bin/lua
 
+require 'lfs'
+
+local function fileMask(name)
+	if name:match('%.c$') or name:match('%.cpp$') or name:match('%.cc$') or name:match('%.h$') or name:match('%.hpp$') or name:match('%.m$') or name:match('%.mm$') then
+		return true
+	else
+		return false
+	end
+end
+
+local function getFiles(path, state)
+	local state = state or {}
+	if not path:match('/$') then
+		path = path..'/'
+	end
+	for item in lfs.dir(path) do
+		local fullPath = path..item
+		if fullPath:match('^%./') then
+			fullPath = fullPath:sub(3)
+		end
+		local attr = lfs.attributes(fullPath)
+	
+		if not (item == '.' or item == '..') then
+			if attr.mode == 'file' then
+				if fileMask(item) then
+					table.insert(state, fullPath)
+				end
+			elseif attr.mode == 'directory' then
+				getFiles('./'..fullPath..'/', state)
+			end
+		end
+	end
+	return state
+end
+
+local function getFilesNR(path)
+	local state = {}
+	if not path:match('/$') then
+		path = path..'/'
+	end
+	for item in lfs.dir(path) do
+		local fullPath = path..item
+		if fullPath:match('^%./') then
+			fullPath = fullPath:sub(3)
+		end
+		local attr = lfs.attributes(fullPath)
+	
+		if not (item == '.' or item == '..') then
+			if attr.mode == 'file' then
+				if fileMask(item) then
+					table.insert(state, fullPath)
+				end
+			end
+		end
+	end
+	return state
+end
+
 local templates = {
+    main = [[
+include (CheckIncludeFiles)
+include(TestBigEndian)
+TEST_BIG_ENDIAN(BIGENDIAN)
+
+if(BIGENDIAN)
+	set(SDL_BYTEORDER 4321)
+else()
+	set(SDL_BYTEORDER 1234)
+endif()
+
+set(SDL_LIBRARIES "")
+set(DIRECTX_LIBRARIES
+	winmm.lib
+	dxguid.lib
+)
+
+{{PROJECT_FILES}}
+
+set(SDL_MAIN_SRC
+    main/dummy/SDL_dummy_main.c
+)
+
+if (WIN32)
+	list(APPEND SDL_MAIN_SRC
+	    main/win32/SDL_win32_main.c
+	)
+elseif (APPLE)
+	if (DARWIN)
+	elseif (MACOSX)
+		list(APPEND SDL_MAIN_SRC
+			main/macosx/SDLMain.m
+		)
+	else()
+		list(APPEND SDL_MAIN_SRC
+		    main/macos/SDL_main.c
+		)
+	endif()
+endif()
+
+set(SDL_SRC
+    SDL.c
+    SDL_error.c
+    SDL_fatal.c
+)
+
+set(SDL_STDLIB_SRC
+    stdlib/SDL_getenv.c
+    stdlib/SDL_iconv.c
+    stdlib/SDL_malloc.c
+    stdlib/SDL_qsort.c
+    stdlib/SDL_stdlib.c
+    stdlib/SDL_string.c
+)
+
+set(SDL_SOURCES
+{{SOURCES}}
+	${SDL_MAIN_SRC}
+	${SDL_SRC}
+	${SDL_STDLIB_SRC}
+)
+
+if (WIN32 AND (SDL_AUDIO_DRIVER_WINDX5 OR SDL_VIDEO_DRIVER_DDRAW))
+	list(APPEND SDL_LIBRARIES
+		${DIRECTX_LIBRARIES}
+	)
+endif()
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../include)
+
+# -------------------------- CONFIG -----------------------------
+
+if (NOT SDL_VIDEO_DISABLED)
+	check_include_files(GL/gl.h;GL/glu.h HAVE_OPENGL_H)
+	check_include_files(gl.h;glu.h HAVE_OPENGL_MAC_H)
+	
+	if (HAVE_OPENGL_H OR HAVE_OPENGL_MAC_H)
+		set(SDL_VIDEO_OPENGL 1)
+		if (WIN32)
+			set(SDL_VIDEO_OPENGL_WGL 1)
+		elseif (UNIX)
+			set(SDL_VIDEO_OPENGL_GLX 1)
+		endif()
+	endif()
+endif()
+
+check_include_files(X11/extensions/XShm.h USE_SHARED_MEMORY)
+if (NOT USE_SHARED_MEMORY)
+	set(NO_SHARED_MEMORY 1)
+	add_definitions(-DNO_SHARED_MEMORY=1)
+endif()
+
+
+if ((${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64|x86"))
+	set(SDL_ASSEMBLY_ROUTINES 1)
+endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../include/SDL_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/../include/SDL_config.h @ONLY)
+
+# ----------------------- libSDL LIBRARY ------------------------
+
+add_library(SDL SHARED
+	${SDL_SOURCES}
+)
+
+set_target_properties(SDL
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+
+target_link_libraries (SDL
+	${SDL_LIBRARIES}
+)
+
+    ]],
+    additionalLibraries = [[
+				list(APPEND SDL_LIBRARIES
+					{{LIBRARIES}}
+				)
+				{{INCLUDES}}
+
+]],
 	subsystem = [[
 # -------------------- {{SUBSYSTEM}} -----------------------
 
 set(SDL_{{SUBSYSTEM}}_DISABLED OFF CACHE BOOL "Disable support for {{SUBSYSTEM_DESC}} support")
 set(SDL_{{SUBSYSTEM}}_SRC "")
 
-if(not SDL_{{SUBSYSTEM}}_DISABLED)
+if(NOT SDL_{{SUBSYSTEM}}_DISABLED)
+
+{{COMMON_FILES}}
+
 {{SUBSYSTEM_PLATFORMS}}
 endif()
+
+source_group("{{SUBSYSTEM_DESC}}" FILES ${SDL_{{SUBSYSTEM}}_SRC})
 
 ]],
 	subsystemPlatforms = [[
 {{PLATFORM_GENERIC}}
 	if(WIN32)
 {{PLATFORM_WIN32}}
-	elseif(UNIX and not APPLE)
+	elseif(UNIX AND NOT APPLE)
 {{PLATFORM_LINUX}}
 	else()
 		if(MACOSX)
@@ -27,34 +214,48 @@ endif()
 	endif()
 ]],
 	subsystemDriverFiles = [[
-			list(APPEND SDL_{{SUBSYSTEM}}_SRC
-{{FILES}}
-			)
-	]],
-	
-	subsystemDriverFilesWithDep = [[
-			if (PACKAGE_NAME_DEF)
 				list(APPEND SDL_{{SUBSYSTEM}}_SRC
 {{FILES}}
 				)
-			endif()
+	]],
+	
+	subsystemDriverFilesWithDep = [[
+				if ({{PACKAGE_NAME_DEP}})
+					list(APPEND SDL_{{SUBSYSTEM}}_SRC
+{{FILES}}
+					)
+{{ADDITIONAL_LIBRARIES}}
+				endif()
+	]],
+
+	subsystemDriverFilesWithDepSpecific = [[
+				{{SPECIFIC_CODE}}
+
+				if ({{PACKAGE_NAME_DEP}} AND {{SPECIFIC_DEP}})
+					list(APPEND SDL_{{SUBSYSTEM}}_SRC
+{{FILES}}
+					)
+{{ADDITIONAL_LIBRARIES}}
+				endif()
 	]],
 	
 	subsystemDriver = [[
 {{PACKAGES}}
-		set(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}} ON CACHE BOOL "Enable support for {{SUBSYSTEM_DRIVER_DESC}} {{subsystem_desc}} driver")
-		if(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}})
+			set(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}} ON CACHE BOOL "Enable support for {{SUBSYSTEM_DRIVER_DESC}} {{subsystem_desc}} driver")
+			if(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}})
+				add_definitions(-DSDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}}=1)
 {{DRIVER_FILES}}
-		endif()
+			endif()
 ]],
 	subsystemDriverDynamic = [[
 {{PACKAGES}}
-		set(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}} ON CACHE BOOL "Enable support for {{SUBSYSTEM_DRIVER_DESC}} {{subsystem_desc}} driver")
-		set(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}}_DYNAMIC ON CACHE BOOL "Enable support for {{SUBSYSTEM_DRIVER_DESC}} {{subsystem_desc}} dynamic driver")
+			set(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}} ON CACHE BOOL "Enable support for {{SUBSYSTEM_DRIVER_DESC}} {{subsystem_desc}} driver")
+			set(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}}_DYNAMIC ON CACHE BOOL "Enable support for {{SUBSYSTEM_DRIVER_DESC}} {{subsystem_desc}} dynamic driver")
 
-		if(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}})
+			if(SDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}})
+				add_definitions(-DSDL_{{SUBSYSTEM}}_DRIVER_{{SUBSYSTEM_DRIVER}}=1)
 {{DRIVER_FILES}}
-		endif()
+			endif()
 ]],
 
 	subsystemGeneric = [[
@@ -87,27 +288,37 @@ local subsystems = {
 				['alsa'] = {
 					desc = 'ALSA',
 					dynamic = true,
-					packages = {'ALSA'},
+					packages = {
+						['ALSA']={},
+					},
 				},
 				['esd'] = {
 					desc = 'Enlightement Sound Daemon',
 					dynamic = true,
-					packages = {'ESD'},
+					packages = {
+						['ESD']={},
+					},
 				},
 				['pulse'] = {
 					desc = 'PulseAudio',
 					dynamic = true,
-					packages = {'pulseaudio'},
+					packages = {
+						['pulseaudio']={},
+					},
 				},
 				['arts'] = {
 					desc = 'ARTS',
 					dynamic = true,
-					packages = {'artsc'},
+					packages = {
+						['artsc']={},
+					},
 				},
 				['nas'] = {
 					desc = 'NAS',
 					dynamic = true,
-					packages = {'NASaudio'},
+					packages = {
+						['NASaudio']={},
+					},
 				},
 				['dsp'] = {
 					desc = 'DSP'
@@ -264,7 +475,12 @@ local subsystems = {
 				},
 				['pthread'] = {
 					desc = 'pthread',
-					packages = {'Threads'},
+					packages = {
+						['Threads'] = {
+							libraries = 'CMAKE_THREAD_LIBS_INIT',
+							includes = false,
+						}
+					},
 				},
 			},
 			macos = {},
@@ -306,12 +522,16 @@ local subsystems = {
 					desc = 'Dummy'
 				},
 				['aalib'] = {
-					desc = 'AAlib',
-					packages = {'aa'},
+					desc = 'ASCII Art library',
+					packages = {
+						['AAlib']={}
+					},
 				},
 				['caca'] = {
-					desc = 'CACAlib',
-					packages = {'caca'},
+					desc = 'Color ASCII Art library',
+					packages = {
+						['CACAlib']={}
+					},
 				},
 			},
 			win32 = {
@@ -328,31 +548,33 @@ local subsystems = {
 			linux = {
 				['svga'] = {
 					desc = 'SVGAlib',
-					packages = {'SVGAlib'},
-				},
-				['vgl'] = {
-					desc = 'VGL',
-					packages = {'VGL'},
+					packages = {
+						['SVGAlib']={},
+					},
 				},
 				['directfb'] = {
 					desc = 'DirectFB',
-					packages = {'DirectFB'},
+					packages = {
+						['DirectFB']={},
+					},
 				},
 				['fbcon'] = {
 					desc = 'FrameBuffer Console',
-					packages = {'FBcon'},
+					packages = {
+						['FBcon']={},
+					},
 				},
 				['nanox'] = {
 					desc = 'NanoX',
-					packages = {'NanoX'},
+					packages = {
+						['NanoX']={},
+					},
 				},
 				['x11'] = {
 					desc = 'X11',
-					packages = {'X11'},
-				},
-				['Xext'] = {
-					desc = 'X11 Xext',
-					packages = {'X11'},
+					packages = {
+						['X11']={},
+					},
 				},
 			},
 			macos = {
@@ -382,24 +604,57 @@ local function applyTemplate(template, vars)
 	return (template:gsub("{{([_%w%d]+)}}", vars))
 end
 
+local function processPackages(packages, vars)
+	local output = {}
+		
+	for package, def in pairs(packages) do
+		local def = def or {}
+		vars['PACKAGE_NAME'] = package
+		vars['PACKAGE_NAME_DEP'] = '${'..(def.found or package..'_FOUND')..'}'
+		if type(def.libraries)=='boolean' and def.libraries == false then
+			vars['LIBRARIES'] = ''
+		else	
+			vars['LIBRARIES'] = '${'..(def.libraries or package..'_LIBRARIES')..'}'
+		end
+
+		if type(def.includes)=='boolean' and def.includes == false then
+			vars['INCLUDES'] = ''
+		else
+			vars['INCLUDES'] = 'include_directories( ${'..(def.includes or package..'_INCLUDES')..'})'
+		end
+
+		vars['ADDITIONAL_LIBRARIES'] = applyTemplate(templates.additionalLibraries, vars)
+		table.insert(output, applyTemplate(templates.package, vars))
+	end
+
+	return table.concat(output)
+end
+
 local function prepareDriver(driver, vars)
 	local output = {}
 	vars['SUBSYSTEM_DRIVER_DESC'] = driver.desc
-	vars['FILES'] = ""
+	vars['ADDITIONAL_LIBRARIES'] = ''
+
+	local path = vars.subsystem_dir..'/'..vars.subsystem_driver
+	local tabs = ("\t"):rep(6)
+	vars['FILES'] = tabs..table.concat(getFiles(path), "\n"..tabs)
+	vars['PACKAGE_NAME_DEP'] = ''
 
 	if type(driver.packages)=='table' then
-		local packages = {}
+		vars['PACKAGES'] = processPackages(driver.packages, vars)
 
-		for _, package in ipairs(driver.packages) do
-			vars['PACKAGE_NAME'] = package
-			vars['PACKAGE_NAME_DEP'] = (package):upper()
-			table.insert(packages, applyTemplate(templates.package, vars))
+		if type(driver.conditions)=='table' then
+			for name, code in pairs(driver.conditions) do
+				vars['SPECIFIC_DEP'] = name
+				vars['SPECIFIC_CODE'] = code
+			end
+			vars['DRIVER_FILES'] = applyTemplate(templates.subsystemDriverFilesWithDepSpecific, vars)
+		else
+			vars['DRIVER_FILES'] = applyTemplate(templates.subsystemDriverFilesWithDep, vars)
 		end
-		vars['PACKAGES'] = table.concat(packages)
-		vars['DRIVER_FILES'] = applyTemplate(templates.subsystemDriverFiles, vars)
 	else
 		vars['PACKAGES'] = ''
-		vars['DRIVER_FILES'] = applyTemplate(templates.subsystemDriverFilesWithDep, vars)
+		vars['DRIVER_FILES'] = applyTemplate(templates.subsystemDriverFiles, vars)
 	end
 
 	if vars.PLATFORM == 'GENERIC' then
@@ -427,7 +682,13 @@ end
 local function preparePlatforms(platforms, vars)
 	if platforms.all then
 		vars['PACKAGES'] = ''
-		vars['DRIVER_FILES'] = ''
+		
+		local path = vars.subsystem_dir
+		local tabs = ("\t"):rep(5)
+		vars['FILES'] = tabs..table.concat(getFiles(path), "\n"..tabs)
+
+		vars['DRIVER_FILES'] = applyTemplate(templates.subsystemDriverFiles, vars)
+
 		return applyTemplate(templates.subsystemGeneric, vars)
 	else
 		for name, platform in pairs(platforms) do
@@ -440,25 +701,55 @@ end
 
 local function prepareSubsystem(subsystem, vars)
 	vars['SUBSYSTEM_DESC'] = subsystem.desc
+	vars['subsystem_dir'] = subsystem.dir or vars.subsystem
 	vars['subsystem_desc'] = (subsystem.desc):lower()
 
 	vars['SUBSYSTEM_PLATFORMS'] = preparePlatforms(subsystem.platforms, vars)
 	return applyTemplate(templates.subsystem, vars)
 end
 
-local function prepareSubsystems()
+local function prepareSubsystems(vars)
 	local output = {}
 	for name, subsystem in pairs(subsystems) do
-		local vars = {
-			SUBSYSTEM = (name):upper(),
-			subsystem = name,
-		}
+		vars['SUBSYSTEM'] = (name):upper()
+		vars['subsystem'] = name
+		local commonFiles = getFilesNR(subsystem.dir or name)
+		if #commonFiles>0 then
+			local tabs = ("\t"):rep(2)
+			vars['COMMON_FILES'] = applyTemplate([[
+	list(APPEND SDL_{{SUBSYSTEM}}_SRC
+{{FILES}}	
+	)
+]], 
+			{
+				FILES = tabs..table.concat(commonFiles, "\n"..tabs),
+				SUBSYSTEM = vars['SUBSYSTEM'],
+			})
+		else
+			vars['COMMON_FILES'] = ''
+		end
 		table.insert(output, prepareSubsystem(subsystem, vars))
 	end
 	return table.concat(output)
 end
 
-print(prepareSubsystems())
+local function prepareProject()
+	local vars = {
+	}
+	vars['SOURCES'] = (function()
+		local output = {}
+		local tabs = ("\t"):rep(1)
+		for name, subsystem in pairs(subsystems) do
+			 table.insert(output, tabs..'${SDL_'..(name):upper().."_SRC}\n")
+		end
+		return table.concat(output)
+	end)()
+	vars['PROJECT_FILES'] = prepareSubsystems(vars)
+
+	return applyTemplate(templates.main, vars)
+end
+
+print(prepareProject())
 
 --[[
 SDL_AUDIO_DISABLED 1

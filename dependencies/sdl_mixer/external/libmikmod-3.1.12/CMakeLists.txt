@@ -6,6 +6,13 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)
 
+include(AC_HEADER_STDC)
+
+if (HAVE_FCNTL_H)
+	add_definitions(-DHAVE_FCNTL_H=1)
+endif()
+
+
 set(MIKMOD_DRIVERS_SRC
 	drivers/drv_nos.c
 	drivers/drv_raw.c

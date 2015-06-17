@@ -11,8 +11,10 @@
  */
 /* ================================================================== */
 
-#ifndef LUA_BUILD_AS_DLL
-#define LUA_BUILD_AS_DLL 1
+#if defined(_WIN32)
+	#ifndef LUA_BUILD_AS_DLL
+	#define LUA_BUILD_AS_DLL 1
+	#endif
 #endif
 
 #ifndef LUA_LIB
@@ -40,7 +42,8 @@
 #else
 #include <dirent.h>
 #include <sys/unistd.h>
-#error "please add code for non-Win32..."
+#include <errno.h>
+//#error "please add code for non-Win32..."
 #endif
 
 #include "sdllib.h"
@@ -176,7 +179,12 @@ static int get_absolute_paths(struct LuaSDL_StartInfo *info)
     GetModuleFileName(NULL, info->dir_exe, MAX_PATH);
     info->dir_exe[MAX_PATH] = '\0';
 #else
-#error "absolute path handling not yet implemented for other platforms"
+//#error "absolute path handling not yet implemented for other platforms"
+    strcpy(info->dir_sep, "/");
+    getcwd(info->dir_cwd, MAX_PATH);
+    info->dir_cwd[MAX_PATH] = '\0';
+    readlink("/proc/self/exe", info->dir_exe, PATH_MAX);
+    info->dir_exe[MAX_PATH] = '\0';
 #endif
     /* ensure trailing dir_sep for dir_cwd */
     path = info->dir_cwd;
@@ -1607,7 +1615,8 @@ static int LuaSDL_lsdir(lua_State* L)
     _findclose(handle);
     return 1;
 #else
-#error "please add code for non-Win32..."
+    //#error "please add code for non-Win32..."
+    return 0;
 #endif
 }
 
@@ -1680,7 +1689,8 @@ static int LuaSDL_DirCfg(lua_State* L)
     }
     return 1;
 #else
-#error "please add code for non-Win32..."
+    //#error "please add code for non-Win32..."
+    return 0;
 #endif
 }
 

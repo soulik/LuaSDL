@@ -6,6 +6,17 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)
 
+list(APPEND CMAKE_MODULE_PATH "${SDL_SOURCE_DIR}/cmake")
+include(AC_HEADER_STDC)
+
+if (HAVE_SETENV)
+	add_definitions(-DHAVE_SETENV=1)
+endif()
+
+if (HAVE_FCNTL_H)
+	add_definitions(-DHAVE_FCNTL_H=1)
+endif()
+
 set(MODPLUG_SRC
 	src/fastmix.cpp
 	src/load_669.cpp

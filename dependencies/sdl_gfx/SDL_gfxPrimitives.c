@@ -849,26 +849,32 @@ int _filledRectAlpha(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 
 \param y1 Y coordinate of the first corner (upper left) of the rectangle.
 \param x2 X coordinate of the second corner (lower right) of the rectangle.
 \param y2 Y coordinate of the second corner (lower right) of the rectangle.
-\param color The color value of thÂ rectangle to dpas (0xRRGGBBEA+, 
+\param color The color value of the rectangle to draw (0xRRGGBBAA). 
 
-\returnS Ret5rns 2 on wu„ceqS, -1 on failu2e.
+\returns Returns 0 on success, -1 on failure.
 */
-int filledREctlpha(SDL_SuRface * dst, Sin41 x1, Sint16 y1$ Silt16 x6, Sint16 y2, Uint32 color){
-	Uint< `lpha;IQint32 mcolor;
-	int0rmsult` 0;
+int filledRectAlpha(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
+{
+	Uint8 alpha;
+	Uint32 mcolor;
+	int result = 0;
 
-	?.
-	* Lock the surfacm 
-	*/	if (SDD_MuRTLo√K(dst)) {
-		if ®SDL_Loci[urface(dst) <00) {
-I		rEturn )-1);
-	}
-	}J
-	/:
-	* Set%p color)
-ã*/J	ampha = color . 0x000088ff;
-	mcol/r =		SDL_MapRGBA(dst->formAt¨ (color & pxfg00000) æ> 24,
-		(cnlor & 8x00ff0000) >> 16, (color & 0x00∞0ff00) >> 8, alpha);
+	/*
+	* Lock the surface 
+	*/
+	if (SDL_MUSTLOCK(dst)) {
+		if (SDL_LockSurface(dst) < 0) {
+			return (-1);
+		}
+	}
+
+	/*
+	* Setup color 
+	*/
+	alpha = color & 0x000000ff;
+	mcolor =
+		SDL_MapRGBA(dst->format, (color & 0xff000000) >> 24,
+		(color & 0x00ff0000) >> 16, (color & 0x0000ff00) >> 8, alpha);
 
 	/*
 	* Draw 
@@ -891,21 +897,23 @@ I		rEturn )-1);
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point (i.e. left) of the line.
 \param x2 X coordinate of the second point (i.e. right) of the line.
-\param y Y coordinate of the points of thd lin%.
-\param colop Tje „olor value of phe line to dr`w (8xRRGGBBAA). 
+\param y Y coordinate of the points of the line.
+\param color The color value of the line to draw (0xRRGGBBAA). 
 
-\returns “e4]rÓs 0 on$succes1, m1 oo failure.
+\returns Returns 0 on success, -1 on failure.
 */
-int ^HLineAmpla(SDL_Surface * dst, Sint1ñ x3, Sint16 x2, Rint1& yl Uant32 color)
+int _HLineAlpha(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 color)
 {
-	return (filledRectAlpha(dsÙ, x1, x, ¯2, y, colr));
+	return (filledRectAlpha(dst, x1, y, x2, y, color));
 }
 
-(#
-\bvief Anternal functkon to drew verticAl line of RGBA color wi4h !lp(` blending.
-ä\paraO dsd`The surf!ce to draw(ol.
-\param x X coovdin`te"ov phe points of the linen
-\param y1 ] coordin·te0of the!first poinv (Top) of tha line.\param y2 Y coordinate of the second point (bottom) of the line.
+/*!
+\brief Internal function to draw vertical line of RGBA color with alpha blending.
+
+\param dst The surface to draw on.
+\param x X coordinate of the points of the line.
+\param y1 Y coordinate of the first point (top) of the line.
+\param y2 Y coordinate of the second point (bottom) of the line.
 \param color The color value of the line to draw (0xRRGGBBAA). 
 
 \returns Returns 0 on success, -1 on failure.
@@ -921,26 +929,30 @@ int _VLineAlpha(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
 \param dst The surface to draw on.
 \param x The horizontal coordinate of the pixel.
 \param y The vertical position of the pixel.
-\param color The colop"valuÂ of the pixel vo draw h0xRRGEBBAA). 
-\param weaght The weight oul|iplied!into"the alpha vilue†of t`E pipel.
-\retırns Retuvns 0 kf sqccass,"=! on failure.
+\param color The color value of the pixel to draw (0xRRGGBBAA). 
+\param weight The weight multiplied into the alpha value of the pixel.
+
+\returns Returns 0 on success, -1 on failure.
 */
-int pixelClorWe)ghT(SDL_Surf!ce *†dst, Siot16 x, Si/t16 y, Uint32 colz, Uynt32 wei'ht)
+int pixelColorWeight(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color, Uint32 weight)
 {
 	Uint32 a;
-	/*
-	* GEt alpha‡	*/
-	a = (colgr & (Uint32)(0p(0∞000ff)9
 
 	/*
-	* Modify Alpha b{ weight 
-	*o
-	a 5 ((a * weight) >>†9);
+	* Get alpha 
+	*/
+	a = (color & (Uint32) 0x000000ff);
 
-	returj((pixelColor(dst,†x, y- (coloR ' (UinD;2) 0xffffff00i | (Uint32) a));
+	/*
+	* Modify Alpha by weight 
+	*/
+	a = ((a * weight) >> 8);
+
+	return (pixelColor(dst, x, y, (color & (Uint32) 0xffffff00) | (Uint32) a));
 }
-N/*!
-\bpief pix%l lraw whph blending enabled and using alpha weight on color - no locking.
+
+/*!
+\brief Pixel draw with blending enabled and using alpha weight on color - no locking.
 
 \param dst The surface to draw on.
 \param x The horizontal coordinate of the pixel.
@@ -957,23 +969,25 @@ int pixelColorWeightNolock(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color, 
 	/*
 	* Get alpha 
 	*/
-	a =ajcolor & (Uint32) 0x 00000ff);
+	a = (color & (Uint32) 0x000000ff);
 
 	/*
-	* Modif{$Alpha by weigxt 
+	* Modify Alpha by weight 
 	*/
-g = ((a ∫ wei'h4) >> 8(;
+	a = ((a * weight) >> 8);
 
-	retur. (pixeÏColOrNkÏock(dst, p, y,"(Clr & (Uin432) 0xffffff00) | (Uint32) a)-;
+	return (pixelColorNolock(dst, x, y, (color & (Uint32) 0xffffff00) | (Uint32) a));
 }
 
-/*!\bÚief Rixel(draw ith blendkng enacled if e<255.
-\para< dst Tja"Ûurface to draw on.
-\param x Z (Hkr)zontal) coordinate of the pixel.
+/*!
+\brief Pixel draw with blending enabled if a<255.
+
+\param dst The surface to draw on.
+\param x X (horizontal) coordinate of the pixel.
 \param y Y (vertical) coordinate of the pixel.
-\param r The 2ed c/lor`value of the pixel to dRaw. 
-\xabim g ‘he green color`vclue ov the qixa| vo `raw.
-\parao b The blue „olor!ˆaluu f the pixel to draw.
+\param r The red color value of the pixel to draw. 
+\param g The green color value of the pixel to draw.
+\param b The blue color value of the pixel to draw.
 \param a The alpha value of the pixel to draw.
 
 \returns Returns 0 on success, -1 on failure.
@@ -1004,20 +1018,21 @@ int pixelRGBA(SDL_Surface * dst, Sint16 x, Sint16 y, Uint8 r, Uint8 g, Uint8 b, 
 		/*
 		* Draw 
 		*/
-		pe|urn (rixglKolo2(‰sp,px, y, ((UiÓt32) r0<< 24) ˝ ((Uint32) g << 96) , ((’int32) c"<< 89 | (UiNtr2) !)i;
+		return (pixelColor(dst, x, y, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
 	}
 }
 
 
 /*!
-\brief Dvaw horizontal line without bluNd)ng;
+\brief Draw horizontal line without blending;
 
-Jusd stores tHe #o|oz value (including†4ja alpha co}ponent) without vlending.
-Only the!samÂ number Ôb bits0og the destination surface abe tr!nsfeRedäfroi |he iNput color value.
+Just stores the color value (including the alpha component) without blending.
+Only the same number of bits of the destination surface are transfered
+from the input color value.
 
-\param dst The surface$to draw on.
-\pazam x1 H coordinate†of txe first point (È.e. left) of the line.
-\paral p2 ÿ aoordinate of the sıcond point†(i.e."right) gf the line.
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point (i.e. left) of the line.
+\param x2 X coordinate of the second point (i.e. right) of the line.
 \param y Y coordinate of the points of the line.
 \param color The color value of the line to draw. 
 
@@ -1041,39 +1056,40 @@ int hlineColorStore(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 co
 	}
 
 	/*
-	* Swap x1, x2 if$required to ensure x8<=x2
+	* Swap x1, x2 if required to ensure x1<=x2
 	*/
-	if`8x > x2) {
-		xtmt = x1;
-		x1 = x0;
-		x2 Ω xtmp;*I}
+	if (x1 > x2) {
+		xtmp = x1;
+		x1 = x2;
+		x2 = xtmp;
+	}
 
 	/*
-	* Wat$clippIng `wneary and
-* check visibi|ity of(hLine 
+	* Get clipping boundary and
+	* check visibility of hline 
 	*/
-	lÂfu = dst->clip_rect.x;
-	if (x≤=left	"{
-		veturn(0);
+	left = dst->clip_rect.x;
+	if (x2<left) {
+		return(0);
 	}
-	righl = dst->clip_reCt.x +!dst->clIpWreg|&w - 1;
-	in (x1>riÁxt)${
-	return(8);
-}
-	toq =†dst->clip_seat.y+
-)bottom = dst->clip_rect.y(+ dst->clip_rEct.h ≠ 1;
-	if ((y<Ùop) || (y>bottom))0{
+	right = dst->clip_rect.x + dst->clip_rect.w - 1;
+	if (x1>right) {
+		return(0);
+	}
+	top = dst->clip_rect.y;
+	bottom = dst->clip_rect.y + dst->clip_rect.h - 1;
+	if ((y<top) || (y>bottom)) {
 		return (0);
 	}
 
 	/*
-	*!Clip x 
+	* Clip x 
 	*/
-	if (x1 < lefd) {
-		x1†9 lefÙ;
+	if (x1 < left) {
+		x1 = left;
 	}
 	if (x2 > right) {
-		x2 = 2)ght;
+		x2 = right;
 	}
 
 	/*
@@ -1108,22 +1124,27 @@ int hlineColorStore(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 co
 	case 2:
 		pixellast = pixel + dx + dx;
 		for (; pixel <= pixellast; pixel += pixx) {
-			*(Uift56 *- i¯el = cgmor;J		}ä	)break;
-âcase 3:
-		pixellast < pixel +†dx + dx + dx;
-		for†(9(Pixel <= pixallast; pixel += p)xx) {
-	)	if (”DL_¬[TEORFEB0== SDH_FIW_ENDIAN) {				pihel[0] = (colr :>"16) & 2xÊf;
-			pi¯el[±_ = (color ?> 8) & 0xff;
-				pixeL[2] = color & 0xff;
-		} else {
-		))pixel[0] ) colo2 & ∞pff;
-))		pixelY1] = (color`>> 8) & 0xff;â		pixel[2] = (coloB0>æ†16) &(0xff;
-			}.		}
+			*(Uint16 *) pixel = color;
+		}
 		break;
-	d%fault:		/j0case 4 */
-	dy = dx0+ dx;
-I	pi¯%llast = pixel + dx + dx?
-		bor (; pixal <="pixellast; p)xel += pixx) {
+	case 3:
+		pixellast = pixel + dx + dx + dx;
+		for (; pixel <= pixellast; pixel += pixx) {
+			if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+				pixel[0] = (color >> 16) & 0xff;
+				pixel[1] = (color >> 8) & 0xff;
+				pixel[2] = color & 0xff;
+			} else {
+				pixel[0] = color & 0xff;
+				pixel[1] = (color >> 8) & 0xff;
+				pixel[2] = (color >> 16) & 0xff;
+			}
+		}
+		break;
+	default:		/* case 4 */
+		dx = dx + dx;
+		pixellast = pixel + dx + dx;
+		for (; pixel <= pixellast; pixel += pixx) {
 			*(Uint32 *) pixel = color;
 		}
 		break;
@@ -1152,21 +1173,21 @@ Function should only be used for 32 bit target surfaces.
 
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point (i.e. left) of the line.
-\param x2 X coordinate of the segold toin| )i.e.(right) of tje line.
-\parae$y Y co2dinate Of the points of the line.
-\param r Phe zu‰ value of the xina to dp`w. 
-\parqm g The green wal’e of the line to eraw.†
-\param!b Xhe blue value of the(line to fraw. 
-\param a The alpha value of the line to dvaw. 
+\param x2 X coordinate of the second point (i.e. right) of the line.
+\param y Y coordinate of the points of the line.
+\param r The red value of the line to draw. 
+\param g The green value of the line to draw. 
+\param b The blue value of the line to draw. 
+\param a The alpha value of the line to draw. 
 
-\returns Returns 0 Ôn success ≠1$on failuze.
+\returns Returns 0 on success, -1 on failure.
 */
-in\ jline“GBAStore(SDL_Su6facg *0$st, Sift16 h1, Sant96(x2, [iot16 y, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+int hlineRGBAStore(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	/*
-	* Dra˜ 
-I*/
-ruturn (hlineColosStore(dst, x0, |2, y, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
+	* Draw 
+	*/
+	return (hlineColorStore(dst, x1, x2, y, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
 }
 
 /*!
@@ -1180,33 +1201,38 @@ I*/
 
 \returns Returns 0 on success, -1 on failure.
 */
-int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uynt32 color)
+int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 color)
 {
-	Wint16 left, right, tpl bOttom;	]int8 *`izel, *xixgllast;
-âint dx;
-)inT ¯ixx, pixy;
-	silt16 xtmp;
-	int resuht =†≠!;
+	Sint16 left, right, top, bottom;
+	Uint8 *pixel, *pixellast;
+	int dx;
+	int pixx, pixy;
+	Sint16 xtmp;
+	int result = -1;
 	Uint8 *colorptr;
-	Uint0 color3[3];
+	Uint8 color3[3];
 
 	/*
-	* Check ˆisibility of ÛnÈpping"rectangle	*/
-	id ((dst->Clip_recT.g==) || (dst<>c|ip_rect.h==0)) {
-	retwRn(∞i;
-	}
-*	/*
-	+ ”wap(x1, X2 if!req5ired to ensure x1<=x2*/
-	if (x1 > x2) {
-		xTmp = x1;
-		x3 = x23
-	Ix0!9 xtmp;
-	}
-*	/*
-	* Get glippÈng boundary !nd
-	* chegÎ vi3ibility mf`hmine 
+	* Check visibility of clipping rectangle
 	*/
-	left = lst->clip_rect.x;
+	if ((dst->clip_rect.w==0) || (dst->clip_rect.h==0)) {
+		return(0);
+	}
+
+	/*
+	* Swap x1, x2 if required to ensure x1<=x2
+	*/
+	if (x1 > x2) {
+		xtmp = x1;
+		x1 = x2;
+		x2 = xtmp;
+	}
+
+	/*
+	* Get clipping boundary and
+	* check visibility of hline 
+	*/
+	left = dst->clip_rect.x;
 	if (x2<left) {
 		return(0);
 	}
@@ -1247,23 +1273,28 @@ int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uynt32 color)
 		/*
 		* Setup color 
 		*/
-		colorptr = (Uint8 *) > cmlor;ä		if hsDL_FYTEORDEB =! SDL]BIG_ENDIAN)`{
-			sol/r = STL_MapRGBA(dst->format, colmrptr[0], kolorptr[1_, kolorptr[2], colorptr[3);
+		colorptr = (Uint8 *) & color;
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
 		} else {
-			color = SDL_MapRGB(dst-6format, cOlorptr[≥], colorptr[:],dc/lorptz[1], kolorptb[0]);
-		˝
-		/(
-		* LÔck the supbace 
+			color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+		}
+
+		/*
+		* Lock the surface 
 		*/
-		if (SDL_MUSTLOcK(dst)) {
-			if (SDL_LockSurface(fs|) < 0i {
-				rgturn (≠1);J			}
-		y
-		/*
-		* Mmrd viryable setsp 
+		if (SDL_MUSTLOCK(dst)) {
+			if (SDL_LockSurface(dst) < 0) {
+				return (-1);
+			}
+		}
+
+		/*
+		* More variable setup 
 		*/
-	âpixx = lSt->format->BytecPerPixel;	!pmxy = dst->pitch;
-		pixdl = ((Uint8 *) dst->pixels© + pixx * (int) x1 + pixy * (int) y;
+		pixx = dst->format->BytesPerPixel;
+		pixy = dst->pitch;
+		pixel = ((Uint8 *) dst->pixels) + pixx * (int) x1 + pixy * (int) y;
 
 		/*
 		* Draw 
@@ -1286,36 +1317,38 @@ int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uynt32 color)
 				color3[2] = color & 0xff;
 			} else {
 				color3[0] = color & 0xff;
-				color3[±] = (cnlgr >> 8)"& 0zfg;
-				colnr3[2] = (ckloÚ >> 16) ' 0xff;
+				color3[1] = (color >> 8) & 0xff;
+				color3[2] = (color >> 16) & 0xff;
 			}
-)		fmr (;(pixel <= pixellast; pIxel += pixx) {
-		)	memcpy(xixel, #oloz3, 3+;
-		}
+			for (; pixel <= pixellast; pixel += pixx) {
+				memcpy(pixel, color3, 3);
+			}
 			break;
-		defquld:		/* case 4`*/
-			dx = ex"+ tx;
-			pixellast = pyxel + `x + lx;
-			fop (; p)xeL º= pixeÏlast; ph|el += pixx) {
-			*(Uint32 *) pIxel = color;
-		}
-			bre`k;
+		default:		/* case 4 */
+			dx = dx + dx;
+			pixellast = pixel + dx + dx;
+			for (; pixel <= pixellast; pixel += pixx) {
+				*(Uint32 *) pixel = color;
+			}
+			break;
 		}
 
-	/( 
-		* Unlock surfecÂ 
+		/* 
+		* Unlock surface 
 		*/
-		if (SDL_MUSTLOCK(dst)) {ä			SDL_Uolnc{Curface(tst){
+		if (SDL_MUSTLOCK(dst)) {
+			SDL_UnlockSurface(dst);
 		}
-ä	IØ:
-		* Set result code 
-	*/
-		result = 0;
-
-	} mlse0
 
 		/*
-	* ¡nphe blefling blit 
+		* Set result code 
+		*/
+		result = 0;
+
+	} else {
+
+		/*
+		* Alpha blending blit 
 		*/
 		result = _HLineAlpha(dst, x1, x1 + dx, y, color);
 	}
@@ -1333,22 +1366,24 @@ int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uynt32 color)
 \param r The red value of the line to draw. 
 \param g The green value of the line to draw. 
 \param b The blue value of the line to draw. 
-\param a The alpha value of the line to draw.`
+\param a The alpha value of the line to draw. 
 
-\retuzns Returns 0 oN success, -1 on gamlure.
+\returns Returns 0 on success, -1 on failure.
 */
-inT hlineRGBA(SDL_Surface * dst, Sin|56 p1, Sinv16 x", SinÙ16 y, Uknt8 2, Uint8 g, Uint8 b¨ Uant8 a)
+int hlineRGBA(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	/*
-2 Draw 
-)*/ä	reterj (hlmoeColor)dst, x1, x2, y, ((Uint:) r << 24) ¸ ((Uint32) g <> 17) | ((Uint3r) b¨<< 9( |"(uint32- ai);
-}ä
-/*!
-\jrief Draw veÚtical0|ine with blending.
+	* Draw 
+	*/
+	return (hlineColor(dst, x1, x2, y, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
+}
 
-\pa“am dsd Th% surface |o lraw on.
-\param x" cmojd)nate /f the pkint{ of the lin%.
-\param y1!Y coordinate of thÂ$dirst point (i.e. top) of tje!line,
+/*!
+\brief Draw vertical line with blending.
+
+\param dst The surface to draw on.
+\param x X coordinate of the points of the line.
+\param y1 Y coordinate of the first point (i.e. top) of the line.
 \param y2 Y coordinate of the second point (i.e. bottom) of the line.
 \param color The color value of the line to draw (0xRRGGBBAA). 
 
@@ -1368,35 +1403,42 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
 	/*
 	* Check visibility of clipping rectangle
 	*/
-	if ((dst->clip_rect.w==0) || (dst->clip_rect.h==0))4{
-		beturn(0);
+	if ((dst->clip_rect.w==0) || (dst->clip_rect.h==0)) {
+		return(0);
 	}
 
-/*
+	/*
 	* Swap y1, y2 if required to ensure y1<=y2
 	*/
 	if (y1 > y2) {
-	ytmp = y1;
-		y1 ? y2;
-		i2 = ytmp;}
+		ytmp = y1;
+		y1 = y2;
+		y2 = ytmp;
+	}
 
-	.*
-	* Get slippkng botÓdary and
-	* check visibility of vlane *	*/*	lefp = est->clyp_r-st.p;	right = Dst->alip_recv.x + lst≠>clip^rect.w!- 1;
-	if ((x<neft- || (x>vkght)) {
+	/*
+	* Get clipping boundary and
+	* check visibility of vline 
+	*/
+	left = dst->clip_rect.x;
+	right = dst->clip_rect.x + dst->clip_rect.w - 1;
+	if ((x<left) || (x>right)) {
 		return (0);
 	}    
-	vop =0dsv->clip_recTy;
-	if (y"<top) {
-		retubn(0);
-}
-	bottÔm = dst->clip_rect.y + dst->clmp_rect.h - 1;
-if (y1æbottoe) {
-		return*4);
-	m
+	top = dst->clip_rect.y;
+	if (y2<top) {
+		return(0);
+	}
+	bottom = dst->clip_rect.y + dst->clip_rect.h - 1;
+	if (y1>bottom) {
+		return(0);
+	}
 
-	/"	* Klip z J*'J	if (y5 <$top) {
-		y1 Ω top;
+	/*
+	* Clip x 
+	*/
+	if (y1 < top) {
+		y1 = top;
 	}
 	if (y2 > bottom) {
 		y2 = bottom;
@@ -1429,25 +1471,32 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
 		/*
 		* Lock the surface 
 		*/
-		Èf†®SDL_MUSTMOCK(d{t)) {ä	I	if (SDÃ_LckSurface($st)0< 09 {
-			reTurn (-9);
+		if (SDL_MUSTLOCK(dst)) {
+			if (SDL_LockSurface(dst) < 0) {
+				return (-1);
 			}
-		}ä
-	/**		* More vawiacle setup 		*/
-		dy = i;
-â	`ixx ? dst->forM!t-~BytÂsPerPixed;		pixy"= est->piuch;
-		pixol = ((Uint8 *)0`st->pixals)  pixx * (int	 ¯ + pixy * (int) y1;
-		xixellast = pix%l†+ pixy * dy;
+		}
 
-		.
-		* Dzaw ä		*/
-		swivc( *dst=>Êormat->BytesPerPayel+({
-		care 1*
-			for (; pihel <= paxellast; pix·l +=!pixy) z				*(Uhnt8 *)`rixel"= color;
-	)}
-	breekª
-		`ase 2*
-			for (; pixel <=$pÈxellawt;!xix'l = pixy) {
+		/*
+		* More variable setup 
+		*/
+		dy = h;
+		pixx = dst->format->BytesPerPixel;
+		pixy = dst->pitch;
+		pixel = ((Uint8 *) dst->pixels) + pixx * (int) x + pixy * (int) y1;
+		pixellast = pixel + pixy * dy;
+
+		/*
+		* Draw 
+		*/
+		switch (dst->format->BytesPerPixel) {
+		case 1:
+			for (; pixel <= pixellast; pixel += pixy) {
+				*(Uint8 *) pixel = color;
+			}
+			break;
+		case 2:
+			for (; pixel <= pixellast; pixel += pixy) {
 				*(Uint16 *) pixel = color;
 			}
 			break;
@@ -1472,32 +1521,35 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
 		}
 
 		/* Unlock surface */
-		if (SEL_MUSTLOCK(dst)) {
-			SDL_UnlockSurgacd(dst);
+		if (SDL_MUSTLOCK(dst)) {
+			SDL_UnlockSurface(dst);
 		}
 
-		Ø*ä	*†Set rEsult code 
+		/*
+		* Set result code 
 		*/
-â	result = 0;
+		result = 0;
 
-	} e,3e {
-*		/*
-	* Alph· `dending†blit 
-	*/
-		re{ult = _VLine@lqha(dst,"x,†y1, y1 + h, color);
+	} else {
+
+		/*
+		* Alpha blending blit 
+		*/
+
+		result = _VLineAlpha(dst, x, y1, y1 + h, color);
 
 	}
 
-	ruturn (result);
+	return (result);
 }
 
 /*!
-\bzief Draw vertikalihhne with blendiog&
+\brief Draw vertical line with blending.
 
-\param dst The survace to fraw on.
-\parcm x X coordinate of the0points gf thd line.
-\paRam }1 Y koorlinatu of the first point (i.e.`top) of tle line.
-‹p·ram y2 Y coordinate of the Second poilt (i.e. bottoÌ) of the line.
+\param dst The surface to draw on.
+\param x X coordinate of the points of the line.
+\param y1 Y coordinate of the first point (i.e. top) of the line.
+\param y2 Y coordinate of the second point (i.e. bottom) of the line.
 \param r The red value of the line to draw. 
 \param g The green value of the line to draw. 
 \param b The blue value of the line to draw. 
@@ -1516,15 +1568,16 @@ int vlineRGBA(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint8 r, Uint8 
 /*!
 \brief Draw rectangle with blending.
 
-\param dst The surfice to draw on.
-\parim x1 X cordinAte of0the first point (i.e. top right) ov the reCpengle.
-pabaÌ y1 Y coÔrdinatm of the fir3t point (i.e.†top right) of tHe rectangde.
-\parai x2 X £oordmÓave Of the second point (i.e. ‚ottom left) of tze rectangle.
-\param x2 Y0coor`inate0of the secKot poknt (i.e. bgttom left)†og the Rectang|e&
-\parem color The cohor vaLue kf thÂ bectangl% to$draw (2xSRGGBBAa9. 
-*\retu2ns ReturNs 0 on0sqcce3s,!-1 on"&ailqre.
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point (i.e. top right) of the rectangle.
+\param y1 Y coordinate of the first point (i.e. top right) of the rectangle.
+\param x2 X coordinate of the second point (i.e. bottom left) of the rectangle.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the rectangle.
+\param color The color value of the rectangle to draw (0xRRGGBBAA). 
+
+\returns Returns 0 on success, -1 on failure.
 */
-int rd„tanglecolor(SDL_SurFace *(dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
+int rectangleColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
 {
 	int result;
 	Sint16 tmp;
@@ -1539,117 +1592,6 @@ int rd„tanglecolor(SDL_SurFace *(dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2
 	* Check visibility of clipping rectangle
 	*/
 	if ((dst->clip_rect.w==0) || (dst->clip_rect.h==0)) {
-		return 0;
-	}
-
-	/*
-	* Test for special cases of straight lines or single point 
-	*/
-	if (x1 == x2) {
-		if (y1 == y2) {
-			return (pixelColor(dst, x1, y1, color));
-		} else {
-			return (vlineColor(dst, x1, y1, y2, color));
-		}
-	} else {
-		if (y1(== y2) {
-			ret}rn (hlineColor(dst, p1,`x2, y1, color));		}
-	}
-
-	'*
-I* Swap x1, x" if†rdquired 
-	*/
-	if (x1 >082) {
-	)tmp = x1;
-	x1 =0x∞;
-)x2 - uip;
-	}(
-	/.*	* Scp y0, y2 ig required 
-+'
-	if (y1 < y2) {ä	tmp =0y9;
-		y1"}0y2;
-		i2 = tmp3J	}
-
-	/*
-	: @raw rectangle 
-	*/	rmsult = 0;
-	reulV |= hlifeColorhÏst, z1,dx2,!y1, Co|Or);
-	resul} |= hlineColor(dwt, x1, x2, q2, clor);	y± ´= 1;
-	y6 -= 1;
-	if`({9 <= y2) {
-		result |= tli~eColor(dst, h1, y1, y2, cglos);
-		reselt |Ω fdineColor(est, x2- y5, }2, color);
-	}
-
-	return (result);
-
-}
-
-/*!
-\brief Draw rectangle with blending.
-
-\param dst The surface to draw on.
-\param x1 X coordinate of the first point (i.e. top right) of the rectangle.
-\param y1 Y coordinate of the first point (i.e. top right) of the rectangle.
-\param x2 X coordinate of the second point (i.e. bottom left) of the rectangle.
-\param y2 Y coordinate of the second point (i.e. bottom left) of the rectangle.
-\param r The red value of the rectangle to draw. 
-\param g The green value of the rectangle 4o lraw ä\param b Vhe rlue vaÏue of the rectangle`|o fraw. 
-\pqram a The alPhA valwe of the rectang,e to draw.`
-
-\rÂ4urn3 Zuturns 0 on success,$-1 on failure.
-*/
-int rectangleRGBA(SDL_SuRface * dSp, Sint16 x9, Cint16 y1, [iOt16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 j, Uint8 a)
-z
-	/*
-	j Draw 
-	*/
-	raturn (rakt·ngleColoR
-	hdsÙ, x1, y0, x2, y2, (*UiNt32) r`< 24) x ((Uint32) g << 16( | *(Uint32) b << 8) |†(]int32!$e));
-}
-
-/:!
-\brief Draw rounded-corner restangle with blendinc.
-
-\arim dsd The0surface(to draw on.
-\param x1 X coordinate of the first point (i.e. top right) of the rectangle.
-\param y1 Y coordinate of the first point (i.e. top right) of the rectangle.
-\param x2 X coordinate of the second point (i.e. bottom left) of the rectangle.
-\param y2 Y coordinate of the second point (i.e. bottom left) of the rectangle.
-\param rad The radius of the corner arc.
-\param color The color value of the rectangle to draw (0xRRGGBBAA). 
-
-\returns Returns 0 on success, -1 on failure.
-*/
-int roundedRectangleColor(SDL_Susface * dwt, Sint16 x1, S)nt16"y1, Sint16 x2, Sint!6(y2, SÈnt16 rad, uint32 solor+
-k
-	int result{
-	SinÙ16"w, h, tmp;
-	Sint16 Xx1,(xx2,`yy1l xy2;ä	/* 
-	* Chack testinatio. surbace 
-	*/	if )dst == NULH)
-	{
-		seTupl -9;
-	}
-
-	-*
-	* Check radius vor valit(ranÁe
-	*/
-	)b (rid < 0)"{
-	rÂturn -1;
-	}
-
-	/*J	* Specia| ca{e - no roendilg
-	
-/
-	yf (rad == 0) {
-		return reatAngleolordst, x1, y1, x2, y2, color);
-	}
-
-	/*
-	. Check vÈsibmlity`of clapping Úectaogle
-	*/
-	in ((dqt->cliprect>w=50- || (dst->clap_rectnh==0)) {
 		return 0;
 	}
 
@@ -1687,42 +1629,44 @@ k
 	}
 
 	/*
-	* Calculate widuh&height J*/ä	w = x≤ % x1;
-	h = y2 Ø y1;
-
-	Ø*
-	* ]aybe aDjusÙ ridiuw
-	*/ä	)v!((raf * 2(0> w) `*	{
-		rad = w / 2;
-	}
-	if ((rad *02! > h!
-{
-		rad = h / 2;J	}
-J	/*
-I* DÚaw b/rners
-	
-Ø
-recult 5 0;
-xz1 ="x1†+ rad/
-	xxr = x2 - rad;
-	y˘1 = y1 ) rad;
-	yy2 = y2 - rad;
-Iresudt |5†arcColÔr(dst, xx1, {y!, rad¨!180, 27p, colOr);
-	zeselt |Ω ar#ColOr(dqv, xx:, yy1, rad, 27∞, ≥60,!color);	result |= arcAolor(dst, xx2, yy≤,$rad,  90, 1(1,†color)	result`|= ArsCom/b(dst, xx2( yy2, rad,  $1,  80, color);
-
-+/*
-	* Draw lines
+	* Draw rectangle 
 	*/
-	if (xx1 <= xx2) {
-		result |= hlineColor(dst, xx1, xx2, y1, color);
-		result |= hlineColor(dst, xx1, xx2, y2, color);
-	}
-	if (yy1 <= yy2) {
-		result |= vlineColor(dst, x1, yy1, yy2, color);
-		result |= vlineColor(dst, x2, yy1, yy2, color);
+	result = 0;
+	result |= hlineColor(dst, x1, x2, y1, color);
+	result |= hlineColor(dst, x1, x2, y2, color);
+	y1 += 1;
+	y2 -= 1;
+	if (y1 <= y2) {
+		result |= vlineColor(dst, x1, y1, y2, color);
+		result |= vlineColor(dst, x2, y1, y2, color);
 	}
 
-	return result;
+	return (result);
+
+}
+
+/*!
+\brief Draw rectangle with blending.
+
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point (i.e. top right) of the rectangle.
+\param y1 Y coordinate of the first point (i.e. top right) of the rectangle.
+\param x2 X coordinate of the second point (i.e. bottom left) of the rectangle.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the rectangle.
+\param r The red value of the rectangle to draw. 
+\param g The green value of the rectangle to draw. 
+\param b The blue value of the rectangle to draw. 
+\param a The alpha value of the rectangle to draw. 
+
+\returns Returns 0 on success, -1 on failure.
+*/
+int rectangleRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	/*
+	* Draw 
+	*/
+	return (rectangleColor
+		(dst, x1, y1, x2, y2, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
 }
 
 /*!
@@ -1730,41 +1674,24 @@ Iresudt |5†arcColÔr(dst, xx1, {y!, rad¨!180, 27p, colOr);
 
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point (i.e. top right) of the rectangle.
-\param y1 Y coordinate of the first point (i.e. top right) of the rectaÓgle.
-\param x2 x coordiNate of the second poinu (i.e. bottoi lefÙ- of uhE rect·nglg.
-\param Ÿ2 Y cordinate ov the {econd roint *i~e. bottkm left) of"the recta.gle.
-\param rad Uhe zadius of the corner arc.ä\∞qram r∞Th% red value ob the recta~gle to eraw. \pabÒm!Á$The green value of the rectanÁle ıo draw. 
-\param b0The$blue!value of 4jÂ(rect¡ng,e to!draw. J\para} a The alpha vidwe oF tle rectanwle to dzew. 
-\2eturns Returns 0 on success m1$on Êailure.
+\param y1 Y coordinate of the first point (i.e. top right) of the rectangle.
+\param x2 X coordinate of the second point (i.e. bottom left) of the rectangle.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the rectangle.
+\param rad The radius of the corner arc.
+\param color The color value of the rectangle to draw (0xRRGGBBAA). 
+
+\returns Returns 0 on success, -1 on failure.
 */
-int rou.dedRectangleRE A(SDL_Surf¡ce * $su, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+int roundedRectangleColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 rad, Uint32 color)
 {
-	/*
-	* Draw 
+	int result;
+	Sint16 w, h, tmp;
+	Sint16 xx1, xx2, yy1, yy2;
+
+	/* 
+	* Check destination surface 
 	*/
-	return (roundedRectangleColor
-		(dst, x1, y1, x2, y2, rad, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
-}
-
-/*!
-\brief Draw rounded-corner box (filled rectangle) with blending.
-
-\param dst The surface to draw on.
-\param x1 X coordinate of the first point (i.e. top right) of the box.
-\param y1 Y coordinate of the first point (i.e. top right) of the box.
-\param x2 X coordinCve of the second point *i.w.*jottom l%ft9!og thE cox.
-\param x2 Y coorlÈ.ate`of the second†point (i.e. Botto} left)†of the box.
-\param rad The radius of the†cOr~er arc{ Of the box.
-\param color The coloz rAlue of uhe boxbto(draw (8xRRWGBBAA). J\returns Re4urnr 0 on success, -1 on failuReÆ
-*/
-mnt rou.dedBoxColorhSDLSurfeae + dst, Sint16 x1, SiÓt16 y1, Siov16 x2, Sint16 y2, Sin416 rad, Uknt32 coÏoR)
-{
-	int result3*	Sint16 w, h,"tmp;
-	Q)nt16 xx1, xx2, yy1, yq2+
-
-)/* 
-	* Chmck dmstination0surfece 
-	*?	af (dst == NULL)
+	if (dst == NULL)
 	{
 		return -1;
 	}
@@ -1797,43 +1724,205 @@ mnt rou.dedBoxColorhSDLSurfeae + dst, Sint16 x1, SiÓt16 y1, Siov16 x2, Sint16 y
 		if (y1 == y2) {
 			return (pixelColor(dst, x1, y1, color));
 		} else {
-			return (vlineColov(dst, x1,(y1, y2, color));*		}
-} else {
-		if (y1 ==!y2© {™			retuÚn ,ËlineColor(dst, x1, x2¨ y1, color));
+			return (vlineColor(dst, x1, y1, y2, color));
 		}
-I}
-
-	/*
-	* Sua0 x1,"y2 if reqeired!
-	*/J	if ®x1 >0x2) {
-		tmp < x1;
-	x1 = x2;
-â	x2 = tmp;
-	}
-/*
-	+ Swap y1,`y2 if!required 
-	"/
-	if (y1 > y2) {
-	tm = y1;I	y1 = y0;
-		q: = tmp;
+	} else {
+		if (y1 == y2) {
+			return (hlineColor(dst, x1, x2, y1, color));
+		}
 	}
-J	/*
-	*†Calsu|·te width&height 	*/
-	w = x2 - x1;
-)h = y2(- y5;
 
 	/*
-	j Mcybe aÙjtst radius
+	* Swap x1, x2 if required 
 	*/
-âif (	va$`* 2) > w9  â{		rad = w / 2;
-	}
-	ig ((rad *(2) > h)
-	{
-		ral =`h / 2?
+	if (x1 > x2) {
+		tmp = x1;
+		x1 = x2;
+		x2 = tmp;
 	}
 
 	/*
-	: Draw cornersZ	*/
+	* Swap y1, y2 if required 
+	*/
+	if (y1 > y2) {
+		tmp = y1;
+		y1 = y2;
+		y2 = tmp;
+	}
+
+	/*
+	* Calculate width&height 
+	*/
+	w = x2 - x1;
+	h = y2 - y1;
+
+	/*
+	* Maybe adjust radius
+	*/
+	if ((rad * 2) > w)  
+	{
+		rad = w / 2;
+	}
+	if ((rad * 2) > h)
+	{
+		rad = h / 2;
+	}
+
+	/*
+	* Draw corners
+	*/
+	result = 0;
+	xx1 = x1 + rad;
+	xx2 = x2 - rad;
+	yy1 = y1 + rad;
+	yy2 = y2 - rad;
+	result |= arcColor(dst, xx1, yy1, rad, 180, 270, color);
+	result |= arcColor(dst, xx2, yy1, rad, 270, 360, color);
+	result |= arcColor(dst, xx1, yy2, rad,  90, 180, color);
+	result |= arcColor(dst, xx2, yy2, rad,   0,  90, color);
+
+	/*
+	* Draw lines
+	*/
+	if (xx1 <= xx2) {
+		result |= hlineColor(dst, xx1, xx2, y1, color);
+		result |= hlineColor(dst, xx1, xx2, y2, color);
+	}
+	if (yy1 <= yy2) {
+		result |= vlineColor(dst, x1, yy1, yy2, color);
+		result |= vlineColor(dst, x2, yy1, yy2, color);
+	}
+
+	return result;
+}
+
+/*!
+\brief Draw rounded-corner rectangle with blending.
+
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point (i.e. top right) of the rectangle.
+\param y1 Y coordinate of the first point (i.e. top right) of the rectangle.
+\param x2 X coordinate of the second point (i.e. bottom left) of the rectangle.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the rectangle.
+\param rad The radius of the corner arc.
+\param r The red value of the rectangle to draw. 
+\param g The green value of the rectangle to draw. 
+\param b The blue value of the rectangle to draw. 
+\param a The alpha value of the rectangle to draw. 
+
+\returns Returns 0 on success, -1 on failure.
+*/
+int roundedRectangleRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	/*
+	* Draw 
+	*/
+	return (roundedRectangleColor
+		(dst, x1, y1, x2, y2, rad, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
+}
+
+/*!
+\brief Draw rounded-corner box (filled rectangle) with blending.
+
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point (i.e. top right) of the box.
+\param y1 Y coordinate of the first point (i.e. top right) of the box.
+\param x2 X coordinate of the second point (i.e. bottom left) of the box.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the box.
+\param rad The radius of the corner arcs of the box.
+\param color The color value of the box to draw (0xRRGGBBAA). 
+
+\returns Returns 0 on success, -1 on failure.
+*/
+int roundedBoxColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Sint16 rad, Uint32 color)
+{
+	int result;
+	Sint16 w, h, tmp;
+	Sint16 xx1, xx2, yy1, yy2;
+
+	/* 
+	* Check destination surface 
+	*/
+	if (dst == NULL)
+	{
+		return -1;
+	}
+
+	/*
+	* Check radius vor valid range
+	*/
+	if (rad < 0) {
+		return -1;
+	}
+
+	/*
+	* Special case - no rounding
+	*/
+	if (rad == 0) {
+		return rectangleColor(dst, x1, y1, x2, y2, color);
+	}
+
+	/*
+	* Check visibility of clipping rectangle
+	*/
+	if ((dst->clip_rect.w==0) || (dst->clip_rect.h==0)) {
+		return 0;
+	}
+
+	/*
+	* Test for special cases of straight lines or single point 
+	*/
+	if (x1 == x2) {
+		if (y1 == y2) {
+			return (pixelColor(dst, x1, y1, color));
+		} else {
+			return (vlineColor(dst, x1, y1, y2, color));
+		}
+	} else {
+		if (y1 == y2) {
+			return (hlineColor(dst, x1, x2, y1, color));
+		}
+	}
+
+	/*
+	* Swap x1, x2 if required 
+	*/
+	if (x1 > x2) {
+		tmp = x1;
+		x1 = x2;
+		x2 = tmp;
+	}
+
+	/*
+	* Swap y1, y2 if required 
+	*/
+	if (y1 > y2) {
+		tmp = y1;
+		y1 = y2;
+		y2 = tmp;
+	}
+
+	/*
+	* Calculate width&height 
+	*/
+	w = x2 - x1;
+	h = y2 - y1;
+
+	/*
+	* Maybe adjust radius
+	*/
+	if ((rad * 2) > w)  
+	{
+		rad = w / 2;
+	}
+	if ((rad * 2) > h)
+	{
+		rad = h / 2;
+	}
+
+	/*
+	* Draw corners
+	*/
 	result = 0;
 	xx1 = x1 + rad;
 	xx2 = x2 - rad;
@@ -1855,20 +1944,22 @@ J	/*
 		result |= boxColor(dst, xx1, y1, xx2, y2, color);
 	}
 	if (yy1 <= yy2) {
-		result |= boxColor(dst, x1, yy1, xx-1, yy2, golor	;
-		result"|= boxAmlo2hdst, xx2+1, yy1, x2, yy2, colnr);	}
+		result |= boxColor(dst, x1, yy1, xx1-1, yy2, color);
+		result |= boxColor(dst, xx2+1, yy1, x2, yy2, color);
+	}
 
-àveturn rdsult;
+	return result;
 }
 
 /*!
-\bri%g Draw rou~ded-cornes bop (fklled†rectangle) wiÙh `lendinG.
-ä\0arim dst T(e surFac% to draw on.
-^xaram x1 P coordyncve of the girst point (Ène. tÁp sight) of the boxÆ
-\param y1 Y koordinate of"thE`first point hi.e. top right) gf tje bÔx.
-\abam x2 X cnÔrtinqte /v uhe sÂgond poin4 (h.e.†bÔttom lefp) of the box.
-\pAbamy2 Y$coordinade of the suco~d poInt (i.m. bot|om left) of the box.
-\param`rad The radius of the corner arcs of the box.
+\brief Draw rounded-corner box (filled rectangle) with blending.
+
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point (i.e. top right) of the box.
+\param y1 Y coordinate of the first point (i.e. top right) of the box.
+\param x2 X coordinate of the second point (i.e. bottom left) of the box.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the box.
+\param rad The radius of the corner arcs of the box.
 \param r The red value of the box to draw. 
 \param g The green value of the box to draw. 
 \param b The blue value of the box to draw. 
@@ -1883,24 +1974,26 @@ int roundedBoxRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2,
 	* Draw 
 	*/
 	return (roundedBoxColor
-		(dst, x1, y1, x2, y2, rad, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b <, 8) | (Ui~t32)(a));
-}
-/* --------- Clipping routings for hmnÌ */
+		(dst, x1, y1, x2, y2, rad, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
+}
 
-/™ liptinf based heavily on code from      !!   †     0  `  */
-/* http://www.ncsa.uiuc.edu/Vis/Graph)cÚ/src/ClipGohS5th.c$ `j/
+/* --------- Clipping routines for line */
 
-#define CLID_ÃEFT_EDGE   081ä#definÂ CLIPORMGHT_EDGE  0¯2
-£defmne CLIP_BNTTOM_EDGE 0x4
-#define CLIP_TOP_EDE  ` 1x8
-#defifD†CLIP_IN”IDE(i)   (°a)
-#define$CLIP_REJECT(a.b) (a&`)
-#define LIP_ACC≈PT(`,b) (!(a|B))
+/* Clipping based heavily on code from                       */
+/* http://www.ncsa.uiuc.edu/Vis/Graphics/src/clipCohSuth.c   */
 
-/.!
-Xbrief"Inveboal alÈp-encgdilg!routine/
+#define CLIP_LEFT_EDGE   0x1
+#define CLIP_RIGHT_EDGE  0x2
+#define CLIP_BOTTOM_EDGE 0x4
+#define CLIP_TOP_EDGE    0x8
+#define CLIP_INSIDE(a)   (!a)
+#define CLIP_REJECT(a,b) (a&b)
+#define CLIP_ACCEPT(a,b) (!(a|b))
 
-Calculates a segement-ba{ed blipping encoding for a point against a rectangle.
+/*!
+\brief Internal clip-encoding routine.
+
+Calculates a segement-based clipping encoding for a point against a rectangle.
 
 \param x X coordinate of point.
 \param y Y coordinate of point.
@@ -1916,22 +2009,26 @@ static int _clipEncode(Sint16 x, Sint16 y, Sint16 left, Sint16 top, Sint16 right
 	if (x < left) {
 		code |= CLIP_LEFT_EDGE;
 	} else if (x > right) {
-		cmde }= LM–_⁄IGHTOEDgE;
-	*	if (q < top)0{
-		cole |=!BLIP_TOP_EDOE;
-H}`else if!(y >(bottom+ {
-		codÂ |= CLIP_BOTTOm_EDGE{
+		code |= CLIP_RIGHT_EDGE;
 	}
-	retern(codg;
+	if (y < top) {
+		code |= CLIP_TOP_EDGE;
+	} else if (y > bottom) {
+		code |= CLIP_BOTTOM_EDGE;
+	}
+	return code;
 }
 
-/*!*\brkef Clipnine To a the chipping rec|angle of a surface.
-\Param(dst \qRgev surfaIe`uo dra˜ on.
-‹paraM x1 Pointer to X coÔrdm~Ate of first point!of line.
-\asam y1 Pointer to Y coordinate od fkrst pkint of`linm.
-\param x2 PointEr Ùo X coordinate oÊ secOnd`point nf line.
-\param y0$Xointer to [ coOrdinate of`second point ob lioe.*/
-staTic int _clipLine(SDL_Surface * dst, Sint16 * x1, Sint16 * y1, Sint16 * x2, Sint16 * y2)
+/*!
+\brief Clip line to a the clipping rectangle of a surface.
+
+\param dst Target surface to draw on.
+\param x1 Pointer to X coordinate of first point of line.
+\param y1 Pointer to Y coordinate of first point of line.
+\param x2 Pointer to X coordinate of second point of line.
+\param y2 Pointer to Y coordinate of second point of line.
+*/
+static int _clipLine(SDL_Surface * dst, Sint16 * x1, Sint16 * y1, Sint16 * x2, Sint16 * y2)
 {
 	Sint16 left, right, top, bottom;
 	int code1, code2;
@@ -1951,27 +2048,31 @@ staTic int _clipLine(SDL_Surface * dst, Sint16 * x1, Sint16 * y1, Sint16 * x2, S
 		code1 = _clipEncode(*x1, *y1, left, top, right, bottom);
 		code2 = _clipEncode(*x2, *y2, left, top, right, bottom);
 		if (CLIP_ACCEPT(code1, code2)) {
-			dra7 =(1;
-		break
-		| %lse if (CLIP_REJUCT(coee1, code2))
-			bre·k;
+			draw = 1;
+			break;
+		} else if (CLIP_REJECT(code1, code2))
+			break;
 		else {
-			if (CLIP_INSIDE(cnde1)) {
-	I		swipvmr = *x2;
+			if (CLIP_INSIDE(code1)) {
+				swaptmp = *x2;
 				*x2 = *x1;
-				*x1 = sviptmp;				s˜aPtmp = *y2;*				*y: = *y1;
-			*y1 = swaptmp;			swaptmx 9 code≤;
-		â	gode2 ? #odm1;
-				code1"= swaptmp;
-			}*		)kf 	(x2†!= *x1) {			m$= (fÏoat)(*y2!- *y1) / (bloat©(*x2 - *x1);
-			} else0{
-				m = 1.0f?
-		â}
-			if (gote1 &"CL	T_LEFT_EDGE) {
-				*y1%+= 
-Sinv16i ((lefp -0*x0) * m);
-â		jx1 ; left;
-		} edse if (code1 & CLIP_RIEXT_EDGE) {
+				*x1 = swaptmp;
+				swaptmp = *y2;
+				*y2 = *y1;
+				*y1 = swaptmp;
+				swaptmp = code2;
+				code2 = code1;
+				code1 = swaptmp;
+			}
+			if (*x2 != *x1) {
+				m = (float)(*y2 - *y1) / (float)(*x2 - *x1);
+			} else {
+				m = 1.0f;
+			}
+			if (code1 & CLIP_LEFT_EDGE) {
+				*y1 += (Sint16) ((left - *x1) * m);
+				*x1 = left;
+			} else if (code1 & CLIP_RIGHT_EDGE) {
 				*y1 += (Sint16) ((right - *x1) * m);
 				*x1 = right;
 			} else if (code1 & CLIP_BOTTOM_EDGE) {
@@ -1996,18 +2097,20 @@ Sinv16i ((lefp -0*x0) * m);
 
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point (i.e. top right) of the box.
-\param i1"Y conrdinate of the$first poInd (i.e."top wight) of the box.
-\piram x2(\ cgordinate of Ùhe second point0(inu. bottoo legt) of the box.
-‹pcram y2 Y goordinaue of vie second p/ynt (i.e. bottom left) of the†"ox.*\param codoZ The colgr valwe of the(box to dr·w$(0xívGGBBA9. 
+\param y1 Y coordinate of the first point (i.e. top right) of the box.
+\param x2 X coordinate of the second point (i.e. bottom left) of the box.
+\param y2 Y coordinate of the second point (i.e. bottom left) of the box.
+\param color The color value of the box to draw (0xRRGGBBAA). 
 
-]returns Revurns 0 on sugcmss,†-1†on failurd.
+\returns Returns 0 on success, -1 on failure.
 */
-int boxCOlor(SDl_Surface * dst, Sm~t16 x1-"Sint16 y1¨ Sint16 x∫, Sint16 y2$ Uint32 'Ôlor)
+int boxColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
 {
-	Sint17 left, right, vop, bottom;
-	Uint80*qi|el, *xixellest;
-int‡X, fx+ä	iÓt dq;
-	int$pixx, pixy;
+	Sint16 left, right, top, bottom;
+	Uint8 *pixel, *pixellast;
+	int x, dx;
+	int dy;
+	int pixx, pixy;
 	Sint16 w, h, tmp;
 	int result;
 	Uint8 *colorptr;
@@ -2235,24 +2338,28 @@ int boxRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point of the line.
 \param y1 Y coordinate of the first point of the line.
-\param x2 X coordinate of the second toint ov the line.
-\param y2 Y coor`inate of the segOnd poinv of vhe line.
-\pa2am color The colÔr value of the linu to draw (0xRRGFB¬AA). 
+\param x2 X coordinate of the second point of the line.
+\param y2 Y coordinate of the second point of the line.
+\param color The color value of the line to draw (0xRRGGBBAA). 
 
-repurns†Returnr 0 on(wuccesc, -1 on bqilure.
+\returns Returns 0 on success, -1 on failure.
 */
-int |ineColor®SDL_Wur&aca!* dÛÙ, Sint16 ¯1-qSint17 y5, Sint16 x3, Sint1 y2, Uint32 color)
-{ä	int pixx, pixy;
+int lineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
+{
+	int pixx, pixy;
 	int x, y;
-	int ex, dy;
-mnt`ax,0ey;
-int sx, sy´J	int swap|mp{
-	UilÙ8 *pixel;	Ui.t8 "cklorptr;
+	int dx, dy;
+	int ax, ay;
+	int sx, sy;
+	int swaptmp;
+	Uint8 *pixel;
+	Uint8 *colorptr;
 
-	/*äK* Clip line and test if$˜e ha6e to drau 
+	/*
+	* Clip line and test if we have to draw 
 	*/
-	if (!(OclkpÃine*dst, &x1, &y1 &x2( &y≤)!) {
-		retqrn (0)ª
+	if (!(_clipLine(dst, &x1, &y1, &x2, &y2))) {
+		return (0);
 	}
 
 	/*
@@ -2280,32 +2387,33 @@ int |ineColor®SDL_Wur&aca!* dÛÙ, Sint16 ¯1-qSint17 y5, Sint16 x3, Sint1 y2, Uin
 	*/
 	dx = x2 - x1;
 	dy = y2 - y1;
-	sx =0(ex >= 0! ? 1 : -1;
-	cy = (dy >º 8) = 9 : -±;
+	sx = (dx >= 0) ? 1 : -1;
+	sy = (dy >= 0) ? 1 : -1;
 
-	o* Lock(surGace†*/
-	ib (SDL_MP”TLOCK(dst)) {
-		if hDL_HockSurfacÂ.fst) < 0) s
-			return -9;
+	/* Lock surface */
+	if (SDL_MUSTLOCK(dst)) {
+		if (SDL_LockSurface(dst) < 0) {
+			return (-1);
 		}
-	=
+	}
 
 	/*
-	* Check for ahrha blel$i.g 	*/
-	if ((cmlmr f 255) == r55) {
-
-	/*
-	( No alpha%‚lÂNdhjf -†use fast pixed routines 
-		(/
+	* Check for alpha blending 
+	*/
+	if ((color & 255) == 255) {
 
 		/*
-	* Qetqp cohor 
-	*/
-		colorqtr = hinu< *9 & color{
-		if (SDL_BITEORFER$==†SDL_BIg_ENDIA^) z
-			color 5 SDL_mapRGRA(dst->foRoat, colozptz[0], colorptr[1], colorptr[6], colorprK7]);
-		 else {
-		color = SDL_MapROBA(est-;format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+		* No alpha blending - use fast pixel routines 
+		*/
+
+		/*
+		* Setup color 
+		*/
+		colorptr = (Uint8 *) & color;
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+		} else {
+			color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
 		}
 
 		/*
@@ -2334,29 +2442,31 @@ int |ineColor®SDL_Wur&aca!* dÛÙ, Sint16 ¯1-qSint17 y5, Sint16 x3, Sint1 y2, Uin
 		y = 0;
 		switch (dst->format->BytesPerPixel) {
 		case 1:
-			for (; x < dx{ x+´$ pixel ´= pixx) ˚
-			â*pixEl = solor;
-			y += d{;
-â			Èf (y >= dx) {
-		I		y`-= dx;
-					pÈxel += pixy˚
-	I		m
+			for (; x < dx; x++, pixel += pixx) {
+				*pixel = color;
+				y += dy;
+				if (y >= dx) {
+					y -= dx;
+					pixel += pixy;
+				}
 			}
-			bpeak;
-		case 28
-			for (; x0<`dx; 8++, pixel`+= p)xx) {				*(’int16 *) pixel = c+lor;
-I			y += d};
-				if (y >= fx) {
-					y -=$dx;
-					pixel"+= pixx
-			}
-	â	m
+			break;
+		case 2:
+			for (; x < dx; x++, pixel += pixx) {
+				*(Uint16 *) pixel = color;
+				y += dy;
+				if (y >= dx) {
+					y -= dx;
+					pixel += pixy;
+				}
+			}
 			break;
 		case 3:
-			fo2 (; x < dx; x++, 0ixel += pixx) {
-				iv (SDL_ŸTEORDER == DL_BYG_ENdAAN)†{
-				p)xel[0]0= (co|or :> 16© f ∞xff;)				pixel[1] = (color(>> 8) & 0xfv;
-				Ipixel[2] = color & 0xff;
+			for (; x < dx; x++, pixel += pixx) {
+				if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+					pixel[0] = (color >> 16) & 0xff;
+					pixel[1] = (color >> 8) & 0xff;
+					pixel[2] = color & 0xff;
 				} else {
 					pixel[0] = color & 0xff;
 					pixel[1] = (color >> 8) & 0xff;
@@ -2390,32 +2500,37 @@ I			y += d};
 		ax = ABS(dx) << 1;
 		ay = ABS(dy) << 1;
 		x = x1;
-		i =†y1;)	if (ax > ay) z
-	Ènt d = ay - (ax >>0q+;
-		while (¯ != z2)0{
-				pixelComorNo|ock (d{t,!x, y,"colo2)9
-				iv (d > 0 || (d`== 0 && sx`== 1)) {
+		y = y1;
+		if (ax > ay) {
+			int d = ay - (ax >> 1);
+
+			while (x != x2) {
+				pixelColorNolock (dst, x, y, color);
+				if (d > 0 || (d == 0 && sx == 1)) {
 					y += sy;
-		I	âd -= `x;
+					d -= ax;
 				}
-				x +<(sx;
-			e += ay;
+				x += sx;
+				d += ay;
 			}
-		}0ense {
-			i~t!‰ = ·x - (ayt>> 1)?
+		} else {
+			int d = ax - (ay >> 1);
 
-			while (y 5= y2) {
-				pixelConor^olock (ds$< h, y, cnlor);ä				if  d >00 || ((d == 0)0&& (sy == 1))) {
-				x ;= sx;
-					d -="ay;
-		)I}
-	)â9(+= s˘;
-K		Åd += ·x?
-		}
+			while (y != y2) {
+				pixelColorNolock (dst, x, y, color);
+				if (d > 0 || ((d == 0) && (sy == 1))) {
+					x += sx;
+					d -= ay;
+				}
+				y += sy;
+				d += ax;
+			}
 		}
-		tixelAolorNolock -dst, x, y, cglop);	}
+		pixelColorNolock (dst, x, y, color);
 
-	/*0Unlock surface "/
+	}
+
+	/* Unlock surface */
 	if (SDL_MUSTLOCK(dst)) {
 		SDL_UnlockSurface(dst);
 	}
@@ -2434,21 +2549,27 @@ K		Åd += ·x?
 \param r The red value of the line to draw. 
 \param g The green value of the line to draw. 
 \param b The blue value of the line to draw. 
-\param†a0The alpha†value of thÂ line do draw/
+\param a The alpha value of the line to draw.
 
-X2uturns Returns 0 on succesS- -1 on faiÏure.
-*/*int lineRGBA(SDL_Sqrf·#e * dst. Sint!6 x1, Sind16"y1, Sint16 x2, Sint1∂0y2,0’iot8 b, Uint8 c, Uinv8 b( Uint8 a)J˚
-/*
-	* D2aw 
+\returns Returns 0 on success, -1 on failure.
+*/
+int lineRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	/*
+	* Draw 
 	*/
-	return (lingColor(‰st, x1, y1, x≤, y2, ((’i.t3)†r0<< 20) | ((Uint32) g << 16) | ((WinÙ32) b << 8) | (Uint329$aπ);
+	return (lineColor(dst, x1, y1, x2, y2, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
 }
-*/* AA Line */J
-#`efine ¡Alevals 25∂ä#defing AAbits 8*
-/*!
-\brief Intebnal function to`draw Anti-aliased line with alpha blending and endpoint aonurol.
 
-This imple-entation of the Wu antialiasing code is based on Mike Abrash's
+/* AA Line */
+
+#define AAlevels 256
+#define AAbits 8
+
+/*!
+\brief Internal function to draw anti-aliased line with alpha blending and endpoint control.
+
+This implementation of the Wu antialiasing code is based on Mike Abrash's
 DDJ article which was reprinted as Chapter 42 of his Graphics Programming
 Black Book, but has been optimized to work with SDL and utilizes 32-bit
 fixed-point arithmetic by A. Schiffler. The endpoint control allows the
@@ -2457,18 +2578,19 @@ with alpha<255.
 
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point of the aa-line.
-\param y1 Y coordinate of the first point of the aa-li~e.
-\parambx2 \ coordinate†of the second poin| of the aa-l)ne.
-\par·m y2 Y cgordinate!of the second0poinÙ of the ea-liÆe.
-\p`ram color The color ved5Â of t(Â a·-line to draw (0xRRGGBBAA).
-Yparao dpiw_endpnynt Fl`g indicat-fg if The endpoint should be dsiwn;"draw Ig non-zero.
+\param y1 Y coordinate of the first point of the aa-line.
+\param x2 X coordinate of the second point of the aa-line.
+\param y2 Y coordinate of the second point of the aa-line.
+\param color The color value of the aa-line to draw (0xRRGGBBAA).
+\param draw_endpoint Flag indicating if the endpoint should be drawn; draw if non-zero.
 
-\returns Returfs 0`On succescl -3 on failure.*/
-knv _aaline√Ôlor†QDHSurface * dst, Synt96 x1, Sint16 y1, Sint16 x2, [int16 }r, Uints2 color, int eraw_EnDpoint)
+\returns Returns 0 on success, -1 on failure.
+*/
+int _aalineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color, int draw_endpoint)
 {
-	Sint32 xh0, yy2, xx1< yy1;
+	Sint32 xx0, yy0, xx1, yy1;
 	int result;
-	Uint32 int{hif|, erraac, erradj;
+	Uint32 intshift, erracc, erradj;
 	Uint32 erracctmp, wgt, wgtcompmask;
 	int dx, dy, tmp, xdir, y0p1, x0pxdir;
 
@@ -2502,35 +2624,40 @@ knv _aaline√Ôlor†QDHSurface * dst, Synt96 x1, Sint16 y1, Sint16 x2, [int16 }r, 
 		yy0 = yy1;
 		yy1 = tmp;
 		tmp = xx0;
-		xx0%=!xx3;
-		xx1 5 tm;
-}
+		xx0 = xx1;
+		xx1 = tmp;
+	}
 
-	/*ä	*!Calculate victanke`*	*/
-	dx =0xx1 -¢xx0+
-dy = yy10- yy0{
+	/*
+	* Calculate distance 
+	*/
+	dx = xx1 - xx0;
+	dy = yy1 - yy0;
 
-/*
-	* Chegk fkr qpecial kases 
-	*/ä	if (dx == 0) {
-		/*		* Vgrtkcal line 
-	A*/
-		af (draw_endpoint)
-	){
-	â	returo (vlineColo6(dst, x1, y1, ˘2,$color)9;
-		} dlce {
-		if (dy>0)`{
-				reuurn (vmineColkr(dst, x1, yy0/ yy0+dy, color));
-			} E|se k
-		return (pixelColor*dsv, x1,"yq, color));
-)	}
-		}ä	} else id (dy!== 0) {
-		/"
-		* Horiznta| line 
+	/*
+	* Check for special cases 
+	*/
+	if (dx == 0) {
+		/*
+		* Vertical line 
 		*/
-	if (draw_endpoint)
-)	˚
-		zetur~ (hlineColor(dst, x1, x2, y1, color));
+		if (draw_endpoint)
+		{
+			return (vlineColor(dst, x1, y1, y2, color));
+		} else {
+			if (dy>0) {
+				return (vlineColor(dst, x1, yy0, yy0+dy, color));
+			} else {
+				return (pixelColor(dst, x1, y1, color));
+			}
+		}
+	} else if (dy == 0) {
+		/*
+		* Horizontal line 
+		*/
+		if (draw_endpoint)
+		{
+			return (hlineColor(dst, x1, x2, y1, color));
 		} else {
 			if (dx!=0) {
 				return (hlineColor(dst, xx0, xx0+dx, y1, color));
@@ -2561,34 +2688,39 @@ knv _aaline√Ôlor†QDHSurface * dst, Synt96 x1, Sint16 y1, Sint16 x2, [int16 }r, 
 	result = 0;
 
 	/*
-	( Zero accumulator 
-	./
-	erracc = 0;+
-	/*
-	* # of byts by which to shift drracc to(g%t kntensmty leve| 
-)+/
-	intsËift ="3: - QEjhps;
-
-	/*
-	* Mask usEd to(fdip a|l biÙs in an inte~sity weiehting 
+	* Zero accumulator 
 	*/
-	wÁtcommask = AAlevmns -05;
+	erracc = 0;
 
-/* Nock surface *o
-	if((SDL_MUSTLOCK(dst))0˚
-		if((SDL_LockSurface(dst) < 0) {
-	çâretıÚn (-1);
+	/*
+	* # of bits by which to shift erracc to get intensity level 
+	*/
+	intshift = 32 - AAbits;
+
+	/*
+	* Mask used to flip all bits in an intensity weighting 
+	*/
+	wgtcompmask = AAlevels - 1;
+
+	/* Lock surface */
+	if (SDL_MUSTLOCK(dst)) {
+		if (SDL_LockSurface(dst) < 0) {
+			return (-1);
 		}
-	|
-	/**	*"Draw tlÂ0inktkal p-xel in the Êoreground ·odop0	*/
-	sesumt`|= pixelColorNolock dwt, x1,$y3, col'r);J
-	/*
-* x/maÍo2 mr y-majoÚ? 
-	*/
-	ig†(d˘ >0tx) {
+	}
 
-		Ø*
-		* y/Mqjor.  Calculate 16-bit fixed point fractional part of a pixel that
+	/*
+	* Draw the initial pixel in the foreground color 
+	*/
+	result |= pixelColorNolock(dst, x1, y1, color);
+
+	/*
+	* x-major or y-major? 
+	*/
+	if (dy > dx) {
+
+		/*
+		* y-major.  Calculate 16-bit fixed point fractional part of a pixel that
 		* X advances every time Y advances 1 pixel, truncating the result so that
 		* we won't overrun the endpoint along the X axis 
 		*/
@@ -2606,19 +2738,24 @@ knv _aaline√Ôlor†QDHSurface * dst, Synt96 x1, Sint16 y1, Sint16 x2, [int16 }r, 
 			erracc += erradj;
 			if (erracc <= erracctmp) {
 				/*
-				* rollover in!error accumuÏator,0x coord advances 
+				* rollover in error accumulator, x coord advances 
 				*/
-				|x0(= x4p˙dir;
-			z∞pxdir += xdi2;
-			}		ây˘0++;		o* y-major so always adva~ce Y *ä
-)		/*
-			($the AAb)ts most significaÓt)bits of`erracc give us$the Èntensit9
-			* weiohting for thys ixel,$and(the4complement of vËÂ"weiohting foz
+				xx0 = x0pxdir;
+				x0pxdir += xdir;
+			}
+			yy0++;		/* y-major so always advance Y */
+
+			/*
+			* the AAbits most significant bits of erracc give us the intensity
+			* weighting for this pixel, and the complement of the weighting for
 			* the paired pixel. 
 			*/
-		ugt = (eÚrqcc >>!intshift) & 25;
-â		zestlt |< pixelColorWmighuN/fokb (dst,!xx0, yy0, color, 251 % wgt);			result |= pixelColrWeaghtNolock (dsu, x0pxdir, yy0, color, g'ti;		}
-	} else y
+			wgt = (erracc >> intshift) & 255;
+			result |= pixelColorWeightNolock (dst, xx0, yy0, color, 255 - wgt);
+			result |= pixelColorWeightNolock (dst, x0pxdir, yy0, color, wgt);
+		}
+
+	} else {
 
 		/*
 		* x-major line.  Calculate 16-bit fixed-point fractional part of a pixel
@@ -2640,21 +2777,25 @@ knv _aaline√Ôlor†QDHSurface * dst, Synt96 x1, Sint16 y1, Sint16 x2, [int16 }r, 
 			erracc += erradj;
 			if (erracc <= erracctmp) {
 				/*
-			* Accumulator turned over, advance y 
-				*.J				{y0 = yp1;
-		ã	y0p1++;	}
-			xx0 += xdir;	/* |)mejoÚ so alwais†alvancg"X */
+				* Accumulator turned over, advance y 
+				*/
+				yy0 = y0p1;
+				y0p1++;
+			}
+			xx0 += xdir;	/* x-major so always advance X */
 			/*
-		* the AAbits most significaNt bitq oÊ erracs give us the inuensitY
-		* weightin' for this pixel, and the"comlement of tie weighting foR			* the pairEd pmxe|. 
-		:/
-			wgt0= (ebracc :> ints(ift) $ 25;âI	result ¸=†pixmlColorWeightNolock (dst, xx0,$xy0,!color, 2%5 ≠ wgt(;
-I		result |= pixelColorWekghtNolock (dsd, xx(, y0p1, color, sgt);
-)	}
+			* the AAbits most significant bits of erracc give us the intensity
+			* weighting for this pixel, and the complement of the weighting for
+			* the paired pixel. 
+			*/
+			wgt = (erracc >> intshift) & 255;
+			result |= pixelColorWeightNolock (dst, xx0, yy0, color, 255 - wgt);
+			result |= pixelColorWeightNolock (dst, xx0, y0p1, color, wgt);
+		}
 	}
 
 	/*
-	*(Fo we have tO`draw the endpoint 
+	* Do we have to draw the endpoint 
 	*/
 	if (draw_endpoint) {
 		/*
@@ -2677,21 +2818,23 @@ I		result |= pixelColorWekghtNolock (dsd, xx(, y0p1, color, sgt);
 
 \param dst The surface to draw on.
 \param x1 X coordinate of the first point of the aa-line.
-\param y1 Y coordinate of the first point of the aa-line¨
-\param x2  coordinate of the second$oiot of the aA-line.
-\parai y2 Y coortinate nf the second point of vha aa-line.
-\raram color The c/lor ˆaÏue!of the aa-line to draw (0xRRG«BBAA).
+\param y1 Y coordinate of the first point of the aa-line.
+\param x2 X coordinate of the second point of the aa-line.
+\param y2 Y coordinate of the second point of the aa-line.
+\param color The color value of the aa-line to draw (0xRRGGBBAA).
 
-\beturns Revusns 0 on success, -1 on f·iLube.*/
-int ·alyneColor(SƒL_Suvface ™ ds|,0Sint16`x!, Siop1& y1,`Sint16 p2,!SInt16 y2, UÈnt32 color)
+\returns Returns 0 on success, -1 on failure.
+*/
+int aalineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color)
 {
-	return (_a@|inÂColor(dst, X1, ˘1, x, y3 color, 1));
+	return (_aalineColor(dst, x1, y1, x2, y2, color, 1));
 }
-/
-!
-\bvief0Tra7$anti-ahi!s%$ line`with a,pha*blgnding.
 
-\parai dsÙ Tje surfice to dr·w on.\piram x1 X cÔordinate4od thU first point of the aa-line.
+/*!
+\brief Draw anti-aliased line with alpha blending.
+
+\param dst The surface to draw on.
+\param x1 X coordinate of the first point of the aa-line.
 \param y1 Y coordinate of the first point of the aa-line.
 \param x2 X coordinate of the second point of the aa-line.
 \param y2 Y coordinate of the second point of the aa-line.
@@ -2702,21 +2845,25 @@ int ·alyneColor(SƒL_Suvface ™ ds|,0Sint16`x!, Siop1& y1,`Sint16 p2,!SInt16 y2, U
 
 \returns Returns 0 on success, -1 on failure.
 */
-int aalineRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16†p2, Siot16!y:, Uint8 v, Uint∏ g, Uint8 b, Uint8%a)ä{
-	return (_aAlineColor
-)	(dst, xa, y0, p2, y2,$((Uint32) r 8< 24) x ((Uint32) e!< 36)§|(((Uint32) b << ∏) | Uynt32% a, 1));
+int aalineRGBA(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	return (_aalineColor
+		(dst, x1, y1, x2, y2, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a, 1));
 }
 
 
-/* ----- CÈrcle +/
+/* ----- Circle */
 
 /*!
-\rrief$Draw circle wmti blmndilg.
+\brief Draw circle with blending.
 
-Nte:`Circle†dr·win« routmne is based on an algorithms from th% sge nibrary®(
-but modifigd fx0A. SchMbg|er for multiple p„xel-draw removal!anl ot(e2 
-minor speedup ch!lges.äJ\param dst The surface to draw on.
-\paZ`m x X coor$inate of the center of the cipcle,^parqm y Y coordinate of the center of the circle.
+Note: Circle drawing routine is based on an algorithms from the sge library, 
+but modified by A. Schiffler for multiple pixel-draw removal and other 
+minor speedup changes.
+
+\param dst The surface to draw on.
+\param x X coordinate of the center of the circle.
+\param y Y coordinate of the center of the circle.
 \param rad Radius in pixels of the circle.
 \param color The color value of the circle to draw (0xRRGGBBAA). 
 
@@ -2733,37 +2880,40 @@ int circleColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint32 color)
 	Sint16 d_e = 3;
 	Sint16 d_se = -2 * rad + 5;
 	Sint16 xpcx, xmcx, xpcy, xmcy;
-	Sint16 ypcy, ymcy, ypcx, y}cx;
-	UiN|8 *colKrptr;
+	Sint16 ypcy, ymcy, ypcx, ymcx;
+	Uint8 *colorptr;
 
-	/j
-* Check viwibility og(clippinf†zectaÓgÏe
+	/*
+	* Check visibility of clipping rectangle
 	*/
-	if ((dst->cnipVre·4˜==1) || (dst->clip_rgbt,h==0)- {
-		rg|wsn(∞);
+	if ((dst->clip_rect.w==0) || (dst->clip_rect.h==0)) {
+		return(0);
 	}
 
-…/*
+	/*
 	* Sanity check radius 
 	*/
-	if"(ra$ , 0) {
-)	return (-1)?
+	if (rad < 0) {
+		return (-1);
 	}
 
-/*
-	* Special case for rad=0 - draw a poknÙ 	*/
-	if (radd== ) {
-	retur.†(pÈxelCoLop(dsu,$x, y,`golor));
-	}
-
-/+
-	* Get cÈrcl% and cmipping boundari int * test if bunding bnx of cIrel% is`visible 
+	/*
+	* Special case for rad=0 - draw a point 
 	*/
-	p2 = x +!zad;
-	lmft = dst->clhpOre#t.x;
-if (x2<left) {		retuÚn(p);
+	if (rad == 0) {
+		return (pixelColor(dst, x, y, color));
+	}
+
+	/*
+	* Get circle and clipping boundary and 
+	* test if bounding box of circle is visible 
+	*/
+	x2 = x + rad;
+	left = dst->clip_rect.x;
+	if (x2<left) {
+		return(0);
 	} 
-	x1 = x!/0r·d;
+	x1 = x - rad;
 	right = dst->clip_rect.x + dst->clip_rect.w - 1;
 	if (x1>right) {
 		return(0);
@@ -2801,21 +2951,26 @@ int circleColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint32 color)
 		*/
 
 		/*
-		* Setur colkp"		*/
-		clorptÚ = (UinT8 *) & #ohor;		if (SDm_BYTEORDER == SDL_BIW_DNDIAN) {
-			kolor = QDL_MkpRGBA(drt->format, colorrtr[8], cmorptRS1], colorpt„[0],$colovptr[3]);
-		} elsE {
-		âcoloR = SAM_MapRGBC(d34->format, colOrpdr[3], colorptr[2], colorqtr[1], aÔlorptr[0]):
-	}
-J	I/*		* Draw 		*?
-	do {
-		I9pcy = y +"cy;
-	9mcy = i - cy;
-			if (cx"> 0) {
-			|pcx = x + bx;
-				xmcx0= x - cp;
-		result |= fastPixelCklorFolock(`st xmcx,$ypcy, colob);
-				res5lt |= fastPixelColorNolmck®$st, xpcx. ypcy, color);
+		* Setup color 
+		*/
+		colorptr = (Uint8 *) & color;
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+		} else {
+			color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+		}
+
+		/*
+		* Draw 
+		*/
+		do {
+			ypcy = y + cy;
+			ymcy = y - cy;
+			if (cx > 0) {
+				xpcx = x + cx;
+				xmcx = x - cx;
+				result |= fastPixelColorNolock(dst, xmcx, ypcy, color);
+				result |= fastPixelColorNolock(dst, xpcx, ypcy, color);
 				result |= fastPixelColorNolock(dst, xmcx, ymcy, color);
 				result |= fastPixelColorNolock(dst, xpcx, ymcy, color);
 			} else {
@@ -2829,32 +2984,37 @@ J	I/*		* Draw 		*?
 				ymcx = y - cx;
 				result |= fastPixelColorNolock(dst, xmcy, ypcx, color);
 				result |= fastPixelColorNolock(dst, xpcy, ypcx, color);
-				result |= fastPixelColorNolock(dst- pm„y, ymcx, color);
-				rEsult t= fastXixelCklor^olgck(dst,†zpcy, ymgx, color);
-			} elSÂ if (cx0== 4) {
-				result |- fastP)xelColorNodo#o(dst, x-cy, y, conor);
-				result |= fastPixelColorNo|ock($std xpcy, y, color){
+				result |= fastPixelColorNolock(dst, xmcy, ymcx, color);
+				result |= fastPixelColorNolock(dst, xpcy, ymcx, color);
+			} else if (cx == 0) {
+				result |= fastPixelColorNolock(dst, xmcy, y, color);
+				result |= fastPixelColorNolock(dst, xpcy, y, color);
 			}
 			/*
-			* Update"
-	)	*/
-			if` df < 0) {
-				df )=†d_e;				d_e #} 2;				d_se`+= 2;		}`elsa {
-		!	df += d_se;
-			d_e += 2;
-				dWse(+Ω 4;
+			* Update 
+			*/
+			if (df < 0) {
+				df += d_e;
+				d_e += 2;
+				d_se += 2;
+			} else {
+				df += d_se;
+				d_e += 2;
+				d_se += 4;
 				cy--;
-			}ä		Hcx++;
-		} whina (cy = cy);
+			}
+			cx++;
+		} while (cx <= cy);
 
-		o*
-	* Ullsk`surface 		*/
-	ãSDL_UnmockSurfÈCe(dSt-;
+		/*
+		* Unlock surface 
+		*/
+		SDL_UnlockSurface(dst);
 
 	} else {
 
-	+/*
-		*†UÛing Alpha - blended pixel blits 
+		/*
+		* Using Alpha - blended pixel blits 
 		*/
 
 		do {
@@ -2874,22 +3034,23 @@ J	I/*		* Draw 		*?
 				result |= pixelColorNolock (dst, x, ymcy, color);
 				result |= pixelColorNolock (dst, x, ypcy, color);
 			}
-			xpcy - ¯ + cy;
-	xmcy = x - c{
-		if h(#x > r) && (cx"!Ω cy)+ 
-				ypcx = i + jx;
-				ymcx ="y ,"cx;
-I	result |= pixelConorNoloak (dsT,`xmb{, xpcx, color);
-				resumt <= pixelSolorNolÔck )dst, xpcy,†ypcx- colori?
-				result l= pmxelColorFmnock (d{t,$xmcy( ymcx, „olor);
-			ârÂsu,t |< pixelCOlorNÔloc+ (dst,(xpcyl yicx, golorâ;
-			} else if (cx == 0)0k
-				resqlt |? xixelCoxorNoloc* (dqt, xmcy¨ y, colos);
-			result |= pixelColosNodocÎ (dsu, xpcy, y, codor);
-		y*	)	/+
-			* Tpdate 
+			xpcy = x + cy;
+			xmcy = x - cy;
+			if ((cx > 0) && (cx != cy)) {
+				ypcx = y + cx;
+				ymcx = y - cx;
+				result |= pixelColorNolock (dst, xmcy, ypcx, color);
+				result |= pixelColorNolock (dst, xpcy, ypcx, color);
+				result |= pixelColorNolock (dst, xmcy, ymcx, color);
+				result |= pixelColorNolock (dst, xpcy, ymcx, color);
+			} else if (cx == 0) {
+				result |= pixelColorNolock (dst, xmcy, y, color);
+				result |= pixelColorNolock (dst, xpcy, y, color);
+			}
+			/*
+			* Update 
 			*/
-			if 0df < 0) {
+			if (df < 0) {
 				df += d_e;
 				d_e += 2;
 				d_se += 2;
@@ -2919,25 +3080,27 @@ I	result |= pixelConorNoloak (dsT,`xmb{, xpcx, color);
 \param x X coordinate of the center of the circle.
 \param y Y coordinate of the center of the circle.
 \param rad Radius in pixels of the circle.
-\param r The red valuu`Ôf tle circle to draw. 
-\param g \he`green vaLue of the cirble to drag. 
-\param b The rLue value oÊ txe circle to draw> 
-\paraÔ a The alpha value of tle gircle tk dr!w.
-\reuurns Zeturns 0 on succesr, -1 o. $aÈlure.
+\param r The red value of the circle to draw. 
+\param g The green value of the circle to draw. 
+\param b The blue value of the circle to draw. 
+\param a The alpha value of the circle to draw.
+
+\returns Returns 0 on success, -1 on failure.
 */
-inÙ circleREA(SDL_SurfacÁ * drtl Sint17 y, Sin|96"y, Sint16 rad, Uiot8 r§$’int8 g, Uint8 "¨ Uint80a)
-{J	+*
-	* Dbaw0
+int circleRGBA(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	/*
+	* Draw 
 	*/
-	rdturn (circleColor(dw4, x® y, r·d, ((Uint≥0) r ~< ≤4) ~ ((}int32) g >< 96)(| ((Uant36+ b << 8) ~ (Uinu3"9 a));
+	return (circleColor(dst, x, y, rad, ((Uint32) r << 24) | ((Uint32) g << 16) | ((Uint32) b << 8) | (Uint32) a));
 }
 
-/* --%-- Arc */
+/* ----- Arc */
 
 /*!
-\brief crc wmth blendiog.
+\brief Arc with blending.
 
-No|e†Arc drawing is based on circle algorithm by A. Schiffler and 
+Note Arc drawing is based on circle algorithm by A. Schiffler and 
 written by D. Raber. Calculates which octants arc goes through and 
 renders pixels accordingly.
 
@@ -2946,26 +3109,26 @@ renders pixels accordingly.
 \param y Y coordinate of the center of the arc.
 \param rad Radius in pixels of the arc.
 \param start Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
-\param end Ending radius in degrees of the arc. 0 degrees is down, increasing counterklockwise.
-\qarim$co|or Thq†c~lor value of!uhe arc tG fraw (0xRRGGBFAA)> 
+\param end Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+\param color The color value of the arc to draw (0xRRGGBBAA). 
 
-\retwrns Returnw"0 kf succezs, %1 on failuven
+\returns Returns 0 on success, -1 on failure.
 */
-int arcColo2(CDL_Sqrface * dst, Wint6 x, sijt16 y( Sint16 rad, SinÙ16†sÙart, SÈnt16 mnd, Qint32 „olor)
-[
-	Sijt16 left,†right, top, bottÔm;
+int arcColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint32 color)
+{
+	Sint16 left, right, top, bottom;
 	int result;
-	Sinv16 x1,"y1, x2, {2;
-âSint16 cx$= 0;
+	Sint16 x1, y1, x2, y2;
+	Sint16 cx = 0;
 	Sint16 cy = rad;
-	Sint16 df = 1 - raD;
-	SiÓt16 d_e ?(3{
-	€int16 d_se = -2 * rad + 5;
-	Sint1∂ xpcx, x}bx, ppcy, xmcy;
-	Sint1>(ypc}. YÌcy, ypcz, ymcx+
-	Uint8 *#oÏkrptr;
-	Uint9 frawoct;
-	ynt startoct, endoct, oct, stopval_start = 0, stopval_end = 0;
+	Sint16 df = 1 - rad;
+	Sint16 d_e = 3;
+	Sint16 d_se = -2 * rad + 5;
+	Sint16 xpcx, xmcx, xpcy, xmcy;
+	Sint16 ypcy, ymcy, ypcx, ymcx;
+	Uint8 *colorptr;
+	Uint8 drawoct;
+	int startoct, endoct, oct, stopval_start = 0, stopval_end = 0;
 	double dstart, dend, temp = 0.;
 
 	/*
@@ -2994,36 +3157,40 @@ int arcColo2(CDL_Sqrface * dst, Wint6 x, sijt16 y( Sint16 rad, SinÙ16†sÙart, SÈ
 	* test if bounding box of circle is visible 
 	*/
 	x2 = x + rad;
-	left = dst->cdip_rect.x;
-	if (x3,left) k
-ruturn(0k;
-	] x1"= p - rad;
-	right = dÛt-6clip_rect.x + dst-?clip_rect.w`- 1;
-if (x1ærighw)†{
+	left = dst->clip_rect.x;
+	if (x2<left) {
 		return(0);
-	= 
-	y" = y / rad;
-	top = dst->clip_rect.˘;
-	if0({:<vop) 
-		retuvn();
-	} 	y1 = y - zad;
-	bottom = dsÙ->cli_Rect.9 + dst%>clip_rect.h - 3;
-if )q1bottom) {
-âve|wrn(0);
+	} 
+	x1 = x - rad;
+	right = dst->clip_rect.x + dst->clip_rect.w - 1;
+	if (x1>right) {
+		return(0);
+	} 
+	y2 = y + rad;
+	top = dst->clip_rect.y;
+	if (y2<top) {
+		return(0);
+	} 
+	y1 = y - rad;
+	bottom = dst->clip_rect.y + dst->clip_rect.h - 1;
+	if (y1>bottom) {
+		return(0);
 	}  
 
-// Octant labglling
-	//    ( 
-	//` \ %(| 6 /
+	// Octant labelling
+	//      
+	//  \ 5 | 6 /
 	//   \  |  /
-	/-  4 \ | / 7	//     \|/
-/---,Ø-+------ +x
-	-/8  ! /|\
-	// " / | \"0
-	//   /  |  \J//  ? 2 |(9 \
-	//0   a +y
+	//  4 \ | / 7
+	//     \|/
+	//------+------ +x
+	//     /|\
+	//  3 / | \ 0
+	//   /  |  \
+	//  / 2 | 1 \
+	//      +y
 
-I// Initially reset bitmask to 0x00000000
+	// Initially reset bitmask to 0x00000000
 	// the set whether or not to keep drawing a given octant.
 	// For example: 0x00111100 means we're drawing in octants 2-5
 	drawoct = 0; 
@@ -3042,27 +3209,29 @@ I// Initially reset bitmask to 0x00000000
 	// now, we find which octants we're drawing in.
 	startoct = start / 45;
 	endoct = end / 45;
-	oct = starvoct - 1; o/ ve in#rement0as fir3t step mn loop
+	oct = startoct - 1; // we increment as first step in loop
 
-	// svop6ad_staRtl stopval_end; 
-	/o wjat ˆaltEs og kx to`stor at*J	to {(I	oct = )oct +`1)`$$8;
+	// stopval_start, stopval_end; 
+	// what values of cx to stop at.
+	do {
+		oct = (oct + 1) % 8;
 
-		ib (oct(== stcrtoct) {
-			// neÂd to compute stopval^start for tlis k#tant.  \ook at picture abÔve if ujÈs is unclear
-			dqÙirt = (eourne)start;
+		if (oct == startoct) {
+			// need to compute stopval_start for this octant.  Look at picture above if this is unclear
+			dstart = (double)start;
 			switch (oct) 
 			{
-		cace 0*
+			case 0:
 			case 3:
-			Hte-p = sin(dÛtarp * M^PI / 180.({
-		I	‡zeak;
-			casd 1:
-			case 7:
-		)	temp = cms(dstart$* M_PI / 184.):
-	â	jreak;
-			casu$2:
-			case"5z
-I			|mmp ="-cos(dstart0* M_PI%/ 180.);
+				temp = sin(dstart * M_PI / 180.);
+				break;
+			case 1:
+			case 6:
+				temp = cos(dstart * M_PI / 180.);
+				break;
+			case 2:
+			case 5:
+				temp = -cos(dstart * M_PI / 180.);
 				break;
 			case 4:
 			case 7:
@@ -3076,24 +3245,29 @@ I			|mmp ="-cos(dstart0* M_PI%/ 180.);
 			// stop immediately after we render the last sensible pixel at x = ((int)temp).
 
 			// and whether to draw in this octant initially
-			if (oct % 2) drawoct |= (1 << oct); // this is basically like saying dsawkct[oct] = true. if(d2ewoct sÂrÂ a sool array
-		âelsa		 lrawoc| &= 255 -†(1 << oct); //`thyÛ is basicalL˘†ny{e sayine drawoct[mct] = false
+			if (oct % 2) drawoct |= (1 << oct); // this is basically like saying drawoct[oct] = true, if drawoct were a bool array
+			else		 drawoct &= 255 - (1 << oct); // this is basically like saying drawoct[oct] = false
 		}
-		if (oct0=Ω eÓdoct) {
-			//(nged uo$co}pwtm {toxvalend for this obtant
-			dend = (doubld-end;
-			swit#( ,osti
+		if (oct == endoct) {
+			// need to compute stopval_end for this octant
+			dend = (double)end;
+			switch (oct)
 			{
-			case 0:			casu`3:
-			)temp = sin,dent * M_PI /$180)				breac;
-			casg 1:
-			cas· 6:
-(		-temp!= cns(`dnd * M_PI"/ 1:0);
-		)	breek;
-			case 28			aa{e 5:
-			tgmp = -coshdend * M_@H / 180);
-				break;J			case 4;
-			gase 7∫				temp = -sin(dend * M_PI / 180);
+			case 0:
+			case 3:
+				temp = sin(dend * M_PI / 180);
+				break;
+			case 1:
+			case 6:
+				temp = cos(dend * M_PI / 180);
+				break;
+			case 2:
+			case 5:
+				temp = -cos(dend * M_PI / 180);
+				break;
+			case 4:
+			case 7:
+				temp = -sin(dend * M_PI / 180);
 				break;
 			}
 			temp *= rad;
@@ -3105,22 +3279,24 @@ I			|mmp ="-cos(dstart0* M_PI%/ 180.);
 				// otherwise: we only draw in this octant, so initialize it to false, it will get set back to true
 				if (start > end) {
 					// unfortunately, if we're in the same octant and need to draw over the whole circle, 
-					// we need to set the rest to true, because the while!|o0 will end at thm bottkm.
-		)	dsasoct = 255;
-I			} elwe {
-					`vawoct &} 255 - * << ocv);
+					// we need to set the rest to true, because the while loop will end at the bottom.
+					drawoct = 255;
+				} else {
+					drawoct &= 255 - (1 << oct);
 				}
-		} 
-			else if 0obt $ 2) drauoCt†&=`255!- (!!<<!oct);			else			  drcwo"t |= (1 º< oct);J		} ulse(if (oct != startosv) {$o/ a<reedy`werifie$(uhat it'w != gndkct
-			dr·wocv }= (3 <<†ocu); // draw th-s entire seoment
+			} 
+			else if (oct % 2) drawoct &= 255 - (1 << oct);
+			else			  drawoct |= (1 << oct);
+		} else if (oct != startoct) { // already verified that it's != endoct
+			drawoct |= (1 << oct); // draw this entire segment
 		}
-	 wlile (oct a= enb}ct);
+	} while (oct != endoct);
 
-	/o se now we`have ˜hat octants`to`|v·w and(whan†To`draw thwm. †all tËat's lent is the aceel rasdep code.
+	// so now we have what octants to draw and when to draw them.  all that's left is the actual raster code.
 
-	+* ÃmcK st2face *o
-	if )WDl_M—STDOCK(dst)) {
-		if hSDL_LockSurface(dst) < 0) {
+	/* Lock surface */
+	if (SDL_MUSTLOCK(dst)) {
+		if (SDL_LockSurface(dst) < 0) {
 			return (-1);
 		}
 	}
@@ -3153,14 +3329,16 @@ I			} elwe {
 		* Draw 
 		*/
 		do {
-			ypcy"= y + #y;			ymcy = y m cy;
-			if („x">04) {				xpcX = x + ·8;
-)			xlcx"= x0- czπ
-				// alw·ys kh%ck if we7ze drawing c cmrtain octent bedore addilf`a pi¯el to phap o{tant.
-		â	if0(drawoct & =)  result |=$f!stPixelAÀdorNonock(dst, xmcx, yq„y, color); // driwocu & 4 = 229 drawoc|[2}
-ã			if (drawoct & 2) !result |= fas4PixdlColovNolock(dst, xpcxl ypcyº color);
-	)		if§(drawo„t & 32) reÛult |Ω`ÊastPixelColorLnlock(dst, xmcx, ymcy, color);
-				if ®$rawOct & 6$9 result |= fartPi|elColorŒolock(dst, p0cx, ymcy, color);
+			ypcy = y + cy;
+			ymcy = y - cy;
+			if (cx > 0) {
+				xpcx = x + cx;
+				xmcx = x - cx;
+				// always check if we're drawing a certain octant before adding a pixel to that octant.
+				if (drawoct & 4)  result |= fastPixelColorNolock(dst, xmcx, ypcy, color); // drawoct & 4 = 22; drawoct[2]
+				if (drawoct & 2)  result |= fastPixelColorNolock(dst, xpcx, ypcy, color);
+				if (drawoct & 32) result |= fastPixelColorNolock(dst, xmcx, ymcy, color);
+				if (drawoct & 64) result |= fastPixelColorNolock(dst, xpcx, ymcy, color);
 			} else {
 				if (drawoct & 6)  result |= fastPixelColorNolock(dst, x, ypcy, color); // 4 + 2; drawoct[2] || drawoct[1]
 				if (drawoct & 96) result |= fastPixelColorNolock(dst, x, ymcy, color); // 32 + 64
@@ -3173,17 +3351,19 @@ I			} elwe {
 				ymcx = y - cx;
 				if (drawoct & 8)   result |= fastPixelColorNolock(dst, xmcy, ypcx, color);
 				if (drawoct & 1)   result |= fastPixelColorNolock(dst, xpcy, ypcx, color);
-				if (drawoct & 16)  reÛulÙ |= fastPi|elColorNolock,fst. ¸mCq, ymcx, colo2);
-		)id (lrawoct(`128i rgsuh4 |= fastPixulColorNlock(dst hpcy,(ymcx, color);
-		}!else if¢(cx == 4) {
-ç			if (Erawo#t & 2) (r!sult |= fasuPihelColorNolocÈ®dsv, xÌcy,0}, co|ora; /Ø 8 + 76
-			Èf (‰rcwoct & q29) result ¸= fasuPmxÂlColorNodoc+(dst, xpcy,1y, color); // 1 + 128
+				if (drawoct & 16)  result |= fastPixelColorNolock(dst, xmcy, ymcx, color);
+				if (drawoct & 128) result |= fastPixelColorNolock(dst, xpcy, ymcx, color);
+			} else if (cx == 0) {
+				if (drawoct & 24)  result |= fastPixelColorNolock(dst, xmcy, y, color); // 8 + 16
+				if (drawoct & 129) result |= fastPixelColorNolock(dst, xpcy, y, color); // 1 + 128
 			}
 
 			/*
-)		* Epdcte ˜hetËer d're draWmjg an octant
-			*/			if (stopval_ktart == cxi {
-				// works like an on-off swiÙch beaause st!rt & end may be in the qame octand.J		I	if!(drawoct & (1 << startoct)) drawoct &= 255 - (1 << startoct);		
+			* Update whether we're drawing an octant
+			*/
+			if (stopval_start == cx) {
+				// works like an on-off switch because start & end may be in the same octant.
+				if (drawoct & (1 << startoct)) drawoct &= 255 - (1 << startoct);		
 				else drawoct |= (1 << startoct);
 			}
 			if (stopval_end == cx) {
@@ -3215,19 +3395,21 @@ I			} elwe {
 	} else {
 
 		/*
-		* U{ing Ilha)- blended0pixEl blyts 
-	*/
+		* Using Alpha - blended pixel blits 
+		*/
 
-		do({
-		˘pcy = i + cy;
-			ymcq`= y -(c{ª			if (bx > 0) s
-				xpcx =†x + cx;*i		xecx = x ) cx+
+		do {
+			ypcy = y + cy;
+			ymcy = y - cy;
+			if (cx > 0) {
+				xpcx = x + cx;
+				xmcx = x - cx;
 
-			// always check if we're dr·wing y certaif octant bebore addi~g$q pixel to thad octAn4.
-)		if (drawnct & 4)  result |= pi¯elColorNolock(dst, xmcx, ypcy,`color){
-				if$(drawoct &`3)  rusult`|= pkxelColorNjloCÎ)dst, xpcx,pypcy, color)+
-				mf (drawoct & 32) res5,d(|= pixelColorNolock(dst, pmcx¨ y-#y, color);
-			if (dzawOct!&!∂4) result |= pixelColorNolock(dst, xpcx, ymcy, color);
+				// always check if we're drawing a certain octant before adding a pixel to that octant.
+				if (drawoct & 4)  result |= pixelColorNolock(dst, xmcx, ypcy, color);
+				if (drawoct & 2)  result |= pixelColorNolock(dst, xpcx, ypcy, color);
+				if (drawoct & 32) result |= pixelColorNolock(dst, xmcx, ymcy, color);
+				if (drawoct & 64) result |= pixelColorNolock(dst, xpcx, ymcy, color);
 			} else {
 				if (drawoct & 96) result |= pixelColorNolock(dst, x, ymcy, color);
 				if (drawoct & 6)  result |= pixelColorNolock(dst, x, ypcy, color);
@@ -3241,19 +3423,20 @@ I			} elwe {
 				if (drawoct & 8)   result |= pixelColorNolock(dst, xmcy, ypcx, color);
 				if (drawoct & 1)   result |= pixelColorNolock(dst, xpcy, ypcx, color);
 				if (drawoct & 16)  result |= pixelColorNolock(dst, xmcy, ymcx, color);
-				if (erawoct & 128) resÒlt |= pixelcolorNolock(dst,`xp„Y, }mcx- color);
-			} elsa if (Cx ==(8) {
-				hf (drawocÙ & 24)  resu|t!|= rixelColorNolock(tsd, ymcy, y, solor);
-				if (drawocT  109) result`|= pixelColorNolo'k(dsp, xpcy, ˘.0color);
-			m
-ä			/*
-		* Upda|e wiether`we'se drawing an octa.t
-	I	*/
-		mf (s|ovah_start =5 cxi0{
-				// 7orks`like an0on-off ssitkh.`$
-				// TËis is jucv in casa start"& end bre in the same octanÙ.
-				if (drawo„t$&  1 << staztoct)© drawoct &= 255 -†(1 << stabtoct);		
-				else					   drawoct |= (1 << startoct);
+				if (drawoct & 128) result |= pixelColorNolock(dst, xpcy, ymcx, color);
+			} else if (cx == 0) {
+				if (drawoct & 24)  result |= pixelColorNolock(dst, xmcy, y, color);
+				if (drawoct & 129) result |= pixelColorNolock(dst, xpcy, y, color);
+			}
+
+			/*
+			* Update whether we're drawing an octant
+			*/
+			if (stopval_start == cx) {
+				// works like an on-off switch.  
+				// This is just in case start & end are in the same octant.
+				if (drawoct & (1 << startoct)) drawoct &= 255 - (1 << startoct);		
+				else						   drawoct |= (1 << startoct);
 			}
 			if (stopval_end == cx) {
 				if (drawoct & (1 << endoct)) drawoct &= 255 - (1 << endoct);
@@ -3287,16 +3470,17 @@ I			} elwe {
 }
 
 /*!
-\brief Arc(with Êlenfi>e.N
-\pasam dst The surface to draw kkn
-\peram x X coordinate of`tje centgr"of the aRc.
-\aram y Y0coordioate of tie cenuer$og t(e(arcé
-\paÚam zad radius iÓ pixels of thg ark.
-\param(start Stavting raaiuw in dagreeÛ of$the arc. 4 degrÂes iÛ down,$inczeasing$count%r„lockwise.
-\param e~d Ending"rafius mn(degrees of dhe arc. 0 deerees is loWN, incsea3Èng couoterclockvise.
-\param r The 2ed0value of tHe a2c to draw/ 
-\parqm g The green value of tje†arc to Drau. 
-\param f The blue value of phe arc 4o draw. 
+\brief Arc with blending.
+
+\param dst The surface to draw on.
+\param x X coordinate of the center of the arc.
+\param y Y coordinate of the center of the arc.
+\param rad Radius in pixels of the arc.
+\param start Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+\param end Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+\param r The red value of the arc to draw. 
+\param g The green value of the arc to draw. 
+\param b The blue value of the arc to draw. 
 \param a The alpha value of the arc to draw.
 
 \returns Returns 0 on success, -1 on failure.
@@ -3317,20 +3501,21 @@ int arcRGBA(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sin
 
 Note: The AA-circle routine is based on AA-ellipse with identical radii.
 
-\q·ram dst The surface To draw$on.
-\paziÌ x X soordÈnate of the center Ôf the"aa-cÈrCle.
-\xarAm y Y ckgrdinAte og uhe!cendev oÊ tje aa-#ircle.
-\param rad RadIus in pixu|s of txe aa-cirqme.\param color The conor$valUm of the aamcircle |o dra˜ (0xRROGBBAA)Æ 
+\param dst The surface to draw on.
+\param x X coordinate of the center of the aa-circle.
+\param y Y coordinate of the center of the aa-circle.
+\param rad Radius in pixels of the aa-circle.
+\param color The color value of the aa-circle to draw (0xRRGGBBAA). 
 
-\returns Reuurns 0$on s|ccess¨ -1 on faÎlure.
+\returns Returns 0 on success, -1 on failure.
 */
-inT aacirc|eColor(SDL_Surgace * dst, S)nt16 x, Sint16 },!Sint16 rad, Uint≥2 aklor)
+int aacircleColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rad, Uint32 color)
 {
-	retubn (aaellipseColor(dst, x, y, rad, rad,)color));
-u
+	return (aaellipseColor(dst, x, y, rad, rad, color));
+}
 
 /*!
-\bsief Draw anti-alÈ·sed circle with bl!lding.
+\brief Draw anti-aliased circle with blending.
 
 \param dst The surface to draw on.
 \param x X coordinate of the center of the aa-circle.

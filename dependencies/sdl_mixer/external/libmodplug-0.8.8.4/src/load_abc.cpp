@@ -34,6 +34,16 @@
 #include <unistd.h> // for sleep
 #endif // _WIN32
 
+#ifdef _WIN32
+
+#define	ALLOCA _alloca
+
+#else
+
+#define	ALLOCA alloca
+
+#endif
+
 #ifdef NEWMIKMOD
 #include "mikmod.h"
 #include "uniform.h"
@@ -2245,12 +2255,12 @@ static void abc_preprocess(ABCHANDLE *h, ABCMACRO *m)
 	if( m->n ) {
 		k = m->n - m->name;
 		for( i=0; i<14; i++ ) {
-			char * t = static_cast<char*>(_alloca(strlen(m->name) + 1));
+			char * t = static_cast<char*>(ALLOCA(strlen(m->name) + 1));
 			strcpy(t, m->name);
 			t[k] = "CDEFGABcdefgab"[i];
 			l = strlen(m->subst);
 
-			char * s = static_cast<char*>(_alloca(2 * l + 1));
+			char * s = static_cast<char*>(ALLOCA(2 * l + 1));
 
 			char *p = s;
 			for( j=0; j<l; j++ ) {

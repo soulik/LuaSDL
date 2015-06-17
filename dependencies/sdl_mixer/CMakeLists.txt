@@ -5,7 +5,7 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)
 
-set(CMAKE_MODULE_PATH "${SDLMIXER_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${SDLMIXER_SOURCE_DIR}/cmake")
 
 find_package(SDL REQUIRED)
 
@@ -35,11 +35,11 @@ else()
 	set(SDLMIXER_SUPPORT_MOD_MUSIC ON CACHE BOOL "Support for Mod music")
 	set(SDLMIXER_SUPPORT_MID_MUSIC ON CACHE BOOL "Support for MIDI music")
 		set(SDLMIXER_SUPPORT_MID_MUSIC_TIMIDITY ON CACHE BOOL "Support for MIDI over TIMIDITI music")
-		set(SDLMIXER_SUPPORT_MID_MUSIC_FLUIDSYNTH ON CACHE BOOL "Support for MIDI over FluidSynth music")
-		set(SDLMIXER_SUPPORT_MID_MUSIC_NATIVE ON CACHE BOOL "Support for native MIDI music")
+		set(SDLMIXER_SUPPORT_MID_MUSIC_FLUIDSYNTH OFF CACHE BOOL "Support for MIDI over FluidSynth music")
+		set(SDLMIXER_SUPPORT_MID_MUSIC_NATIVE OFF CACHE BOOL "Support for native MIDI music")
 	set(SDLMIXER_SUPPORT_OGG_MUSIC ON CACHE BOOL "Support for OggVorbis music")
 	set(SDLMIXER_SUPPORT_MP3_MUSIC ON CACHE BOOL "Support for MP3 music")
-	set(SDLMIXER_SUPPORT_MP3_MAD_MUSIC ON CACHE BOOL "Support for MP3 MAD music")
+	set(SDLMIXER_SUPPORT_MP3_MAD_MUSIC OFF CACHE BOOL "Support for MP3 MAD music")
 	set(SDLMIXER_SUPPORT_FLAC_MUSIC ON CACHE BOOL "Support for FLAC music")
 endif()
 

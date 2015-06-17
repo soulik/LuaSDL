@@ -34,11 +34,11 @@
 #endif
 
 /* C language features */
-/*
-#cmakedefine const
-#cmakedefine inline
-#cmakedefine volatile
-*/
+//
+//#cmakedefine const
+//#cmakedefine inline
+//#cmakedefine volatile
+//
 
 /* C datatypes */
 #cmakedefine size_t
@@ -54,7 +54,7 @@
 #cmakedefine SDL_HAS_64BIT_TYPE
 
 /* Endianness */
-#cmakedefine SDL_BYTEORDER
+#cmakedefine SDL_BYTEORDER @SDL_BYTEORDER@
 
 /* Comment this if you want to build without any C library requirements */
 #cmakedefine HAVE_LIBC 1
