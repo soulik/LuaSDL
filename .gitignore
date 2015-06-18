@@ -8,3 +8,5 @@ Release/*
 LuaSDL/Debug/*
 LuaSDL/Release/*
 tests/*
+build/*
+.idea/*
