@@ -7,7 +7,10 @@ list(APPEND CMAKE_MODULE_PATH "${SDLIMAGE_SOURCE_DIR}/cmake")
 # Include Lua 5.1
 
 include(FindLua51)
-include_directories(${LUA_INCLUDE_DIR})
+include_directories(
+	${LUA_INCLUDE_DIR}
+	${LUA_INCLUDE_DIR}/lua5.1
+)
 include_directories(dependencies/lua/include)
 
 include_directories(include)
