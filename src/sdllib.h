@@ -12,6 +12,9 @@
 /* ================================================================== */
 #ifdef _WIN32
 #include <io.h>
+#ifndef MAX_PATH
+#define MAX_PATH	260
+#endif
 #else
 #include <limits.h>
 #define MAX_PATH PATH_MAX

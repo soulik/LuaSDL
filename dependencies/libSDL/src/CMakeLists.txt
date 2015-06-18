@@ -10,7 +10,6 @@ endif()
 
 set(SDL_LIBRARIES "")
 set(DIRECTX_LIBRARIES
-	winmm.lib
 	dxguid.lib
 )
 
@@ -496,7 +495,7 @@ if(NOT SDL_VIDEO_DISABLED)
 						video/dummy/SDL_nullmouse.c
 				)
 	
-		find_package(AAlib)
+		find_package(AAlib QUIET)
 
 				if (${AAlib_FOUND})
 					list(APPEND SDL_VIDEO_SRC
@@ -515,7 +514,7 @@ if(NOT SDL_VIDEO_DISABLED)
 
 				endif()
 	
-		find_package(CACAlib)
+		find_package(CACAlib QUIET)
 
 				if (${CACAlib_FOUND})
 					list(APPEND SDL_VIDEO_SRC
@@ -1064,7 +1063,6 @@ endif()
 source_group("Dynamic library loading" FILES ${SDL_LOADSO_SRC})
 
 set(SDL_MAIN_SRC
-    main/dummy/SDL_dummy_main.c
 )
 
 if (WIN32)
@@ -1082,6 +1080,34 @@ elseif (APPLE)
 		    main/macos/SDL_main.c
 		)
 	endif()
+else()
+	list(APPEND SDL_MAIN_SRC
+	    main/dummy/SDL_dummy_main.c
+	)
+endif()
+
+if (WIN32 OR APPLE)
+	set(SDLmain_LIBRARIES "")
+
+	add_library(SDLmain STATIC
+		${SDL_MAIN_SRC}
+	)
+
+	set_target_properties(SDLmain
+    	PROPERTIES
+	    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+	    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+	)
+
+	target_link_libraries (SDLmain
+		${SDLmain_LIBRARIES}
+	)
+
+	list(APPEND SDL_LIBRARIES
+		SDLmain
+	)
+
 endif()
 
 set(SDL_SRC
@@ -1089,6 +1115,8 @@ set(SDL_SRC
     SDL_error.c
     SDL_fatal.c
 )
+
+source_group("SDL Main" FILES ${SDL_MAIN_SRC})
 
 set(SDL_STDLIB_SRC
     stdlib/SDL_getenv.c
@@ -1098,6 +1126,8 @@ set(SDL_STDLIB_SRC
     stdlib/SDL_stdlib.c
     stdlib/SDL_string.c
 )
+
+source_group("STDLIB" FILES ${SDL_STDLIB_SRC})
 
 set(SDL_SOURCES
 	${SDL_JOYSTICK_SRC}
@@ -1110,15 +1140,14 @@ set(SDL_SOURCES
 	${SDL_CPUINFO_SRC}
 	${SDL_FILE_SRC}
 	${SDL_LOADSO_SRC}
-
-	${SDL_MAIN_SRC}
 	${SDL_SRC}
 	${SDL_STDLIB_SRC}
 )
 
-if (WIN32 AND (SDL_AUDIO_DRIVER_WINDX5 OR SDL_VIDEO_DRIVER_DDRAW))
+if (WIN32 AND (SDL_AUDIO_DRIVER_WINDX5 OR SDL_VIDEO_DRIVER_WINDX5 OR SDL_VIDEO_DRIVER_WINCOMMON))
 	list(APPEND SDL_LIBRARIES
 		${DIRECTX_LIBRARIES}
+		winmm.lib
 	)
 endif()
 
@@ -1149,11 +1178,15 @@ if (NOT USE_SHARED_MEMORY)
 endif()
 
 
-if ((${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64|x86"))
+if ((${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64|x86|AMD64"))
 	set(SDL_ASSEMBLY_ROUTINES 1)
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../include/SDL_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/../include/SDL_config.h @ONLY)
+if(WIN32)
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../include/SDL_config_win32.h ${CMAKE_CURRENT_BINARY_DIR}/../include/SDL_config.h @ONLY)
+else()
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../include/SDL_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/../include/SDL_config.h @ONLY)
+endif()
 
 # ----------------------- libSDL LIBRARY ------------------------
 
