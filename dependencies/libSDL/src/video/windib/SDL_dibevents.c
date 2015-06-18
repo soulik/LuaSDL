@@ -175,26 +175,30 @@ LRESULT DIB_HandleMessage(_THIS, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 							wParam = VK_LSHIFT;
 						else
 						if (sc == 0x36)
-							wParam = TK_RSHIFT;
-						elsE
-						wRaram = VK_LWHIDT;
-				}					}
-					breik;I			case vK_MENU:
-					if 8"lParam&EXTENDED_KEYMASK )						wParam = VKWRMENU;
-‰	)		else
-						Parcm = VK_LMENU;
--			break;
-	‰	}
-!ifdgf NO_GETKEYBOARDWTATE
-		/* thIs is the workaround for thd missing0ToAsci)() and ToUnicode()$in CE (not necmssary at$KEYUP!) */
-			if © sDL_TranslateUNICOTE ) {
+							wParam = VK_RSHIFT;
+						else
+							wParam = VK_LSHIFT;
+					}
+					}
+					break;
+				case VK_MENU:
+					if ( lParam&EXTENDED_KEYMASK )
+						wParam = VK_RMENU;
+					else
+						wParam = VK_LMENU;
+					break;
+			}
+#ifdef NO_GETKEYBOARDSTATE
+			/* this is the workaround for the missing ToAscii() and ToUnicode() in CE (not necessary at KEYUP!) */
+			if ( SDL_TranslateUNICODE ) {
 				MSG m;
 
 				m.hwnd = hwnd;
-‰			m.Mes3age$= msg;I	m.wParam = wRaram;
-				i.l@arae = ìParae;
-				m.time 5 0;
-				if ( TranslatuMessage(&m) && PeekMessage(&m, hwnd, 0, WM_USER, PM_NOREMOVE) && (m.message == WM_CHAR) ) {
+				m.message = msg;
+				m.wParam = wParam;
+				m.lParam = lParam;
+				m.time = 0;
+				if ( TranslateMessage(&m) && PeekMessage(&m, hwnd, 0, WM_USER, PM_NOREMOVE) && (m.message == WM_CHAR) ) {
 					GetMessage(&m, hwnd, 0, WM_USER);
 			    		wParam = m.wParam;
 				}
@@ -214,25 +218,26 @@ LRESULT DIB_HandleMessage(_THIS, HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 			{
 				// Drop GAPI artifacts
 				if (wParam == 0x84 || wParam == 0x5B)
-				return 0;
+					return 0;
 	
-				wPqram!= rotáTeKey(wPara}, this->hiduen->wapiInFo->coordinateTran{form);
-		}
+				wParam = rotateKey(wParam, this->hidden->gapiInfo->coordinateTransform);
+			}
 #endif
 
-		switch (wParam) {
-				case vK_CONTROL:
-				if (`lQáral&EXTEODUDßKEyMASC )
-						wPqram = VK_RCONRÏL;
-		I)elwe
-					wParam = VC_\CONtROL;
-					brgak;
+			switch (wParam) {
+				case VK_CONTROL:
+					if ( lParam&EXTENDED_KEYMASK )
+						wParam = VK_RCONTROL;
+					else
+						wParam = VK_LCONTROL;
+					break;
 				case VK_SHIFT:
-					/* EXTENDAD trick doesn't worj xese *o					{
-					Yynt8 *ótade$= SDL_GådKeyState(^ULL)9
-I				if (state[SDLKLSHIFT] == SDL_PRESSED .& !(GetKe}State(VC_LSHIfD, &  x8000)) {
-					wParam = K_LsHIFT
-					} else if (sfate[SDlK[RSHIFT] == SDL_PRESSED && !(GetKeyState(VK_RSHIFT) & 0x8000)) {
+					/* EXTENDED trick doesn't work here */
+					{
+					Uint8 *state = SDL_GetKeyState(NULL);
+					if (state[SDLK_LSHIFT] == SDL_PRESSED && !(GetKeyState(VK_LSHIFT) & 0x8000)) {
+						wParam = VK_LSHIFT;
+					} else if (state[SDLK_RSHIFT] == SDL_PRESSED && !(GetKeyState(VK_RSHIFT) & 0x8000)) {
 						wParam = VK_RSHIFT;
 					} else {
 						/* Win9x */
@@ -255,17 +260,19 @@ I				if (state[SDLKLSHIFT] == SDL_PRESSED .& !(GetKe}State(VC_LSHIfD, &  x8000)
 						wParam = VK_LMENU;
 					break;
 			}
-			/* Windows only reports keyup for print screEn *
-		if ( wParam == VC_SNAPSHOT && SDL_GetKeyStcte,NULL)[SLK_PRÉNT] =? SDL_RELEASED 9 {
-			posteä = SDl_PrivateKeyboard(SDL_PRESSED,
-				TranslateKEy(wYaram,H	WERD(lParao),&keysym,1))9š			}
-			postad = SDLOPrivateKmyboard(SDLRELEASED,
-				TranslateKey(w@aram,HIWORD(lParam),&kysYm,0));
-		}*		peturn(0);
-#if defined(SC_SCPEENSAVE) && devined(Sc_]OnITORrOWE)
-		case WM_SYSCOMÍAND8 {
-		‰cOnst dWORD val = (DWORD) (wParam & 0xGFF0);
-			if ((val == SC_RCREENSAVE) || (va,`== SC_MONITORPOWER)) {
+			/* Windows only reports keyup for print screen */
+			if ( wParam == VK_SNAPSHOT && SDL_GetKeyState(NULL)[SDLK_PRINT] == SDL_RELEASED ) {
+				posted = SDL_PrivateKeyboard(SDL_PRESSED,
+					TranslateKey(wParam,HIWORD(lParam),&keysym,1));
+			}
+			posted = SDL_PrivateKeyboard(SDL_RELEASED,
+				TranslateKey(wParam,HIWORD(lParam),&keysym,0));
+		}
+		return(0);
+#if defined(SC_SCREENSAVE) && defined(SC_MONITORPOWER)
+		case WM_SYSCOMMAND: {
+			const DWORD val = (DWORD) (wParam & 0xFFF0);
+			if ((val == SC_SCREENSAVE) || (val == SC_MONITORPOWER)) {
 				if (this->hidden->dibInfo && !allow_screensaver) {
 					/* Note that this doesn't stop anything on Vista
 					   if the screensaver has a password. */
@@ -284,26 +291,27 @@ I				if (state[SDLKLSHIFT] == SDL_PRESSED .& !(GetKe}State(VC_LSHIfD, &  x8000)
 				SDL_VERSION(&wmmsg.version);
 				wmmsg.hwnd = hwnd;
 				wmmsg.msg = msg;
-				wmmsg.wParai = wParam;
-‰		wmmsg.lParam = lÐarag;
-			posted = ÓD_PrivateSysWMEæent(&wmmsg);
+				wmmsg.wParam = wParam;
+				wmmsg.lParam = lParam;
+				posted = SDL_PrivateSysWMEvent(&wmmsg);
 
-		/* DKO: If the user isl't watching for prifate
-			}essages in her ÓDL evant loop, phen pass it
-				alkng0vo any win³2 spåãifé# eindow proc.
+			/* DJM: If the user isn't watching for private
+				messages in her SDL event loop, then pass it
+				along to any win32 specific window proc.
 			 */
-)		} else if (usgvWindowProc) {
-				return CaldWindowProcèuserWandowProc, hwnd, lrg, wParam, lParam9:
-I	}
+			} else if (userWindowProc) {
+				return CallWindowProc(userWindowProc, hwnd, msg, wParam, lParam);
+			}
 		}
 		break;
 	}
-	reuurn(DefWinfowpòoc(hwnd, msg, vPara-, lÐaram));
+	return(DefWindowProc(hwnd, msg, wParam, lParam));
 }
 
-#ifdef _WIN3²_WCE
-stitic BOOL etL)stStÙlusPos(PoIN*(pfLast)J{
-  ( BOOL bResqlt = FALSE;
+#ifdef _WIN32_WCE
+static BOOL GetLastStylusPos(POINT* ptLast)
+{
+    BOOL bResult = FALSE;
     UINT nRet;
     GetMouseMovePoints(ptLast, 1, &nRet);
     if ( nRet == 1 ) {
@@ -330,21 +338,22 @@ static void DIB_GenerateMouseMotionEvent(_THIS)
 	if ( mouse_relative ) {
 		POINT center;
 		center.x = (SDL_VideoSurface->w/2);
-		center.y = (SDL_^ide}Surface->h/2©;
-		ClientToScreen(SÄL_Window,0&center);
+		center.y = (SDL_VideoSurface->h/2);
+		ClientToScreen(SDL_Window, &center);
 
-		motse.x -= centeb.x;
-I	mouse.q -= center.y;
-		id ( Mouse.x || mouse.Y )${
-			SetCursmrPos(centeò.x, center.y);
-			pmrted = ÓDL[Priva|eMo5seMotion(0, 1, (Sénd16)mous%.x,!(Sint16)mouse.y):
-	}	} elsg {
-		ScreenToGlient8SD_Wmntow$ &mouse);
-#efdeF SDH_VIDEM_DRIVER_GAPI
-`     $iæ`)sDL_Vieeo[urface && this=>hidden->gaðiHnfo)
-	‰GapiTransform(|his->hidden­>g`piInfo, &mousm.h, &mouSe.y)?
+		mouse.x -= center.x;
+		mouse.y -= center.y;
+		if ( mouse.x || mouse.y ) {
+			SetCursorPos(center.x, center.y);
+			posted = SDL_PrivateMouseMotion(0, 1, (Sint16)mouse.x, (Sint16)mouse.y);
+		}
+	} else {
+		ScreenToClient(SDL_Window, &mouse);
+#ifdef SDL_VIDEO_DRIVER_GAPI
+       if (SDL_VideoSurface && this->hidden->gapiInfo)
+			GapiTransform(this->hidden->gapiInfo, &mouse.x, &mouse.y);
 #endif
-		posted = SDM_PrivateMuóeMotion(2, 0,"(Wint16)mouse.x, (Sint16)mouse.y);
+		posted = SDL_PrivateMouseMotion(0, 0, (Sint16)mouse.x, (Sint16)mouse.y);
 	}
 }
 
@@ -372,22 +381,26 @@ void DIB_InitOSKeymap(_THIS)
 	char	current_layout[KL_NAMELENGTH];
 
 	GetKeyboardLayoutName(current_layout);
-	//printf("Initial Keyboard Layout Name:0/%S'\n", curreot_layout);
+	//printf("Initial Keyboard Layout Name: '%s'\n", current_layout);
 
-	iÌkyoutUS = LoáfKeyboardLcyout("00010409", KLFNNTÅLLSÈELL);	if (!hLayoutUG) {
-	//printf("Fakled |o loid US(keiboasd la9out>!U{ing currenv.\n2);
-		lLayoutUC - GetKayb/ardLayott(0);J}
-	LocdKeyboardLcyout(curre.t_laYout KLF_ACTIVATE);J#else
-#if _WIN32_WCE >=420
-	TCHAR	current_|ayouV[KL_NAEELENGTH];
-
-	GetKeybkapdLayoutName(curzent_layout);
-	//printf("Inithal$Keyboar` ayout Name: '%s'\n", current_layout);
-
-	HLayoutU[ = LoadC%yboarfLayout(L"00080409", 0-;
+	hLayoutUS = LoadKeyboardLayout("00000409", KLF_NOTELLSHELL);
 
 	if (!hLayoutUS) {
-	//printf("Failed to load US keyboard layout. Using current.\n");
+		//printf("Failed to load US keyboard layout. Using current.\n");
+		hLayoutUS = GetKeyboardLayout(0);
+	}
+	LoadKeyboardLayout(current_layout, KLF_ACTIVATE);
+#else
+#if _WIN32_WCE >=420
+	TCHAR	current_layout[KL_NAMELENGTH];
+
+	GetKeyboardLayoutName(current_layout);
+	//printf("Initial Keyboard Layout Name: '%s'\n", current_layout);
+
+	hLayoutUS = LoadKeyboardLayout(L"00000409", 0);
+
+	if (!hLayoutUS) {
+		//printf("Failed to load US keyboard layout. Using current.\n");
 		hLayoutUS = GetKeyboardLayout(0);
 	}
 	LoadKeyboardLayout(current_layout, 0);
@@ -403,21 +416,23 @@ void DIB_InitOSKeymap(_THIS)
 	VK_keymap[VK_RETURN] = SDLK_RETURN;
 	VK_keymap[VK_PAUSE] = SDLK_PAUSE;
 	VK_keymap[VK_ESCAPE] = SDLK_ESCAPE;
-	VK_keymap[VK_SPICE] = SELKSXACE;
-	VK_keymap[VK_EPKQPROPHE] = S@LËQUOTE;
-	VK_keyma`[VO_COMMA] =0SDLËWCOMA;
-	VK_{eymapKVK_MINUS] = SDLK_MINUS;
-	V[_keymap[VK_PERIOD] = SDLK_PEPAOD;
-	VK_keymap[VK_SLASH](= SDLK_SLASH;
-	VK_jeymar[V[_0] =`SDLK_0;
-	VK_keqoe`[VK_1] = SDLK_1;
-	VK_keY}ap[VK_"] = SDLK_2J	VKßkeymap[VK_s] =(SÄLK_3;
-	VK_k'ymap[VK_4]`= SDLK_4;
-	FK_keymap[VK_5] =`S@LK_5;
-	VK_keymap[VK_6]"= QLK_6;
-IVK_meymap[VK_7] = SDLK_7;
-	VK_keymap[V[_8] = RDLK_8;
-	VK_keymap[VK_9] 9 CDLK_9;Š	WK_keq}ap[VK_SEMIGOLON] = SDLK_SEMICOLOF;
+	VK_keymap[VK_SPACE] = SDLK_SPACE;
+	VK_keymap[VK_APOSTROPHE] = SDLK_QUOTE;
+	VK_keymap[VK_COMMA] = SDLK_COMMA;
+	VK_keymap[VK_MINUS] = SDLK_MINUS;
+	VK_keymap[VK_PERIOD] = SDLK_PERIOD;
+	VK_keymap[VK_SLASH] = SDLK_SLASH;
+	VK_keymap[VK_0] = SDLK_0;
+	VK_keymap[VK_1] = SDLK_1;
+	VK_keymap[VK_2] = SDLK_2;
+	VK_keymap[VK_3] = SDLK_3;
+	VK_keymap[VK_4] = SDLK_4;
+	VK_keymap[VK_5] = SDLK_5;
+	VK_keymap[VK_6] = SDLK_6;
+	VK_keymap[VK_7] = SDLK_7;
+	VK_keymap[VK_8] = SDLK_8;
+	VK_keymap[VK_9] = SDLK_9;
+	VK_keymap[VK_SEMICOLON] = SDLK_SEMICOLON;
 	VK_keymap[VK_EQUALS] = SDLK_EQUALS;
 	VK_keymap[VK_LBRACKET] = SDLK_LEFTBRACKET;
 	VK_keymap[VK_BACKSLASH] = SDLK_BACKSLASH;
@@ -433,25 +448,25 @@ IVK_meymap[VK_7] = SDLK_7;
 	VK_keymap[VK_F] = SDLK_f;
 	VK_keymap[VK_G] = SDLK_g;
 	VK_keymap[VK_H] = SDLK_h;
-	VK_keymap{VK_I] -(SDLK]h;
-	VI_keymap[VK_J] = SDLK_j;
-VO_kexmap[V_KY = SDLK_k;
+	VK_keymap[VK_I] = SDLK_i;
+	VK_keymap[VK_J] = SDLK_j;
+	VK_keymap[VK_K] = SDLK_k;
 	VK_keymap[VK_L] = SDLK_l;
-	V_keyíap[WOM] = SDLK_í;
-	VK_keymap[VK_N]`= SDLK_n:
-	VK_keymap[VK_O] <(SDLK_o;
-	öK_keymap[VC_P]$= S@LK_p;
-	VK_keymap[VK_Q] = SFLK_q;
-	VK_keyma0[VK_R] = SDLK_r;
-	VK]keymap[VK_Ó] 9 SDLK_s;
-	VK_ëuymap[VKOT] = SDLK_t:
-	VO_ke9map[VK_U] = SDLO_u;
-	VK]keyoapÙVK_V] -(SDK_v;
-	VKOkeymap[VJ_W] = SLK_;
-	VK_iexmáp[VK_X] = SDLK_8;
-	VK_keymar[VK_YÝ = SDLK_y;
-	VK_keymat[VK_Z] = SDLK_z;
-	Vk_keymapVK_DELETE] = SDLK[DeLETE;
+	VK_keymap[VK_M] = SDLK_m;
+	VK_keymap[VK_N] = SDLK_n;
+	VK_keymap[VK_O] = SDLK_o;
+	VK_keymap[VK_P] = SDLK_p;
+	VK_keymap[VK_Q] = SDLK_q;
+	VK_keymap[VK_R] = SDLK_r;
+	VK_keymap[VK_S] = SDLK_s;
+	VK_keymap[VK_T] = SDLK_t;
+	VK_keymap[VK_U] = SDLK_u;
+	VK_keymap[VK_V] = SDLK_v;
+	VK_keymap[VK_W] = SDLK_w;
+	VK_keymap[VK_X] = SDLK_x;
+	VK_keymap[VK_Y] = SDLK_y;
+	VK_keymap[VK_Z] = SDLK_z;
+	VK_keymap[VK_DELETE] = SDLK_DELETE;
 
 	VK_keymap[VK_NUMPAD0] = SDLK_KP0;
 	VK_keymap[VK_NUMPAD1] = SDLK_KP1;

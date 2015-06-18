@@ -7,6 +7,42 @@
 #ifndef _TIFFCONF_
 #define _TIFFCONF_
 
+/* Signed 16-bit type */
+#cmakedefine TIFF_INT16 @TIFF_INT16_T@
+#cmakedefine TIFF_INT16_T @TIFF_INT16_T@
+
+/* Signed 32-bit type */
+#cmakedefine TIFF_INT32 @TIFF_INT32_T@
+#cmakedefine TIFF_INT32_T @TIFF_INT32_T@
+
+/* Signed 64-bit type */
+#ifndef TIFF_INT64_T
+#cmakedefine TIFF_INT64_T @TIFF_INT64_T@
+#endif
+#cmakedefine TIFF_INT64 @TIFF_INT64_T@
+
+/* Signed 8-bit type */
+#cmakedefine TIFF_INT8_T @TIFF_INT8_T@
+#cmakedefine TIFF_INT8 @TIFF_INT8_T@
+
+/* Unsigned 16-bit type */
+#cmakedefine TIFF_UINT16_T @TIFF_UINT16_T@
+#cmakedefine TIFF_UINT16 @TIFF_UINT16_T@
+
+/* Unsigned 32-bit type */
+#cmakedefine TIFF_UINT32_T @TIFF_UINT32_T@
+#cmakedefine TIFF_UINT32 @TIFF_UINT32_T@
+
+/* Unsigned 64-bit type */
+#ifndef TIFF_UINT64_T
+#cmakedefine TIFF_UINT64_T @TIFF_UINT53_T@
+#endif
+#cmakedefine TIFF_UINT64 @TIFF_UINT53_T@
+
+/* Unsigned 8-bit type */
+#cmakedefine TIFF_UINT8_T @TIFF_UINT8_T@
+#cmakedefine TIFF_UINT8 @TIFF_UINT8_T@
+
 /* Define to 1 if the system has the type `int16'. */
 /* #undef HAVE_INT16 */
 
@@ -16,44 +52,52 @@
 /* Define to 1 if the system has the type `int8'. */
 /* #undef HAVE_INT8 */
 
+#ifndef HAVE_INT8
+#define int8 char
+#endif
+
+#ifndef HAVE_INT16
+#define int16 short int
+#endif
+
+#ifndef HAVE_INT32
+#define int32 long int
+#endif
+
+#ifndef HAVE_INT64
+#define int64 long long
+#endif
+
+#ifndef HAVE_UINT8
+#define uint8 unsigned char
+#endif
+
+#ifndef HAVE_UINT16
+#define uint16 unsigned short int
+#endif
+
+#ifndef HAVE_UINT32
+#define uint32 unsigned long int
+#endif
+
+#ifndef HAVE_UINT64
+#define uint64 unsigned long long
+#endif
+
 /* The size of a `int', as computed by sizeof. */
 #define SIZEOF_INT 4
-
-/* Signed 8-bit type */
-#define TIFF_INT8_T signed char
-
-/* Unsigned 8-bit type */
-#define TIFF_UINT8_T unsigned char
-
-/* Signed 16-bit type */
-#define TIFF_INT16_T signed short
-
-/* Unsigned 16-bit type */
-#define TIFF_UINT16_T unsigned short
 
 /* Signed 32-bit type formatter */
 #define TIFF_INT32_FORMAT "%d"
 
-/* Signed 32-bit type */
-#define TIFF_INT32_T signed int
-
 /* Unsigned 32-bit type formatter */
 #define TIFF_UINT32_FORMAT "%u"
-
-/* Unsigned 32-bit type */
-#define TIFF_UINT32_T unsigned int
 
 /* Signed 64-bit type formatter */
 #define TIFF_INT64_FORMAT "%I64d"
 
-/* Signed 64-bit type */
-#define TIFF_INT64_T signed __int64
-
 /* Unsigned 64-bit type formatter */
 #define TIFF_UINT64_FORMAT "%I64u"
-
-/* Unsigned 64-bit type */
-#define TIFF_UINT64_T unsigned __int64
 
 /* Signed size type */
 #if defined(_WIN64)
