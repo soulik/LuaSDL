@@ -178,6 +178,8 @@ add_library(SDLMIXER SHARED
 	${SDLMIXER_SOURCES}
 )
 
+add_dependencies(SDLMIXER SDL)
+
 set_target_properties(SDLMIXER
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"

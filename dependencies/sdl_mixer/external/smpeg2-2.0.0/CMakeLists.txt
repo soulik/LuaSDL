@@ -89,6 +89,8 @@ target_link_libraries (SMPEG
 	${SDL_LIBRARY}
 )
 
+add_dependencies(SMPEG SDL)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
 set_target_properties(SMPEG
 	PROPERTIES PREFIX "" OUTPUT_NAME "libsmpeg2"

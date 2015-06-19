@@ -39,6 +39,8 @@ add_library(SDLTTF SHARED
 	${SDLTTF_SOURCES}
 )
 
+add_dependencies(SDLTTF SDL)
+
 set_target_properties(SDLTTF
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"

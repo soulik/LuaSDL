@@ -32,6 +32,8 @@ add_library(SDLNET SHARED
 	${SDLNET_SOURCES}
 )
 
+add_dependencies(SDLNET SDL)
+
 set_target_properties(SDLNET
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
