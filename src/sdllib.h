@@ -653,3 +653,6 @@ extern void SDL_VideoInfo_delete(SDL_VideoInfo *obj);
 #define SDL_VIDEO_OPENGL_OSMESA_DYNAMIC 0
 #endif
 
+#ifndef SDL_ASSEMBLY_ROUTINES
+#define SDL_ASSEMBLY_ROUTINES 0
+#endif

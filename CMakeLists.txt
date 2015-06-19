@@ -76,6 +76,7 @@ list(APPEND luasdl_libraries SDLNET)
 add_subdirectory(dependencies/sdl_gfx)
 include_directories(dependencies/sdl_gfx)
 include_directories(${CMAKE_BINARY_DIR}/dependencies/sdl_gfx)
+include_directories(${CMAKE_BINARY_DIR}/include)
 include_directories(${SDLGFX_INCLUDE_DIR})
 list(APPEND luasdl_libraries SDLGFX)
 

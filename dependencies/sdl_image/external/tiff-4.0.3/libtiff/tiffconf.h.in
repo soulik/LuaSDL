@@ -32,7 +32,10 @@
 #cmakedefine TIFF_UINT32 @TIFF_UINT32_T@
 
 /* Unsigned 64-bit type */
+#ifndef TIFF_UINT64_T
 #cmakedefine TIFF_UINT64_T @TIFF_UINT53_T@
+#endif
+
 #cmakedefine TIFF_UINT64 @TIFF_UINT53_T@
 
 /* Unsigned 8-bit type */

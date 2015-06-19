@@ -46,7 +46,7 @@ add_library(SDLGFX SHARED
 	${SDLGFX_SOURCES}
 )
 
-set(SDLGFX_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR})
+set(SDLGFX_INCLUDE_DIR ${CMAKE_BINARY_DIR}/include)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_framerate.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_framerate.h @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SDL_gfxBlitFunc.h ${SDLGFX_INCLUDE_DIR}/SDL_gfx/SDL_gfxBlitFunc.h @ONLY)

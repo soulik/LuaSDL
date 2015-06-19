@@ -333,7 +333,9 @@
 #cmakedefine TIFF_UINT64_FORMAT @TIFF_UINT64_FORMAT@
 
 /* Unsigned 64-bit type */
+#ifndef TIFF_UINT64_T
 #cmakedefine TIFF_UINT64_T @TIFF_UINT64_T@
+#endif
 
 /* Unsigned 8-bit type */
 #cmakedefine TIFF_UINT8_T @TIFF_UINT8_T@

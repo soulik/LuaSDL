@@ -1156,7 +1156,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/../include)
 # -------------------------- CONFIG -----------------------------
 
 if (NOT SDL_VIDEO_DISABLED)
-	find_package(OpenGL)
+	find_package(OpenGL QUIET)
 	
 	if (OPENGL_FOUND)
 		message("OpenGL support: On")
