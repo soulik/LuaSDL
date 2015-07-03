@@ -516,24 +516,21 @@ if(NOT SDL_VIDEO_DISABLED)
 
 				endif()
 
-	
-		find_package(CACAlib QUIET)
-
-				if (${CACAlib_FOUND})
-					set(SDL_VIDEO_DRIVER_CACA ON CACHE BOOL "Enable support for CACA video driver")
-					if (SDL_VIDEO_DRIVER_CACA)
-						list(APPEND SDL_VIDEO_SRC
-							video/caca/SDL_cacaevents_c.h
-							video/caca/SDL_cacavideo.h
-							video/caca/SDL_cacavideo.c
-							video/caca/SDL_cacaevents.c
-						)
-						list(APPEND SDL_LIBRARIES
-							${CACAlib_LIBRARIES}
-						)
-						include_directories( ${CACAlib_INCLUDES})
-					endif()
-
+				set(SDL_VIDEO_DRIVER_CACA ON CACHE BOOL "Enable support for CACA video driver")
+				if (SDL_VIDEO_DRIVER_CACA)
+					list(APPEND SDL_VIDEO_SRC
+						video/caca/SDL_cacaevents_c.h
+						video/caca/SDL_cacavideo.h
+						video/caca/SDL_cacavideo.c
+						video/caca/SDL_cacaevents.c
+					)
+					list(APPEND SDL_LIBRARIES
+						$<TARGET_LINKER_FILE:CACAlib>
+					)
+					include_directories(
+						${CMAKE_CURRENT_BINARY_DIR}/../dependencies/libcaca/caca
+						../dependencies/libcaca/caca
+					)
 				endif()
 	
 

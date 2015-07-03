@@ -11,6 +11,9 @@ include_directories(include)
 
 add_subdirectory(src)
 
+# add libcaca
+add_subdirectory(dependencies/libcaca)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
 
 set_target_properties(SDL PROPERTIES

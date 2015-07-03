@@ -1,0 +1,3 @@
+[submodule "dependencies/libSDL/dependencies/libcaca"]
+	path = dependencies/libSDL/dependencies/libcaca
+	url = https://github.com/soulik/libcaca.git
