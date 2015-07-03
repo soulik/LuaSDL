@@ -498,7 +498,7 @@ if(NOT SDL_VIDEO_DISABLED)
 		find_package(AAlib QUIET)
 
 				if (${AAlib_FOUND})
-					set(SDL_VIDEO_DRIVER_AALIB ON CACHE BOOL "Enable support for Windows DirectX video driver")
+					set(SDL_VIDEO_DRIVER_AALIB ON CACHE BOOL "Enable support for AAlib video driver")
 					if (SDL_VIDEO_DRIVER_AALIB)
 						list(APPEND SDL_VIDEO_SRC
 							video/aalib/SDL_aaevents.c
@@ -520,7 +520,7 @@ if(NOT SDL_VIDEO_DISABLED)
 		find_package(CACAlib QUIET)
 
 				if (${CACAlib_FOUND})
-					set(SDL_VIDEO_DRIVER_CACA ON CACHE BOOL "Enable support for Windows DirectX video driver")
+					set(SDL_VIDEO_DRIVER_CACA ON CACHE BOOL "Enable support for CACA video driver")
 					if (SDL_VIDEO_DRIVER_CACA)
 						list(APPEND SDL_VIDEO_SRC
 							video/caca/SDL_cacaevents_c.h
