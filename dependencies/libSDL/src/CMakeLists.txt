@@ -531,6 +531,7 @@ if(NOT SDL_VIDEO_DISABLED)
 						${CMAKE_CURRENT_BINARY_DIR}/../dependencies/libcaca/caca
 						../dependencies/libcaca/caca
 					)
+					add_dependencies(SDL CACAlib)
 				endif()
 	
 
