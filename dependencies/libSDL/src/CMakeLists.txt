@@ -531,7 +531,6 @@ if(NOT SDL_VIDEO_DISABLED)
 						${CMAKE_CURRENT_BINARY_DIR}/../dependencies/libcaca/caca
 						../dependencies/libcaca/caca
 					)
-					add_dependencies(SDL CACAlib)
 				endif()
 	
 
@@ -1196,6 +1195,10 @@ endif()
 add_library(SDL SHARED
 	${SDL_SOURCES}
 )
+
+if (SDL_VIDEO_DRIVER_CACA)
+	add_dependencies(SDL CACAlib)
+endif()
 
 set_target_properties(SDL
     PROPERTIES
