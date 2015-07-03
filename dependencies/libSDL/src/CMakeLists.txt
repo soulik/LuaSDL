@@ -498,36 +498,41 @@ if(NOT SDL_VIDEO_DISABLED)
 		find_package(AAlib QUIET)
 
 				if (${AAlib_FOUND})
-					list(APPEND SDL_VIDEO_SRC
-						video/aalib/SDL_aaevents.c
-						video/aalib/SDL_aavideo.c
-						video/aalib/SDL_aamouse_c.h
-						video/aalib/SDL_aaevents_c.h
-						video/aalib/SDL_aavideo.h
-						video/aalib/SDL_aamouse.c
-					)
-				list(APPEND SDL_LIBRARIES
-					${AAlib_LIBRARIES}
-				)
-				include_directories( ${AAlib_INCLUDES})
-
+					set(SDL_VIDEO_DRIVER_AALIB ON CACHE BOOL "Enable support for Windows DirectX video driver")
+					if (SDL_VIDEO_DRIVER_AALIB)
+						list(APPEND SDL_VIDEO_SRC
+							video/aalib/SDL_aaevents.c
+							video/aalib/SDL_aavideo.c
+							video/aalib/SDL_aamouse_c.h
+							video/aalib/SDL_aaevents_c.h
+							video/aalib/SDL_aavideo.h
+							video/aalib/SDL_aamouse.c
+						)
+						list(APPEND SDL_LIBRARIES
+							${AAlib_LIBRARIES}
+						)
+						include_directories( ${AAlib_INCLUDES})
+					endif()
 
 				endif()
+
 	
 		find_package(CACAlib QUIET)
 
 				if (${CACAlib_FOUND})
-					list(APPEND SDL_VIDEO_SRC
-						video/caca/SDL_cacaevents_c.h
-						video/caca/SDL_cacavideo.h
-						video/caca/SDL_cacavideo.c
-						video/caca/SDL_cacaevents.c
-					)
-				list(APPEND SDL_LIBRARIES
-					${CACAlib_LIBRARIES}
-				)
-				include_directories( ${CACAlib_INCLUDES})
-
+					set(SDL_VIDEO_DRIVER_CACA ON CACHE BOOL "Enable support for Windows DirectX video driver")
+					if (SDL_VIDEO_DRIVER_CACA)
+						list(APPEND SDL_VIDEO_SRC
+							video/caca/SDL_cacaevents_c.h
+							video/caca/SDL_cacavideo.h
+							video/caca/SDL_cacavideo.c
+							video/caca/SDL_cacaevents.c
+						)
+						list(APPEND SDL_LIBRARIES
+							${CACAlib_LIBRARIES}
+						)
+						include_directories( ${CACAlib_INCLUDES})
+					endif()
 
 				endif()
 	
