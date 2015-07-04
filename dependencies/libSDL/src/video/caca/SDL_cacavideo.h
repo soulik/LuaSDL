@@ -32,7 +32,22 @@ static char rcsid =
 #include "../SDL_sysvideo.h"
 #include "SDL_mutex.h"
 
+#ifdef _MSC_VER
+
+struct timezone
+{
+	__int32  tz_minuteswest; /* minutes W of Greenwich */
+	char  tz_dsttime;     /* type of dst correction */
+};
+
+struct timeval {
+	__int32    tv_sec;         /* seconds */
+	__int32    tv_usec;        /* microseconds */
+};
+
+#else
 #include <sys/time.h>
+#endif
 #include <time.h>
 
 #include <caca.h>
