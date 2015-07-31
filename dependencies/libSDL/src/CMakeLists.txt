@@ -257,15 +257,15 @@ if(NOT SDL_AUDIO_DISABLED)
 			set(SDL_AUDIO_DRIVER_PULSE_DYNAMIC ${pulseaudio_LIBRARY})
 
 			if(SDL_AUDIO_DRIVER_PULSE)
-				if (${pulseaudio_FOUND})
+				if (${pulseaudio_LIBRARY})
 					list(APPEND SDL_AUDIO_SRC
 						audio/pulse/SDL_pulseaudio.h
 						audio/pulse/SDL_pulseaudio.c
 					)
 				list(APPEND SDL_LIBRARIES
-					${pulseaudio_LIBRARIES}
+					${pulseaudio_LIBRARY}
 				)
-				include_directories( ${pulseaudio_INCLUDES})
+				include_directories( ${pulseaudio_INCLUDE_DIR})
 
 
 				endif()
